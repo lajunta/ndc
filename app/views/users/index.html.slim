@@ -1,0 +1,21 @@
+h1 用户管理
+
+table.ui.table.segment
+  thead
+    th 登录名
+    th 头像
+    th
+    th
+    th
+
+  - @users.each do |user|
+    tr
+      td = user.login
+      td = user.avatar_url
+      td = link_to '查看', user
+      td = link_to '编辑', edit_user_path(user)
+      td = link_to '删除', user, data: {:confirm => '真的要删除吗?'}, :method => :delete
+
+br
+
+= link_to '新用户', new_user_path, class: 'ui green button'

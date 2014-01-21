@@ -1,0 +1,25 @@
+h1 站点列表
+
+table.ui.table.segment
+  thead
+    th 名称
+    th 上传者
+    th 网址
+    th 类型
+    th
+    th
+    th
+
+  - @sites.each do |site|
+    tr
+      td = site.name
+      td = site.uploader
+      td = site.original_path
+      td = site.type
+      td = link_to '查看', site
+      td = link_to '编辑', edit_site_path(site)
+      td = link_to '删除', site, data: {:confirm => '真的要删除吗?'}, :method => :delete
+
+br
+
+= link_to '新网站', new_site_path

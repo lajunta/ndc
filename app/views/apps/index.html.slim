@@ -1,0 +1,23 @@
+h1 应用管理
+
+table.ui.table.segment
+  thead
+    th 应用名称
+    th 所有者
+    th 电子邮箱
+    th
+    th
+    th
+
+  - @apps.each do |app|
+    tr
+      td = app.name
+      td = app.owner
+      td = app.email
+      td = link_to '查看', app
+      td = link_to '编辑', edit_app_path(app)
+      td = link_to '删除', app, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+
+= link_to '新应用', new_app_path

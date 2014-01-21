@@ -1,0 +1,15 @@
+p#notice = notice
+
+p
+  = @page.title
+p
+  = @page.body
+p
+  = @page.author
+p
+  strong Tags:
+  = @page.tags
+
+= link_to '编辑', edit_page_path(@page)
+'|
+= link_to '返回', pages_path

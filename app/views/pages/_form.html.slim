@@ -1,0 +1,18 @@
+= form_for @page, html: {class: 'ui segment form'} do |f|
+  - if @page.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@page.errors.count, "error")} prohibited this page from being saved:"
+      ul
+        - @page.errors.full_messages.each do |message|
+          li = message
+
+  .field
+    = f.label '标题'
+    = f.text_field :title
+  .field
+    = f.label '内容'
+    = f.text_area :body
+  .field
+    = f.label '标签'
+    = f.text_field :tags
+  .actions = f.submit '保存' ,class: 'ui green button'

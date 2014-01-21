@@ -1,0 +1,21 @@
+= form_for @api_key , html: {class: 'ui form segment'} do |f|
+  - if @api_key.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@api_key.errors.count, "error")} prohibited this api_key from being saved:"
+      ul
+        - @api_key.errors.full_messages.each do |message|
+          li = message
+
+  .field
+    = f.label 'app_id'
+    = f.text_field :app_id
+  .field
+    = f.label 'access_token'
+    = f.text_field :access_token
+  .field
+    = f.label 'user_id'
+    = f.text_field :user_id
+  .field
+    = f.label 'scopes'
+    = f.text_field :scopes
+  .actions = f.submit '保存', class: 'ui green button'

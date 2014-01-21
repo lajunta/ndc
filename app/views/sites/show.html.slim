@@ -1,0 +1,21 @@
+p#notice = notice
+
+p
+  strong Name:
+  = @site.name
+p
+  strong Uploader:
+  = @site.uploader
+p
+  strong Path:
+  = @site.path
+p
+  strong Original path:
+  = @site.original_path
+p
+  strong Type:
+  = @site.type
+
+= link_to 'Edit', edit_site_path(@site)
+'|
+= link_to 'Back', sites_path

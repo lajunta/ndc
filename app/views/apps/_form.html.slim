@@ -1,0 +1,24 @@
+= form_for @app, html: {class: "ui form segment"} do |f|
+  - if @app.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@app.errors.count, "error")} prohibited this app from being saved:"
+      ul
+        - @app.errors.full_messages.each do |message|
+          li = message
+
+  .field
+    = f.label '应用名称'
+    = f.text_field :name
+  .field
+    = f.label '回调地址'
+    = f.text_field :redirect_uri
+  .field
+    = f.label '应用主页'
+    = f.text_field :homepage
+  .field
+    = f.label '所有者'
+    = f.text_field :owner
+  .field
+    = f.label '电子邮箱'
+    = f.text_field :email
+  .actions = f.submit '保存' , class: 'ui green button'

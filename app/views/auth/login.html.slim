@@ -1,0 +1,18 @@
+h1 用户登录
+= form_tag auth_path, class: 'ui form attach segment' do
+  p
+    .field
+      label 登录名
+
+    .field
+      = text_field_tag :login
+  p
+    .field
+      label 密码
+
+    .field
+      = password_field_tag :password
+
+  p
+    .field
+      = submit_tag '登录', class: 'ui green button'

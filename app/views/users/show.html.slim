@@ -1,0 +1,10 @@
+p#notice = notice
+
+p
+  = @user.login
+p
+  = @user.avatar_url
+
+= link_to '编辑', edit_user_path(@user)
+'|
+= link_to '返回', users_path

@@ -1,0 +1,24 @@
+p#notice = notice
+
+p
+  strong 应用名称
+  = @app.name
+p
+  strong 应用ID:
+  = @app.app_id
+p
+  strong 返回地址:
+  = @app.redirect_uri
+p
+  strong 应用主页:
+  = @app.homepage
+p
+  strong 所有者:
+  = @app.owner
+p
+  strong 电子邮箱:
+  = @app.email
+
+= link_to '编辑', edit_app_path(@app)
+'|
+= link_to '返回', apps_path

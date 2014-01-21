@@ -1,0 +1,23 @@
+h1 文章列表
+
+table.ui.table.segment
+  thead 
+    th 标题
+    th 作者
+    th 标签
+    th
+    th
+    th
+
+  - @pages.each do |page|
+    tr
+      td = page.title
+      td = page.author
+      td = page.tags
+      td = link_to '查看', page
+      td = link_to '编辑', edit_page_path(page)
+      td = link_to '删除', page, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+
+= link_to '新文章', new_page_path

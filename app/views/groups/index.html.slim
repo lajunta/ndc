@@ -1,0 +1,21 @@
+h1 群组管理
+
+table.ui.table.segment
+  thead
+    th 名称
+    th 类型
+    th
+    th
+    th
+
+  - @groups.each do |group|
+    tr
+      td = group.name
+      td = group.type
+      td = link_to '查看', group
+      td = link_to '编辑', edit_group_path(group)
+      td = link_to '删除', group, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+
+= link_to '新组织', new_group_path

@@ -1,0 +1,18 @@
+p#notice = notice
+
+p
+  strong Full name:
+  = @semester.full_name
+p
+  strong Short name:
+  = @semester.short_name
+p
+  strong Started at:
+  = @semester.started_at
+p
+  strong Ended at:
+  = @semester.ended_at
+
+= link_to 'Edit', edit_semester_path(@semester)
+'|
+= link_to 'Back', semesters_path

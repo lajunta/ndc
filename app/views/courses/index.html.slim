@@ -1,0 +1,21 @@
+h1 课程列表
+
+table.ui.table.segment
+  thead
+    th 名称
+    th 编码
+    th
+    th
+    th
+
+  - @courses.each do |course|
+    tr
+      td = course.name
+      td = course.code
+      td = link_to '查看', course
+      td = link_to '编辑', edit_course_path(course)
+      td = link_to '删除', course, data: {:confirm => '真的要删除吗?'}, :method => :delete
+
+br
+
+= link_to '新课程', new_course_path

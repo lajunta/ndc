@@ -1,0 +1,34 @@
+h1 = @app.name+'认证请求'
+- if login?
+  h3 = @app.name+"想要访问你的以下信息,是否通过？"
+
+  p 
+    = link_to "通过", @app.redirect_uri+"&code="+session[:code]+"&state="+params[:state], class: 'ui green button'
+    ='
+    /without code means not authorized ,state is client side random string to identify the request
+    = link_to "不通过", @app.redirect_uri+"&state="+params[:state], class: 'ui red button'
+- else
+  = form_tag authorizeit_path, class: 'ui form attach segment' do
+    p
+      .field
+        label 登录名
+
+      .field
+        = text_field_tag :login
+    p
+      .field
+        label 密码
+
+      .field
+        = password_field_tag :password
+    = hidden_field_tag 'app_id', params[:app_id]
+    = hidden_field_tag 'redirect_uri', params[:redirect_uri]
+    = hidden_field_tag 'state', params[:state]
+    p
+      .field
+        = submit_tag '请求验证', class: 'ui green button'
+
+    
+    - if params[:scopes]
+      p
+        = @app.name+'请求访问以下权限'

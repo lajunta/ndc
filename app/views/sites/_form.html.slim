@@ -1,0 +1,24 @@
+= form_for @site, html: {class: 'ui form segment'} do |f|
+  - if @site.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@site.errors.count, "error")} prohibited this site from being saved:"
+      ul
+        - @site.errors.full_messages.each do |message|
+          li = message
+
+  .field
+    = f.label '名称'
+    = f.text_field :name
+  .field
+    = f.label '上传'
+    = f.text_field :uploader
+  .field
+    = f.label '保存路径'
+    = f.text_field :path
+  .field
+    = f.label '网址'
+    = f.text_field :original_path
+  .field
+    = f.label '类型'
+    = f.text_field :type
+  .actions = f.submit '上传', class: 'ui green button'
