@@ -1,7 +1,8 @@
-h1 站点列表
+h2 站点列表
 
 table.ui.table.segment
   thead
+    th
     th 名称
     th 上传者
     th 网址
@@ -12,6 +13,7 @@ table.ui.table.segment
 
   - @sites.each do |site|
     tr
+      td = @num+=1
       td = site.name
       td = site.uploader
       td = site.original_path
@@ -22,4 +24,4 @@ table.ui.table.segment
 
 br
 
-= link_to '新网站', new_site_path
+= link_to '新网站', new_site_path , class: 'ui green button'

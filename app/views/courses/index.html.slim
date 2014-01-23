@@ -1,7 +1,13 @@
-h1 课程列表
+h2 课程列表
+= form_tag search_courses_path , class: 'ui form' do
+  .inline.field
+    = text_field_tag "sstr",nil,size: 20, placeholder: '查找课程' 
+    = submit_tag '搜索', class: 'ui green button'
 
 table.ui.table.segment
   thead
+    th 
+    th
     th 名称
     th 编码
     th
@@ -10,6 +16,8 @@ table.ui.table.segment
 
   - @courses.each do |course|
     tr
+      td = @num+=1
+      td = image_tag(see_path(course.logo["grid_id"])) if course.logo
       td = course.name
       td = course.code
       td = link_to '查看', course
@@ -18,4 +26,4 @@ table.ui.table.segment
 
 br
 
-= link_to '新课程', new_course_path
+= link_to '新课程', new_course_path , class: 'ui green button'

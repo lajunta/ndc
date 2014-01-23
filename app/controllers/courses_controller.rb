@@ -1,10 +1,18 @@
 class CoursesController < ApplicationController
+  before_action :root_required
   before_action :set_course, only: [:show, :edit, :update, :destroy]
+  before_action :only=>["create","update"] do
+    logo_check("course") 
+  end
 
+  def search
+    @courses=Course.where(name: /#{params[:sstr]}/).page  params[:page]
+    render :index
+  end
   # GET /courses
   # GET /courses.json
   def index
-    @courses = Course.all
+    @courses = Course.all.page params[:page]
   end
 
   # GET /courses/1
@@ -69,6 +77,6 @@ class CoursesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def course_params
-      params.require(:course).permit(:name, :code, :intro)
+      params.require(:course).permit(:name, :code, :intro, :logo => [:grid_id,:filename,:content_type,:file_size])
     end
 end

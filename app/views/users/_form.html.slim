@@ -1,4 +1,4 @@
-= form_for @user, html: { class: 'ui form segment'} do |f|
+= form_for @user, html: { multipart: 'true', class: 'ui form'} do |f|
   - if @user.errors.any?
     #error_explanation
       h2 = "#{pluralize(@user.errors.count, "错误")} 造成用户不能保存:"
@@ -6,19 +6,29 @@
         - @user.errors.full_messages.each do |message|
           li = message
 
+  - if params[:action]=='new'
+    .two.fields
+      .field
+        label: strong 登录名
+        = f.text_field :login
+      .field
+        label: strong 真实姓名
+        = f.text_field :realname
+  - else
+    = image_tag(see_path(@user.logo['grid_id'])) if @user.logo
+    p
+      strong<> #{@user.login}
+      strong<> #{@user.realname}
+
+  .ui.divider
+  .two.fields
+    .field
+      label: strong 密码
+      = f.password_field :password
+    .field
+      label: strong 确认密码
+      = f.password_field :password_confirmation
   .field
-    = f.label '登录名'
-    = f.text_field :login
-  .field
-    = f.label '密码'
-    = f.password_field :password
-  .field
-    = f.label '确认密码'
-    = f.password_field :password_confirmation
-  .field
-    = f.label '真实姓名'
-    = f.text_field :realname
-  .field
-    = f.label '头像地址'
-    = f.text_field :avatar_url
-  .actions = f.submit '保存' , class: 'ui button'
+    label 上传头像:
+    = file_field_tag :logo
+  .actions = f.submit '保存' , class: 'ui  green button'

@@ -10,10 +10,10 @@ html
       .ui.right.aligned.row
         .column
           - if login?
-            = session[:login] 
-            = link_to '登出', logout_path
+            = link_to session[:login]+"_"+session[:realname],user_path(session[:user_id])
+            =' link_to '登出', logout_path
           - else
-            = link_to '登录', login_path
+            =' link_to '登录', login_path
       .ui.center.aligned.row
         .column
           h1 李伟强基础信息系统  
@@ -26,10 +26,10 @@ html
             .ui.segment.attached
               .ui.list
                 .item = link_to '用户管理',users_path
+                .item = link_to '群组管理',groups_path
                 .item = link_to '课程管理',courses_path
+                .item = link_to '文章管理',pages_path
                 .item = link_to '学期管理',semesters_path
                 .item = link_to '站点管理',sites_path
-                .item = link_to '文章管理',pages_path
-                .item = link_to '群组管理',groups_path
                 .item = link_to '应用管理',apps_path
-                .item = link_to 'API管理',api_keys_path
+                .item = link_to '授权管理',tokens_path

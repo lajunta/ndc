@@ -1,4 +1,4 @@
-= form_for @group do |f|
+= form_for @group, html: {multipart: true, class: 'ui form segment'} do |f|
   - if @group.errors.any?
     #error_explanation
       h2 = "#{pluralize(@group.errors.count, "error")} prohibited this group from being saved:"
@@ -6,10 +6,32 @@
         - @group.errors.full_messages.each do |message|
           li = message
 
+  .two.fields
+    .field
+      label: strong 名称:
+      = f.text_field :name
+    .field
+      label &nbsp;
+      .ui.selection.dropdown
+        .text 选择群组类型
+        i.dropdown.icon
+        select.menu[id='group[type]']
+          - @type.each do |t|
+            option.item[value=t] = t
+      /- typeandclass = @type.map{|t| [t,{class: 'item'}]}
+      /= f.select :type, options_for_select(typeandclass), {},class: 'ui selection dropdown'
   .field
-    = f.label :name
-    = f.text_field :name
+    label: strong 网站:
+    = f.text_field :homepage
   .field
-    = f.label :type
-    = f.text_field :type
-  .actions = f.submit 'Save'
+    label: strong 简介:
+    = f.text_area :intro
+  .field
+    label: strong 组织标志:
+    = file_field_tag :logo
+  .actions = f.submit '保存', class: 'ui green button'
+
+javascript:
+  $('.ui.dropdown')
+    .dropdown()
+  ;

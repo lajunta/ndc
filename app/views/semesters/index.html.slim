@@ -1,7 +1,12 @@
-h1 学期管理
+h2 学期管理
 
+= form_tag search_semesters_path , class: 'ui form' do
+  .inline.field
+    = text_field_tag "sstr",nil, placeholder: '查找学期' 
+    = submit_tag '搜索', class: 'ui green button'
 table.ui.table.segment
   thead
+    th
     th 全称
     th 简称
     th 开始时间
@@ -12,6 +17,7 @@ table.ui.table.segment
 
   - @semesters.each do |semester|
     tr
+      td = @num+=1
       td = semester.full_name
       td = semester.short_name
       td = semester.started_at
@@ -22,4 +28,4 @@ table.ui.table.segment
 
 br
 
-= link_to '新学期', new_semester_path
+= link_to '新学期', new_semester_path , class: 'ui green button'

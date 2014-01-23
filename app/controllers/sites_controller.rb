@@ -1,10 +1,11 @@
 class SitesController < ApplicationController
+  before_action :root_required
   before_action :set_site, only: [:show, :edit, :update, :destroy]
 
   # GET /sites
   # GET /sites.json
   def index
-    @sites = Site.all
+    @sites = Site.all.page params[:page]
   end
 
   # GET /sites/1

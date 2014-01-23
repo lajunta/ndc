@@ -1,0 +1,14 @@
+h3 = @app.name+"想要访问你的以下信息,是否通过？"
+
+= form_tag tokens_path do 
+  - params[:scopes] ||= 'user'
+  = hidden_field_tag "token[scopes]", params[:scopes]
+  = hidden_field_tag "token[app_id]", params[:app_id]
+  = hidden_field_tag :redirect_uri, params[:redirect_uri]
+  = hidden_field_tag :state, params[:state]
+  - rights=params[:scopes].split(",")
+  - rights.each do |r|
+    p = r
+
+  =' submit_tag '授权', name: 'oauth', class: 'ui green button'
+  =' submit_tag '不授权', name: 'oauth', class: 'ui red button'

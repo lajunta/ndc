@@ -3,7 +3,7 @@ p#notice = notice
 p
   = @user.login
 p
-  = @user.avatar_url
+  = image_tag(see_path(@user.logo['grid_id'])) if  @user.logo
 
 = link_to '编辑', edit_user_path(@user)
 '|

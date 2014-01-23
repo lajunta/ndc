@@ -1,10 +1,16 @@
 class PagesController < ApplicationController
+  before_action :root_required
   before_action :set_page, only: [:show, :edit, :update, :destroy]
+
+  def search
+    @pages=Page.where(title: /#{params[:sstr]}/).page  params[:page]
+    render :index
+  end
 
   # GET /pages
   # GET /pages.json
   def index
-    @pages = Page.all
+    @pages = Page.all.page params[:page]
   end
 
   # GET /pages/1

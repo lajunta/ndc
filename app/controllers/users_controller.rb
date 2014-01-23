@@ -1,10 +1,20 @@
 class UsersController < ApplicationController
+  before_action :login_required
+  before_action :root_required, only: [:index,:search,:new]
   before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :only=>["create","update"] do
+    logo_check("user") 
+  end
+
+  def search
+    @users=User.where(login: /#{params[:sstr]}/).page  params[:page]
+    render :index
+  end
 
   # GET /users
   # GET /users.json
   def index
-    @users = User.all
+    @users = User.all.page params[:page]
   end
 
   # GET /users/1
@@ -25,7 +35,6 @@ class UsersController < ApplicationController
   # POST /users.json
   def create
     @user = User.new(user_params)
-
     respond_to do |format|
       if @user.save
         format.html { redirect_to @user, notice: '用户创建成功' }
@@ -64,11 +73,15 @@ class UsersController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
-      @user = User.find(params[:id])
+      if session[:user_id] == params[:id] or is_root?
+        @user = User.find(params[:id])
+      else
+        redirect_to root_path ,notice: '你不是你' and return
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:login, :password, :password_confirmation, :realname, :avatar_url)
+      params.require(:user).permit(:login, :password, :password_confirmation, :realname, :logo => [:grid_id,:filename,:content_type,:file_size])
     end
 end

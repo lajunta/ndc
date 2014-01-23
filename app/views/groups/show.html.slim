@@ -1,12 +1,11 @@
 p#notice = notice
 
 p
-  strong Name:
-  = @group.name
+  = image_tag(see_path(@group.logo['grid_id'])) if @group.logo
 p
-  strong Type:
-  = @group.type
+  = @group.name
+  strong =' @group.type
 
-= link_to 'Edit', edit_group_path(@group)
+= link_to '编辑', edit_group_path(@group)
 '|
-= link_to 'Back', groups_path
+= link_to '返回', groups_path

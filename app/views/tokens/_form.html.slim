@@ -1,9 +1,9 @@
-= form_for @api_key , html: {class: 'ui form segment'} do |f|
-  - if @api_key.errors.any?
+= form_for @token , html: {class: 'ui form segment'} do |f|
+  - if @token.errors.any?
     #error_explanation
-      h2 = "#{pluralize(@api_key.errors.count, "error")} prohibited this api_key from being saved:"
+      h2 = "#{pluralize(@token.errors.count, "error")} prohibited this token from being saved:"
       ul
-        - @api_key.errors.full_messages.each do |message|
+        - @token.errors.full_messages.each do |message|
           li = message
 
   .field

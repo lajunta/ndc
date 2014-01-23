@@ -1,0 +1,5 @@
+p
+  strong<> 你对应用 #{@app.name} 的授权记录已经存在 
+
+p
+  = link_to '点击继续操作', params[:redirect_uri]+"?code="+@token.request_token+"&state="+params[:state]

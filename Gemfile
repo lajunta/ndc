@@ -4,8 +4,10 @@ source 'http://ruby.taobao.org'
 
 gem 'slim-rails'
 gem 'rails', '4.0.2'
+gem 'mongoid-grid_fs', github: 'ahoward/mongoid-grid_fs'
 gem 'mongoid' , git: 'https://github.com/mongoid/mongoid.git'
 gem 'dalli'
+gem 'kaminari'
 gem 'spreadsheet'
 gem 'therubyracer', platforms: :ruby # or any other runtime
 gem 'less-rails'
@@ -13,7 +15,7 @@ gem 'autoprefixer-rails'
 gem 'semantic-ui-rails'
 gem 'pdfkit' , git: 'https://github.com/pdfkit/pdfkit.git'
 
-
+gem 'zbox'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
 

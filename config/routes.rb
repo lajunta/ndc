@@ -1,24 +1,32 @@
 Lapi::Application.routes.draw do
+  get "user/index"
+  get "user/avator"
   get "oauth/authorize"=>"auth#authorize"       ,as: :authorize
   post "oauth/authorizeit"=>"auth#authorizeit"  ,as: :authorizeit
-  get "oauth/access_token"=>"auth#access_token" ,as: :access_token
-  resources :api_keys
-  resources :apps
+  post "oauth/access_token"=>"auth#access_token" ,as: :access_token
   get "welcome/index"
   get "login"=>"auth#login"   ,as: :login
   post "auth"=>"auth#auth"    ,as: :auth
   get "logout"=>"auth#logout" ,as: :logout
+  get "download/:id" => "grid#download" , :as=>:download
+  get "see/:id" => "grid#see" , :as=>:see
 
+  get 'api/user' => "api/user#index" 
+
+  get 'groups/type/:type'=>'groups#type'
+  match "users/search"   => "users#search"  , :as => :search_users, :via=>[:get,:post]
+  match "groups/search"  => "groups#search",  :as => :search_groups, :via=>[:get,:post]
+  match "pages/search"   => "pages#search"  , :as => :search_pages, :via=>[:get,:post]
+  match "courses/search" => "courses#search", :as => :search_courses, :via=>[:get,:post]
+  match "apps/search" => "apps#search", :as => :search_apps, :via=>[:get,:post]
+  match "semesters/search" => "semesters#search", :as => :search_semesters, :via=>[:get,:post]
+  resources :tokens
+  resources :apps
   resources :pages
-
   resources :sites
-
   resources :users
-
   resources :courses
-
   resources :semesters
-
   resources :groups
 
   # The priority is based upon order of creation: first created -> highest priority.

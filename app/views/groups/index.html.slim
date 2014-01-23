@@ -1,7 +1,14 @@
-h1 群组管理
+h2 群组管理
+
+= form_tag search_groups_path , class: 'ui form' do
+  .inline.field
+    = text_field_tag "sstr",nil,size: 20, placeholder: '查找群组' 
+    = submit_tag '搜索', class: 'ui green button'
 
 table.ui.table.segment
   thead
+    th
+    th
     th 名称
     th 类型
     th
@@ -10,6 +17,8 @@ table.ui.table.segment
 
   - @groups.each do |group|
     tr
+      td = @num+=1
+      td = image_tag(see_path(group.logo["grid_id"])) if group.logo
       td = group.name
       td = group.type
       td = link_to '查看', group
@@ -18,4 +27,5 @@ table.ui.table.segment
 
 br
 
-= link_to '新组织', new_group_path
+= link_to '新组织', new_group_path, class: 'ui green  button'
+== paginate @groups,:sstr=>params[:sstr]

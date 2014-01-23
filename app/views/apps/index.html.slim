@@ -1,7 +1,12 @@
-h1 应用管理
+h2 应用管理
+= form_tag search_apps_path , class: 'ui form' do
+  .inline.field
+    = text_field_tag "sstr",nil,size: 20, placeholder: '查找应用' 
+    = submit_tag '搜索', class: 'ui green button'
 
 table.ui.table.segment
   thead
+    th
     th 应用名称
     th 所有者
     th 电子邮箱
@@ -11,6 +16,7 @@ table.ui.table.segment
 
   - @apps.each do |app|
     tr
+      td = @num+=1
       td = app.name
       td = app.owner
       td = app.email
@@ -20,4 +26,4 @@ table.ui.table.segment
 
 br
 
-= link_to '新应用', new_app_path
+= link_to '新应用', new_app_path, class: 'ui green button'

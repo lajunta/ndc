@@ -1,6 +1,8 @@
 p#notice = notice
 
 p
+  = image_tag(see_path(@course.logo['grid_id'])) if @course.logo
+p
   = @course.name
 p
   strong 课程编码: 

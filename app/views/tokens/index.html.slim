@@ -1,0 +1,22 @@
+h2 授权管理
+
+table.ui.table.segment
+  thead
+    th
+    th 应用名称
+    th Code
+    th 访问口令
+    th 授权范围
+    th 到期时间
+    th
+
+  - @tokens.each do |token|
+    tr
+      td = @num+=1
+      td = token.app_id
+      td = token.request_token
+      td = token.access_token
+      td = token.scopes
+      td = token.expires_at
+      td = link_to '删除授权', token, data: {:confirm => '删除这个授权?'}, :method => :delete
+

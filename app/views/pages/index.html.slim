@@ -1,7 +1,12 @@
-h1 文章列表
+h2 文章列表
 
+= form_tag search_pages_path , class: 'ui form' do
+  .inline.field
+    = text_field_tag "sstr",nil,size: 20, placeholder: '查找文章' 
+    = submit_tag '搜索', class: 'ui green button'
 table.ui.table.segment
   thead 
+    th
     th 标题
     th 作者
     th 标签
@@ -11,6 +16,7 @@ table.ui.table.segment
 
   - @pages.each do |page|
     tr
+      td = @num+=1
       td = page.title
       td = page.author
       td = page.tags
@@ -20,4 +26,4 @@ table.ui.table.segment
 
 br
 
-= link_to '新文章', new_page_path
+= link_to '新文章', new_page_path, class: 'ui green button'

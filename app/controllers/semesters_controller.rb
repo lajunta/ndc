@@ -1,10 +1,16 @@
 class SemestersController < ApplicationController
+  before_action :root_required
   before_action :set_semester, only: [:show, :edit, :update, :destroy]
+
+  def search
+    @semesters=Semester.where(short_name: /#{params[:sstr]}/).page  params[:page]
+    render :index
+  end
 
   # GET /semesters
   # GET /semesters.json
   def index
-    @semesters = Semester.all
+    @semesters = Semester.all.page params[:page]
   end
 
   # GET /semesters/1

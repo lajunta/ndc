@@ -1,21 +1,30 @@
-h1 用户管理
+h2 用户管理
+
+= form_tag search_users_path , class: 'ui form' do
+  .inline.field
+    = text_field_tag "sstr",nil, placeholder: '查找用户' 
+    = submit_tag '搜索', class: 'ui green button'
 
 table.ui.table.segment
   thead
-    th 登录名
+    th
     th 头像
+    th 登录名
     th
     th
     th
 
   - @users.each do |user|
     tr
+      td = @num+=1
+      td = image_tag(see_path(user.logo['grid_id'])) if user.logo
       td = user.login
-      td = user.avatar_url
       td = link_to '查看', user
       td = link_to '编辑', edit_user_path(user)
       td = link_to '删除', user, data: {:confirm => '真的要删除吗?'}, :method => :delete
 
 br
 
-= link_to '新用户', new_user_path, class: 'ui green button'
+
+p  = link_to '新用户', new_user_path, class: 'ui green button'
+== paginate @users,:sstr=>params[:sstr]

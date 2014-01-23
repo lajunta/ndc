@@ -1,10 +1,16 @@
 class AppsController < ApplicationController
+  before_action :root_required
   before_action :set_app, only: [:show, :edit, :update, :destroy]
+
+  def search
+    @apps=App.where(name: /#{params[:sstr]}/).page  params[:page]
+    render :index
+  end
 
   # GET /apps
   # GET /apps.json
   def index
-    @apps = App.all
+    @apps = App.all.page params[:page]
   end
 
   # GET /apps/1
