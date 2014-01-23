@@ -5,6 +5,6 @@ class Group
   field :type, type: String
   field :intro, type: String
   field :homepage,type: String
-  field :master, type: String
+  field :admin, type: String
   field :logo, type: Hash
 end

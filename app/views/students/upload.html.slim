@@ -1,0 +1,12 @@
+h2 批量上传学生资料
+
+= form_tag upload_students_path, multipart: true do 
+  p: label 批量上传学生信息
+  p = file_field_tag 'stxls'
+  p = submit_tag '上传'
+
+hr
+
+p 说明:
+p 1.上传的信息每行的顺序为:
+p 2.真实姓名 默认组织 

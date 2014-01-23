@@ -1,6 +1,5 @@
 Lapi::Application.routes.draw do
-  get "user/index"
-  get "user/avator"
+
   get "oauth/authorize"=>"auth#authorize"       ,as: :authorize
   post "oauth/authorizeit"=>"auth#authorizeit"  ,as: :authorizeit
   post "oauth/access_token"=>"auth#access_token" ,as: :access_token
@@ -20,6 +19,12 @@ Lapi::Application.routes.draw do
   match "courses/search" => "courses#search", :as => :search_courses, :via=>[:get,:post]
   match "apps/search" => "apps#search", :as => :search_apps, :via=>[:get,:post]
   match "semesters/search" => "semesters#search", :as => :search_semesters, :via=>[:get,:post]
+  match "teachers/search" => "teachers#search", :as => :search_teachers, :via=>[:get,:post]
+  match "students/search" => "students#search", :as => :search_students, :via=>[:get,:post]
+  match "students/upload" => "students#upload", :as => :upload_students, :via=>[:get,:post]
+
+  resources :students
+  resources :teachers
   resources :tokens
   resources :apps
   resources :pages

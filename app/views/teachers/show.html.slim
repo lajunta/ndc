@@ -1,0 +1,30 @@
+p#notice = notice
+
+p
+  strong Realname:
+  = @teacher.realname
+p
+  strong Sex:
+  = @teacher.sex
+p
+  strong Birthday:
+  = @teacher.birthday
+p
+  strong Tel:
+  = @teacher.tel
+p
+  strong Mobile:
+  = @teacher.mobile
+p
+  strong Email:
+  = @teacher.email
+p
+  strong Default group:
+  = @teacher.default_group
+p
+  strong Logo:
+  = @teacher.logo
+
+= link_to 'Edit', edit_teacher_path(@teacher)
+'|
+= link_to 'Back', teachers_path

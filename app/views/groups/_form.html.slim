@@ -6,20 +6,26 @@
         - @group.errors.full_messages.each do |message|
           li = message
 
-  .two.fields
+  .three.fields
     .field
       label: strong 名称:
       = f.text_field :name
     .field
-      label &nbsp;
+      label 管理者:
+      = f.text_field :admin
+    .field
+      label 群组类型:
       .ui.selection.dropdown
-        .text 选择群组类型
-        i.dropdown.icon
-        select.menu[id='group[type]']
-          - @type.each do |t|
-            option.item[value=t] = t
-      /- typeandclass = @type.map{|t| [t,{class: 'item'}]}
-      /= f.select :type, options_for_select(typeandclass), {},class: 'ui selection dropdown'
+        input type='hidden' name='group[type]'
+          - unless @group.type.blank?
+            .text #{@group.type} 
+          - else
+            .text 选择群组类型
+          i.dropdown.icon
+          .menu
+            - @type.each do |t|
+              .item data-value="#{t}" #{t}
+
   .field
     label: strong 网站:
     = f.text_field :homepage

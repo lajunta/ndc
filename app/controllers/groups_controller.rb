@@ -25,6 +25,7 @@ class GroupsController < ApplicationController
   # GET /groups/1
   # GET /groups/1.json
   def show
+    @students=Student.where(default_group: @group.name)
   end
 
   # GET /groups/new

@@ -1,0 +1,60 @@
+p#notice = notice
+
+p
+  strong Realname:
+  = @student.realname
+p
+  strong Sex:
+  = @student.sex
+p
+  strong Birthday:
+  = @student.birthday
+p
+  strong Default group:
+  = @student.default_group
+p
+  strong Other groups:
+  = @student.other_groups
+p
+  strong Address:
+  = @student.address
+p
+  strong Hometel:
+  = @student.hometel
+p
+  strong Mobile:
+  = @student.mobile
+p
+  strong Father name:
+  = @student.father_name
+p
+  strong Mother name:
+  = @student.mother_name
+p
+  strong Father workplace:
+  = @student.father_workplace
+p
+  strong Mother workplace:
+  = @student.mother_workplace
+p
+  strong Father profession:
+  = @student.father_profession
+p
+  strong Mother profession:
+  = @student.mother_profession
+p
+  strong Father tel:
+  = @student.father_tel
+p
+  strong Mother tel:
+  = @student.mother_tel
+p
+  strong Intro:
+  = @student.intro
+p
+  strong Logo:
+  = @student.logo
+
+= link_to 'Edit', edit_student_path(@student)
+'|
+= link_to 'Back', students_path

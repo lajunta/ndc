@@ -11,6 +11,7 @@ table.ui.table.segment
     th
     th 名称
     th 类型
+    th 管理者
     th
     th
     th
@@ -21,6 +22,7 @@ table.ui.table.segment
       td = image_tag(see_path(group.logo["grid_id"])) if group.logo
       td = group.name
       td = group.type
+      td = group.admin
       td = link_to '查看', group
       td = link_to '编辑', edit_group_path(group)
       td = link_to '删除', group, data: {:confirm => 'Are you sure?'}, :method => :delete

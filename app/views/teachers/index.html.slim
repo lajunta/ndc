@@ -1,0 +1,33 @@
+h1 Listing teachers
+
+table
+  tr
+    th Realname
+    th Sex
+    th Birthday
+    th Tel
+    th Mobile
+    th Email
+    th Default group
+    th Logo
+    th
+    th
+    th
+
+  - @teachers.each do |teacher|
+    tr
+      td = teacher.realname
+      td = teacher.sex
+      td = teacher.birthday
+      td = teacher.tel
+      td = teacher.mobile
+      td = teacher.email
+      td = teacher.default_group
+      td = teacher.logo
+      td = link_to 'Show', teacher
+      td = link_to 'Edit', edit_teacher_path(teacher)
+      td = link_to 'Destroy', teacher, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+
+= link_to 'New Teacher', new_teacher_path

@@ -23,7 +23,7 @@ class ApplicationController < ActionController::Base
 
   def pageit
     params[:page] ||= 1   
-    per_page = 10 
+    per_page = 20 
     @num=per_page*(params[:page].to_i-1)
   end
 

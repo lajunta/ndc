@@ -12,6 +12,7 @@ class User
   field :login, type: String
   field :password, type: String
   field :realname, type: String
+  field :type,     type: String
   field :logo, type: Hash 
   validates_presence_of :login,:realname,:password,:password_confirmation, message: "不能为空"
   validates_uniqueness_of :login , message: "用户已经存在"

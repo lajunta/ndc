@@ -5,6 +5,15 @@ p
 p
   = @group.name
   strong =' @group.type
+p 
+  |管理者:
+  = @group.admin
+p
+  |成员名单:
+p
+  - if @students
+    - @students.each do |st|
+      =' st.realname
 
 = link_to '编辑', edit_group_path(@group)
 '|
