@@ -1,0 +1,36 @@
+p#notice = notice
+
+p
+  strong 电脑室:
+  = @crlog.croom
+p
+  strong 班级:
+  = @crlog.banji
+p
+  strong 使用日期:
+  = @crlog.use_date
+p
+  strong 课程名称:
+p  = @crlog.course_name
+p
+  strong 节次:
+  = @crlog.jiece
+p
+  strong 电脑硬件状况:
+div  = @crlog.computer_status
+p
+  strong 电脑室卫生状况:
+div  = @crlog.garbage_status
+p
+  strong 电脑设施是否摆放整齐:
+div  = @crlog.place_status
+p
+  strong 记录人:
+  = @crlog.loger
+p
+  strong 其它情况:
+div = @crlog.desc
+
+= link_to '编辑', edit_crlog_path(@crlog)
+'|
+= link_to '返回', crlogs_path

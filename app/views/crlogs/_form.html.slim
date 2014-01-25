@@ -1,0 +1,37 @@
+= form_for @crlog , html: {class: 'ui form segment'} do |f|
+  - if @crlog.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@crlog.errors.count, "error")} prohibited this crlog from being saved:"
+      ul
+        - @crlog.errors.full_messages.each do |message|
+          li = message
+
+  .five.fields
+    .field
+      = f.label '电脑室'
+      = f.select :croom, @crooms
+    .field
+      = f.label '班级'
+      = f.select :banji, @banjis
+    .field
+      = f.label '使用日期'
+      = f.text_field :use_date
+    .field
+      = f.label '课程名称'
+      = f.select :course_name, @courses
+    .field
+      = f.label '节次'
+      = f.select :jiece, @jieces
+  .field
+    = f.label '电脑硬件情况'
+    = f.text_area :computer_status
+  .field
+    = f.label '电脑室卫生情况'
+    = f.text_area :garbage_status
+  .field
+    = f.label '电脑室设施摆放情况'
+    = f.text_area :place_status
+  .field
+    = f.label '所有其它情况说明'
+    = f.text_area :desc
+  .actions = f.submit '保存', class: 'ui green  button'

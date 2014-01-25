@@ -21,14 +21,29 @@
       strong<> #{@user.realname}
 
   .ui.divider
-  .two.fields
+  .three.fields
     .field
       label: strong 密码
       = f.password_field :password
     .field
       label: strong 确认密码
       = f.password_field :password_confirmation
+    .field
+      label 帐号类型:
+      .ui.selection.dropdown
+        input type='hidden' name='user[type]'
+        - unless @user.type.blank?
+          .text #{@user.type} 
+        - else
+          .text 帐号类型
+        i.dropdown.icon
+        .menu
+          - @type.each do |t|
+            .item data-value="#{t}" #{t}
   .field
     label 上传头像:
     = file_field_tag :logo
   .actions = f.submit '保存' , class: 'ui  green button'
+
+javascript:
+  $('.ui.dropdown').dropdown();

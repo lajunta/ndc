@@ -1,0 +1,31 @@
+h2 座位管理
+
+table.ui.table.segment
+  thead
+    th
+    th 学期
+    th 老师名
+    th 班级
+    th 电脑室
+    th 课程名称
+    th
+    th
+    th
+
+  - @seats.each do |seat|
+    tr
+      td = @num+=1
+      td = seat.semester
+      td = seat.tname
+      td = seat.banji
+      td = seat.croom
+      td = seat.course_name
+      td = link_to 'Show', seat
+      td = link_to 'Edit', edit_seat_path(seat)
+      td = link_to 'Destroy', seat, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+
+= link_to '新座位安排表', new_seat_path
+
+== paginate @seats,:sstr=>params[:sstr]

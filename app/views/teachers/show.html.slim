@@ -23,7 +23,7 @@ p
   = @teacher.default_group
 p
   strong Logo:
-  = @teacher.logo
+  = image_tag(see_path(@teacher.logo['grid_id'])) if @teacher.logo
 
 = link_to 'Edit', edit_teacher_path(@teacher)
 '|

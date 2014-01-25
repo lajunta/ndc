@@ -1,0 +1,33 @@
+= form_for @seat , html: {multipart: true,class: 'ui form segment'} do |f|
+  - if @seat.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@seat.errors.count, "error")} prohibited this seat from being saved:"
+      ul
+        - @seat.errors.full_messages.each do |message|
+          li = message
+
+  .three.fields
+    .field
+      label 选择学期:
+      = f.select :semester, @semesters
+    .field
+      = f.label '上课老师'
+      = f.text_field :tname 
+    .field
+      label 选择班级:
+      = f.select :banji, @banjis
+  .three.fields
+    .field
+      label 选择电脑室:
+      = f.select :croom, @crooms
+    .field
+      label 选择你所上的课程:
+      = f.select :course_name, @courses
+  .field
+    p
+      label 上传学生座位顺序表
+      = file_field_tag 'seat_xls'
+  .actions = f.submit '保存', class: 'ui green button'
+
+  p 表格数据从第二行开始, 按 座位号 姓名, 一行为一个学生数据。
+

@@ -1,0 +1,17 @@
+p#notice = notice
+
+h2
+  = @cr_schedule.semester
+  - if @cr_schedule.croom
+    = @cr_schedule.croom
+  |上机安排表
+div  
+  = sanitize(@cr_schedule.content, tags: %w(table thead th tbody tr td), attributes: %w(class id))
+p
+  - if @cr_schedule.used
+    |启用
+  - else
+    |没有启用
+
+=' link_to '编辑', edit_cr_schedule_path(@cr_schedule), class: 'ui button'
+=' link_to '返回', cr_schedules_path, class: 'ui button'

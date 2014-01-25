@@ -9,4 +9,4 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-Lapi::Application.config.secret_key_base = 'ac57304f5c2845a0d6a57f17a84ae0de461edbb692d5de595f6d3bfd8b38359efad91cd884d2a0968ca7fbc0c24c5af3f5216dea330a9d32e1e07842c802da50'
+Ndc::Application.config.secret_key_base = 'ac57304f5c2845a0d6a57f17a84ae0de461edbb692d5de595f6d3bfd8b38359efad91cd884d2a0968ca7fbc0c24c5af3f5216dea330a9d32e1e07842c802da50'

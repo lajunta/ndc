@@ -1,4 +1,4 @@
-= form_for @teacher do |f|
+= form_for @teacher, html: {multipart: true, class: 'ui form segment'} do |f|
   - if @teacher.errors.any?
     #error_explanation
       h2 = "#{pluralize(@teacher.errors.count, "error")} prohibited this teacher from being saved:"
@@ -6,28 +6,30 @@
         - @teacher.errors.full_messages.each do |message|
           li = message
 
+  .three.fields
+    .field
+      = f.label '姓名'
+      = f.text_field :realname
+    .field
+      = f.label '性别'
+      = f.text_field :sex
+    .field
+      = f.label '出生日期'
+      = f.text_field :birthday
+  .three.fields
+    .field
+      = f.label '电话'
+      = f.text_field :tel
+    .field
+      = f.label '移动电话'
+      = f.text_field :mobile
+    .field
+      = f.label '电子邮件'
+      = f.text_field :email
   .field
-    = f.label :realname
-    = f.text_field :realname
-  .field
-    = f.label :sex
-    = f.text_field :sex
-  .field
-    = f.label :birthday
-    = f.text_field :birthday
-  .field
-    = f.label :tel
-    = f.text_field :tel
-  .field
-    = f.label :mobile
-    = f.text_field :mobile
-  .field
-    = f.label :email
-    = f.text_field :email
-  .field
-    = f.label :default_group
+    = f.label '所属部门'
     = f.text_field :default_group
   .field
-    = f.label :logo
-    = f.text_field :logo
-  .actions = f.submit 'Save'
+    = f.label '头像'
+    = file_field_tag :logo
+  .actions = f.submit '保存' , class: 'ui green button'

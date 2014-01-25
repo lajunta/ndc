@@ -2,8 +2,14 @@ class UsersController < ApplicationController
   before_action :login_required
   before_action :root_required, only: [:index,:search,:new]
   before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :set_type, only: [:new,:edit]
   before_action :only=>["create","update"] do
     logo_check("user") 
+  end
+
+
+  def set_type
+    @type=["教师","学生"]
   end
 
   def search
@@ -82,6 +88,6 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:login, :password, :password_confirmation, :realname, :logo => [:grid_id,:filename,:content_type,:file_size])
+      params.require(:user).permit(:login, :password, :password_confirmation, :type,:realname, :logo => [:grid_id,:filename,:content_type,:file_size])
     end
 end

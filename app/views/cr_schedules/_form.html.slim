@@ -1,0 +1,19 @@
+= form_for @cr_schedule , html: {class: 'ui form segment'} do |f|
+  - if @cr_schedule.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@cr_schedule.errors.count, "error")} prohibited this cr_schedule from being saved:"
+      ul
+        - @cr_schedule.errors.full_messages.each do |message|
+          li = message
+
+  .two.fields
+    .field
+      = f.label '学期'
+      = f.select :semester, @semesters
+  .field
+    = f.label '上机安排'
+    = f.text_area :content
+  .field
+    = f.label '是否启用'
+    = f.check_box :used
+  .actions = f.submit '保存', class: 'ui green button'

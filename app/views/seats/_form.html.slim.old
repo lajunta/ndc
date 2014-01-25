@@ -1,0 +1,72 @@
+= form_for @seat , html: {multipart: true,class: 'ui form segment'} do |f|
+  - if @seat.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@seat.errors.count, "error")} prohibited this seat from being saved:"
+      ul
+        - @seat.errors.full_messages.each do |message|
+          li = message
+
+  .three.fields
+    .field
+      label 选择学期:
+      .ui.selection.dropdown
+        input type='hidden' name='seat[semester]'
+        - unless @seat.semester.blank?
+          .text #{@seat.semester}
+        - else
+          .text 选择学期
+        i.dropdown.icon
+        .menu
+          - @semesters.each do |s|
+            .item data-value="#{s}" #{s}
+    .field
+      = f.label '上课老师'
+      = f.text_field :tname 
+    .field
+      label 选择班级:
+      .ui.selection.dropdown
+        input type='hidden' name='seat[banji]'
+        - unless @seat.banji.blank?
+          .text #{@seat.banji} 
+        - else
+          .text 选择班级
+        i.dropdown.icon
+        .menu
+          - @banjis.each do |b|
+            .item data-value="#{b}" #{b}
+  .three.fields
+    .field
+      label 选择电脑室:
+      .ui.selection.dropdown
+        input type='hidden' name='seat[croom]'
+          - unless @seat.croom.blank?
+            .text #{@seat.croom} 
+          - else
+            .text 选择电脑室
+          i.dropdown.icon
+          .menu
+            - @crooms.each do |c|
+              .item data-value="#{c}" #{c}
+    .field
+      label 选择你所上的课程:
+      .ui.selection.dropdown
+        input type='hidden' name='seat[course_name]'
+        - unless @seat.course_name.blank?
+          .text #{@seat.course_name} 
+        - else
+          .text 选择你所上的课程
+        i.dropdown.icon
+        .menu
+          - @courses.each do |c|
+            - if @seat.course_name==c
+              .item.active data-value="#{c}" #{c}
+            - else
+              .item data-value="#{c}" #{c}
+  .field
+    p
+      label 上传学生座位顺序表
+      = file_field_tag 'seat_xls'
+  .actions = f.submit '保存', class: 'ui green button'
+
+  p 表格数据从第二行开始, 按 座位号 姓名, 一行为一个学生数据。
+

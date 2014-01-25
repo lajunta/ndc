@@ -1,5 +1,9 @@
 class TeachersController < ApplicationController
+  before_action :root_required
   before_action :set_teacher, only: [:show, :edit, :update, :destroy]
+  before_action :only=>["create","update"] do
+    logo_check("teacher") 
+  end
 
   # GET /teachers
   # GET /teachers.json
@@ -69,6 +73,6 @@ class TeachersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def teacher_params
-      params.require(:teacher).permit(:realname, :sex, :birthday, :tel, :mobile, :email, :default_group, :logo)
+      params.require(:teacher).permit(:realname, :sex, :birthday, :tel, :mobile, :email, :default_group, :logo => [:grid_id,:filename,:content_type,:file_size])
     end
 end

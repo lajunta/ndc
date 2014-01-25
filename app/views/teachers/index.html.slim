@@ -1,33 +1,33 @@
-h1 Listing teachers
+h2 教师列表
 
-table
-  tr
-    th Realname
-    th Sex
-    th Birthday
-    th Tel
-    th Mobile
-    th Email
-    th Default group
-    th Logo
+table.ui.table.segment
+  thead
+    th 
+    th 头像
+    th 姓名
+    th 性别
+    th 电话
+    th 移动电话
+    th 电子邮件
+    th 所属部门
     th
     th
     th
 
   - @teachers.each do |teacher|
     tr
+      td = @num+=1
+      td = image_tag(see_path(teacher.logo['grid_id'])) if teacher.logo
       td = teacher.realname
       td = teacher.sex
-      td = teacher.birthday
       td = teacher.tel
       td = teacher.mobile
       td = teacher.email
       td = teacher.default_group
-      td = teacher.logo
       td = link_to 'Show', teacher
       td = link_to 'Edit', edit_teacher_path(teacher)
       td = link_to 'Destroy', teacher, data: {:confirm => 'Are you sure?'}, :method => :delete
 
 br
 
-= link_to 'New Teacher', new_teacher_path
+= link_to '新教师', new_teacher_path , clas: 'ui button'

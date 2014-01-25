@@ -1,4 +1,10 @@
-Lapi::Application.routes.draw do
+Ndc::Application.routes.draw do
+
+  resources :cr_schedules
+
+  resources :crlogs
+
+  resources :seats
 
   get "oauth/authorize"=>"auth#authorize"       ,as: :authorize
   post "oauth/authorizeit"=>"auth#authorizeit"  ,as: :authorizeit

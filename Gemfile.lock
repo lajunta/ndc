@@ -8,7 +8,7 @@ GIT
 
 GIT
   remote: https://github.com/mongoid/mongoid.git
-  revision: a6903b74a97254affe72cb0758ecc40d521f9288
+  revision: a8714739343ea40ea7d068b15611e44c4d96a6f4
   specs:
     mongoid (4.0.0.alpha2)
       activemodel (>= 4.0.0)
@@ -53,7 +53,7 @@ GEM
     atomic (1.1.14)
     autoprefixer-rails (1.0.20140117)
       execjs
-    bson (2.1.2)
+    bson (2.2.0)
     builder (3.1.4)
     coffee-rails (4.0.1)
       coffee-script (>= 2.2.0)
@@ -76,7 +76,7 @@ GEM
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
     json (1.8.1)
-    kaminari (0.14.1)
+    kaminari (0.15.1)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
     less (2.4.0)
@@ -122,7 +122,7 @@ GEM
       json (~> 1.4)
     ref (1.0.5)
     ruby-ole (1.2.11.7)
-    sass (3.2.13)
+    sass (3.2.14)
     sass-rails (4.0.1)
       railties (>= 4.0.0, < 5.0)
       sass (>= 3.1.10)
@@ -130,7 +130,7 @@ GEM
     sdoc (0.4.0)
       json (~> 1.8)
       rdoc (~> 4.0, < 5.0)
-    semantic-ui-rails (0.12.0)
+    semantic-ui-rails (0.12.2)
       autoprefixer-rails
       less-rails
     slim (2.0.2)

@@ -1,0 +1,27 @@
+h2 上机安排表
+
+table.ui.table.segment
+  thead
+    th
+    th 学期
+    th 电脑室
+    th 是否使用
+    th 创建时间
+    th
+    th
+    th
+
+  - @cr_schedules.each do |cr_schedule|
+    tr
+      td = @num+=1
+      td = cr_schedule.semester
+      td = cr_schedule.croom
+      td = cr_schedule.used
+      td = cr_schedule.created_at.strftime("%Y-%m-%d")
+      td = link_to '杳看', cr_schedule
+      td = link_to '查看', edit_cr_schedule_path(cr_schedule)
+      td = link_to '删除', cr_schedule, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+
+= link_to '增加上机安排表', new_cr_schedule_path

@@ -7,6 +7,7 @@ class AuthController < ApplicationController
     if @user
       session[:login]=@user.login
       session[:realname]=@user.realname
+      session[:user_type]=@user.type
       session[:user_id]=@user.id.to_s
       redirect_to root_path ,notice: "登录成功"
     else

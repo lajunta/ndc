@@ -7,5 +7,5 @@ class Teacher
   field :mobile, type: String
   field :email, type: String
   field :default_group, type: String
-  field :logo, type: String
+  field :logo, type: Hash
 end

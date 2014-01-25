@@ -11,6 +11,7 @@ table.ui.table.segment
     th 头像
     th 登录名
     th 姓名
+    th 类型
     th
     th
     th
@@ -21,6 +22,7 @@ table.ui.table.segment
       td = image_tag(see_path(user.logo['grid_id'])) if user.logo
       td = user.login
       td = user.realname
+      td = user.type
       td = link_to '查看', user
       td = link_to '编辑', edit_user_path(user)
       td = link_to '删除', user, data: {:confirm => '真的要删除吗?'}, :method => :delete

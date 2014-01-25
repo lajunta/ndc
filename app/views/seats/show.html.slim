@@ -1,0 +1,17 @@
+p#notice = notice
+
+h2 = @seat.semester+@seat.banji+@seat.tname+@seat.course_name+@seat.croom+"座位对照表"
+- real_data=Marshal.load(@seat.arrangement).sort
+
+table.ui.table.segment
+  thead
+    td 座位
+    td 姓名
+  - real_data.each do |k,v|
+    tr
+      td = k
+      td = v
+
+= link_to 'Edit', edit_seat_path(@seat)
+'|
+= link_to 'Back', seats_path

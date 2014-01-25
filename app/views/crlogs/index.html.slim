@@ -1,0 +1,33 @@
+h2 电脑室使用日志
+
+table.ui.table.segment
+  thead
+    th 
+    th 电脑室
+    th 班级
+    th 使用日期
+    th 课程名称
+    th 节次
+    th 状态
+    th 登记人
+    th
+    th
+    th
+
+  - @crlogs.each do |crlog|
+    tr
+      td = @num+=1
+      td = crlog.croom
+      td = crlog.banji
+      td = crlog.use_date
+      td = crlog.course_name
+      td = crlog.jiece
+      td = crlog.status
+      td = crlog.loger
+      td = link_to 'Show', crlog
+      td = link_to 'Edit', edit_crlog_path(crlog)
+      td = link_to 'Destroy', crlog, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+
+= link_to '新日志', new_crlog_path

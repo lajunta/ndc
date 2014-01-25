@@ -5,10 +5,28 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :pageit, only: [:type,:index,:search]
 
+  def set_data
+    @semesters=Semester.all.map{|s| s.full_name}
+    @banjis=Group.where(type: '班级').map{|g| g.name}
+    @crooms=['C301','C302','C304','C401','C402','C403','C404']
+    @courses=Course.all.map{|c| c.name}
+    @jieces=['1-2','3-4','5-6']
+  end
+
   def root_required
     unless is_root?
       redirect_to root_path , notice: '身份不对'
     end
+  end
+
+  def teacher_required
+    unless is_teacher?
+      redirect_to root_path , notice: '你是老师吗?'
+    end
+  end
+
+  def is_teacher?
+    session[:user_type]=='教师'
   end
 
   def login_required
@@ -32,11 +50,15 @@ class ApplicationController < ActionController::Base
   end
 
   def dbname
-    'lapi'
+    'ndc'
   end
 
   def cu
     session[:login]
+  end
+
+  def realname
+    session[:realname]
   end
 
   def user_id
@@ -89,5 +111,5 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  helper_method :login?
+  helper_method :login?,:realname
 end
