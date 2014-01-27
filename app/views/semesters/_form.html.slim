@@ -6,16 +6,18 @@
         - @semester.errors.full_messages.each do |message|
           li = message
 
-  .field
-    = f.label '全称'
-    = f.text_field :full_name
-  .field
-    = f.label '缩写'
-    = f.text_field :short_name
-  .field
-    = f.label '学期开始时间'
-    = f.text_field :started_at
-  .field
-    = f.label '学期结束时间'
-    = f.text_field :ended_at
-  .actions = f.submit '保存'
+  .two.fields
+    .field
+      = f.label '全称'
+      = f.text_field :full_name
+    .field
+      = f.label '缩写'
+      = f.text_field :short_name
+  .two.fields
+    .field
+      = f.label '学期开始时间'
+      = f.text_field :started_at
+    .field
+      = f.label '学期结束时间'
+      = f.text_field :ended_at
+  .actions = f.submit '保存' , class: 'ui green button'

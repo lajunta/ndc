@@ -31,6 +31,7 @@ class GroupsController < ApplicationController
   # GET /groups/new
   def new
     @group = Group.new
+    @group.type ||= "班级"
   end
 
   # GET /groups/1/edit

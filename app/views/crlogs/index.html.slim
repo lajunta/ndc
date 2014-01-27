@@ -24,10 +24,9 @@ table.ui.table.segment
       td = crlog.jiece
       td = crlog.status
       td = crlog.loger
-      td = link_to 'Show', crlog
-      td = link_to 'Edit', edit_crlog_path(crlog)
-      td = link_to 'Destroy', crlog, data: {:confirm => 'Are you sure?'}, :method => :delete
+      td = link_to '查看', crlog
+      td = link_to '编辑', edit_crlog_path(crlog)
+      td = link_to '删除', crlog, data: {:confirm => 'Are you sure?'}, :method => :delete
 
-br
-
-= link_to '新日志', new_crlog_path
+p
+  = link_to '新日志', new_crlog_path , class: 'ui green button'

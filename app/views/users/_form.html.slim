@@ -7,20 +7,28 @@
           li = message
 
   - if params[:action]=='new'
-    .two.fields
+    .three.fields
       .field
         label: strong 登录名
         = f.text_field :login
       .field
         label: strong 真实姓名
         = f.text_field :realname
+      .field
+        label 帐号类型:
+        .ui.selection.fluid.dropdown
+          input type='hidden' name='user[type]' value=@user.type
+          .text #{@user.type}
+          i.dropdown.icon
+          .menu
+            - @type.each do |t|
+              .item data-value="#{t}" #{t}
   - else
     = image_tag(see_path(@user.logo['grid_id'])) if @user.logo
     p
       strong<> #{@user.login}
       strong<> #{@user.realname}
 
-  .ui.divider
   .three.fields
     .field
       label: strong 密码
@@ -28,18 +36,6 @@
     .field
       label: strong 确认密码
       = f.password_field :password_confirmation
-    .field
-      label 帐号类型:
-      .ui.selection.dropdown
-        input type='hidden' name='user[type]'
-        - unless @user.type.blank?
-          .text #{@user.type} 
-        - else
-          .text 帐号类型
-        i.dropdown.icon
-        .menu
-          - @type.each do |t|
-            .item data-value="#{t}" #{t}
   .field
     label 上传头像:
     = file_field_tag :logo

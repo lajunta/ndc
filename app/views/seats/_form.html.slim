@@ -9,20 +9,44 @@
   .three.fields
     .field
       label 选择学期:
-      = f.select :semester, @semesters
+      .ui.selection.fluid.dropdown
+        input type='hidden' name='seat[semester]' value=@seat.semester
+        .text #{@seat.semester}
+        i.dropdown.icon
+        .menu
+          - @semesters.each do |sm|
+            .item data-value="#{sm}" #{sm}
     .field
       = f.label '上课老师'
       = f.text_field :tname 
     .field
       label 选择班级:
-      = f.select :banji, @banjis
+      .ui.selection.fluid.dropdown
+        input type='hidden' name='seat[banji]' value=@seat.banji
+        .text #{@seat.banji}
+        i.dropdown.icon
+        .menu
+          - @banjis.each do |banji|
+            .item data-value="#{banji}" #{banji}
   .three.fields
     .field
       label 选择电脑室:
-      = f.select :croom, @crooms
+      .ui.selection.fluid.dropdown
+        input type='hidden' name='seat[croom]' value=@seat.croom
+        .text #{@seat.croom}
+        i.dropdown.icon
+        .menu
+          - @crooms.each do |croom|
+            .item data-value="#{croom}" #{croom}
     .field
-      label 选择你所上的课程:
-      = f.select :course_name, @courses
+      label 选择你上的课程:
+      .ui.selection.fluid.dropdown
+        input type='hidden' name='seat[course_name]' value=@seat.course_name
+        .text #{@seat.course_name}
+        i.dropdown.icon
+        .menu
+          - @courses.each do |course|
+            .item data-value="#{course}" #{course}
   .field
     p
       label 上传学生座位顺序表

@@ -72,6 +72,7 @@ class CrlogsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def crlog_params
-      params.require(:crlog).permit(:croom, :banji, :use_date, :course_name, :jiece, :computer_status, :garbage_status, :place_status, :status, :logger, :closed_by, :desc)
+      params[:crlog][:loger]=realname
+      params.require(:crlog).permit(:croom, :banji, :use_date, :course_name, :jiece, :computer_status, :garbage_status, :place_status, :status, :loger,  :desc)
     end
 end

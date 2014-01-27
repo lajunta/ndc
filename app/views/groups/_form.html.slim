@@ -15,12 +15,9 @@
       = f.text_field :admin
     .field
       label 群组类型:
-      .ui.selection.dropdown
-        input type='hidden' name='group[type]'
-          - unless @group.type.blank?
-            .text #{@group.type} 
-          - else
-            .text 选择群组类型
+      .ui.fluid.selection.dropdown
+        input type='hidden' name='group[type]' value=@group.type 
+          .default.text = @group.type 
           i.dropdown.icon
           .menu
             - @type.each do |t|
@@ -37,5 +34,3 @@
     = file_field_tag :logo
   .actions = f.submit '保存', class: 'ui green button'
 
-javascript:
-  $('.ui.dropdown').dropdown();

@@ -6,32 +6,59 @@
         - @crlog.errors.full_messages.each do |message|
           li = message
 
-  .five.fields
+  .three.fields
     .field
-      = f.label '电脑室'
-      = f.select :croom, @crooms
+      label 电脑室:
+      .ui.fluid.selection.dropdown
+        input type='hidden' name='crlog[croom]' value=@crlog.croom 
+          .default.text = @crlog.croom 
+          i.dropdown.icon
+          .menu
+            - @crooms.each do |cm|
+              .item data-value="#{cm}" #{cm}
     .field
-      = f.label '班级'
-      = f.select :banji, @banjis
+      label 班级:
+      .ui.fluid.selection.dropdown
+        input type='hidden' name='crlog[banji]' value=@crlog.banji
+          .default.text = @crlog.banji
+          i.dropdown.icon
+          .menu
+            - @banjis.each do |banji|
+              .item data-value="#{banji}" #{banji}
     .field
       = f.label '使用日期'
       = f.text_field :use_date
+  .three.fields
     .field
-      = f.label '课程名称'
-      = f.select :course_name, @courses
+      label 课程名称:
+      .ui.fluid.selection.dropdown
+        input type='hidden' name='crlog[course_name]' value=@crlog.course_name
+          .default.text = @crlog.course_name
+          i.dropdown.icon
+          .menu
+            - @courses.each do |course|
+              .item data-value="#{course}" #{course}
     .field
-      = f.label '节次'
-      = f.select :jiece, @jieces
-  .field
-    = f.label '电脑硬件情况'
-    = f.text_area :computer_status
-  .field
-    = f.label '电脑室卫生情况'
+      label 节次:
+      .ui.fluid.selection.dropdown
+        input type='hidden' name='crlog[jiece]' value=@crlog.jiece
+          .default.text = @crlog.jiece
+          i.dropdown.icon
+          .menu
+            - @jieces.each do |jc|
+              .item data-value="#{jc}" #{jc}
+  .ui.tabular.filter.menu
+    a.active.item data-tab="hardware" 电脑硬件
+    a.item data-tab="environment" 卫生
+    a.item data-tab="arrangement" 设施摆放
+    a.item data-tab="others" 其它情况
+  .ui.tab.active.top.attached data-tab="hardware"
+    = f.text_area :computer_status 
+  .ui.tab data-tab="environment"
     = f.text_area :garbage_status
-  .field
-    = f.label '电脑室设施摆放情况'
+  .ui.tab data-tab="arrangement"
     = f.text_area :place_status
-  .field
-    = f.label '所有其它情况说明'
+  .ui.tab data-tab="others"
     = f.text_area :desc
-  .actions = f.submit '保存', class: 'ui green  button'
+  p
+    .actions = f.submit '保存', class: 'ui green  button'
