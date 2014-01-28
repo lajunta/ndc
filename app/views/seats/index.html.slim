@@ -1,4 +1,4 @@
-h2 座位管理
+.ui.center.aligned.header 座位管理
 
 table.ui.table.segment
   thead
@@ -26,6 +26,6 @@ table.ui.table.segment
 
 br
 
-= link_to '新座位安排表', new_seat_path
+p = link_to '新座位安排表', new_seat_path , class: 'ui green button'
 
 == paginate @seats,:sstr=>params[:sstr]

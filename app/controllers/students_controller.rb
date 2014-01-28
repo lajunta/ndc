@@ -5,6 +5,14 @@ class StudentsController < ApplicationController
     logo_check("student") 
   end
 
+  before_action :check_student, only: [:edit,:update,:destroy]
+
+  def check_student
+    if @student.realname!=realname
+      redirect_to :back, flash: {error: "你不能操作别人的东西"}
+    end
+  end
+
   def search
     @students=Student.where(realname: /#{params[:sstr]}/).page  params[:page]
     render :index

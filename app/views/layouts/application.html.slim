@@ -1,43 +1,61 @@
 doctype html
 html
   head
-    title Ndc
+    title Next Digital Campus
     = stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true 
     = javascript_include_tag "application", "data-turbolinks-track" => true 
     = csrf_meta_tags 
   body
+    = render "shared/top_menu"
     .ui.page.grid
-      .ui.right.aligned.row
-        .column
-          - if login?
-            = link_to session[:login]+"_"+session[:realname],user_path(session[:user_id])
-            =' link_to '登出', logout_path
-          - else
-            =' link_to '登录', login_path
-      .ui.center.aligned.row
-        .column
-          h1 基础信息系统  
+      = render "shared/flash_box"
       .ui.row
         .thirteen.wide.column
           = yield
         .three.wide.column
           - if login?
             .ui.top.attached.header 管理面板
-            .ui.segment.attached
+            .ui.attached.segment
               .ui.list
-                .item = link_to '日志管理',crlogs_path
-                .item = link_to '帐号管理',users_path
-                .item = link_to '老师管理',teachers_path
-                .item = link_to '学生管理',students_path
-                .item = link_to '群组管理',groups_path
-                .item = link_to '课程管理',courses_path
-                .item = link_to '学期管理',semesters_path
-                .item = link_to '座位管理',seats_path
-                .item = link_to '上机安排',cr_schedules_path
-                .item = link_to '文章管理',pages_path
-                .item = link_to '站点管理',sites_path
-                .item = link_to '应用管理',apps_path
-                .item = link_to '授权管理',tokens_path
-javascript:
-  $('.ui.dropdown').dropdown();
-  $('.filter.menu .item').tab();
+                - if is_root? or is_teacher?
+                  .item 
+                    i.docs.basic.icon
+                    = link_to "日志管理",crlogs_path
+                  .item 
+                    i.grid.layout.icon
+                    = link_to '座位管理',seats_path
+                  .item 
+                    i.doc.basic.icon
+                    = link_to '文章管理',pages_path
+                - if is_root?
+                  .item 
+                    i.id.basic.icon
+                    = link_to "帐号管理",users_path
+                  .item 
+                    i.user.basic.icon
+                    = link_to '老师管理',teachers_path
+                  .item 
+                    i.user.basic.icon
+                    = link_to '学生管理',students_path
+                  .item 
+                    i.community.basic.icon
+                    = link_to '群组管理',groups_path
+                  .item 
+                    i.basic.book.icon
+                    = link_to '课程管理',courses_path
+                  .item 
+                    i.date.basic.icon
+                    = link_to '学期管理',semesters_path
+                  .item 
+                    i.calendar.icon
+                    = link_to '上机安排',cr_schedules_path
+                  .item 
+                    i.globe.basic.icon
+                    = link_to '站点管理',sites_path
+                  .item 
+                    i.key.icon
+                    = link_to '应用管理',apps_path
+                  .item
+                    i.legal.icon
+                    = link_to '授权管理',tokens_path
+    = render "shared/footer"

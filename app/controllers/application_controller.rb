@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
   before_action :pageit, only: [:type,:index,:search]
+  before_action :set_data
 
   def set_data
     @semesters=Semester.all.map{|s| s.full_name}
@@ -15,13 +16,13 @@ class ApplicationController < ActionController::Base
 
   def root_required
     unless is_root?
-      redirect_to root_path , notice: '身份不对'
+      redirect_to root_path , flash: {error: '身份不对'}
     end
   end
 
   def teacher_required
     unless is_teacher?
-      redirect_to root_path , notice: '你是老师吗?'
+      redirect_to root_path , flash: {error:  '身份不对'}
     end
   end
 
@@ -111,5 +112,5 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  helper_method :login?,:realname
+  helper_method :login?,:cu,:user_id,:realname,:is_root?, :is_teacher?
 end

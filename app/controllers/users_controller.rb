@@ -7,6 +7,14 @@ class UsersController < ApplicationController
     logo_check("user") 
   end
 
+  before_action :check_user, only: [:edit,:update,:destroy]
+
+  def check_user
+    unless is_root? or @user.realname==realname
+      redirect_to :back, flash: {error: "你不能操作别人的东西"}
+    end
+  end
+
 
   def set_type
     @type=["教师","学生"]

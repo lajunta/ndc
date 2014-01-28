@@ -5,6 +5,14 @@ class TeachersController < ApplicationController
     logo_check("teacher") 
   end
 
+  before_action :check_teacher, only: [:edit,:update,:destroy]
+
+  def check_teacher
+    if @teacher.realname!=realname
+      redirect_to :back, flash: {error: "你不能操作别人的东西"}
+    end
+  end
+
   # GET /teachers
   # GET /teachers.json
   def index

@@ -1,0 +1,8 @@
+.row
+  .three.wide.column
+  .ten.wide.column
+    - if flash[:error]
+      .ui.error.message = flash[:error] 
+    - if flash[:notice]
+      .ui.success.message = flash[:notice] 
+  .three.wide.column

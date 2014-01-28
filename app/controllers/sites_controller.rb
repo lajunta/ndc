@@ -2,6 +2,14 @@ class SitesController < ApplicationController
   before_action :root_required
   before_action :set_site, only: [:show, :edit, :update, :destroy]
 
+  before_action :check_uploader, only: [:edit,:update,:destroy]
+
+  def check_uploader
+    if @page.uploader!=realname
+      redirect_to :back, flash: {error: "你不能进行这个操作"}
+    end
+  end
+
   # GET /sites
   # GET /sites.json
   def index

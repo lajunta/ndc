@@ -6,6 +6,13 @@ class GroupsController < ApplicationController
     logo_check("group") 
   end
 
+  before_action :check_admin, only: [:edit,:update,:destroy]
+
+  def check_admin
+    if @group.admin!=realname
+      redirect_to :back, flash: {error: "你不能操作这个群组"}
+    end
+  end
   def search
     @groups=Group.where(name: /#{params[:sstr]}/).page  params[:page]
     render :index

@@ -1,0 +1,38 @@
+.ui.fixed.transparent.inverted.main.menu
+  .ui.page.grid
+    .item 
+      i.home.icon
+      =' link_to '电脑室管理',root_path
+    .ui.dropdown.item
+      |机房日志
+      i.dropdown.icon
+      .menu
+        .item 
+          = link_to "全部",crlogs_path
+        - @crooms.each do |cm|
+          .item 
+            =<>  link_to realname,crlogs_path(:croom=>cm,:loger=>realname)
+            =<>  link_to cm,crlogs_path(:croom=>cm)
+    .ui.dropdown.item
+      |机房介绍
+      i.dropdown.icon
+      .menu
+        .item 全部
+        - @crooms.each do |cm|
+          .item = cm
+    .ui.dropdown.item
+      |学生座位
+      i.dropdown.icon
+      .menu
+        - @crooms.each do |cm|
+          .item 
+            =<> link_to realname,seats_path(:croom=>cm,:tname=>realname)
+            =<> link_to cm,seats_path(croom: cm)
+    .right.menu
+      - if login?
+        = link_to cu+"("+realname+")",user_path(user_id) , class: 'item'
+        i.sign.out.icon 
+        =' link_to '登出', logout_path, class: 'item'
+      - else
+        i.sign.in.icon 
+        =' link_to '登录', login_path ,class: 'item'

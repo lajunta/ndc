@@ -1,22 +1,18 @@
 doctype html
 html
   head
-    title Ndc
+    title Next Digital Campus
     = stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true 
     = javascript_include_tag "application", "data-turbolinks-track" => true 
     = csrf_meta_tags 
   body
+    = render "shared/top_menu"
     .ui.page.grid
-      .ui.right.aligned.row
-        .column
-          - if login?
-            = link_to session[:login]+"_"+session[:realname],user_path(session[:user_id])
-            =' link_to '登出', logout_path
-          - else
-            =' link_to '登录', login_path
+      = render "shared/flash_box"
       .ui.center.aligned.row
         .ui.column
           h1 电脑室上机安排表
       .ui.row
         .ui.column
           div = sanitize(@cr_schedule.content)
+    = render "shared/footer"

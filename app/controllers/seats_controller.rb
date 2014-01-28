@@ -1,7 +1,12 @@
 class SeatsController < ApplicationController
   before_action :set_seat, only: [:show, :edit, :update, :destroy]
+  before_action :check_user, only: [:edit,:update,:destroy]
 
-  before_action :set_data, only: [:new, :edit]
+  def check_user
+    if @seat.tname!=realname
+      redirect_to :back, flash: {error: "你不能进行这个操作"}
+    end
+  end
 
   before_action :only=>["create","update"] do
     unless params[:seat_xls].blank?
@@ -27,7 +32,10 @@ class SeatsController < ApplicationController
   # GET /seats
   # GET /seats.json
   def index
-    @seats = Seat.all.page params[:page]
+    hsh={}
+    hsh[:croom]=params[:croom] if params[:croom]
+    hsh[:tname]=params[:tname] if params[:tname]
+    @seats = Seat.where(hsh).desc(:semester).asc(:croom).page params[:page]
   end
 
   # GET /seats/1

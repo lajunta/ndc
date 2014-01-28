@@ -1,7 +1,6 @@
 class CrSchedulesController < ApplicationController
   before_action :root_required
   before_action :set_cr_schedule, only: [:show, :edit, :update, :destroy]
-  before_action :set_data, only: [:new,:edit]
 
   # GET /cr_schedules
   # GET /cr_schedules.json

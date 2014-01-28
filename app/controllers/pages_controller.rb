@@ -1,6 +1,13 @@
 class PagesController < ApplicationController
-  before_action :root_required
+  before_action :teacher_required
   before_action :set_page, only: [:show, :edit, :update, :destroy]
+  before_action :check_owner, only: [:edit,:update,:destroy]
+
+  def check_user
+    if @page.owner!=realname
+      redirect_to :back, flash: {error: "你不能进行这个操作"}
+    end
+  end
 
   def search
     @pages=Page.where(title: /#{params[:sstr]}/).page  params[:page]

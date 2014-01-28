@@ -69,6 +69,8 @@ class TokensController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_token
       @token = Token.find(params[:id])
+      if @token.user_id!=user_id
+        redirect_to :back, flash: {error: '你不能进行这个操作'}
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

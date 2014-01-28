@@ -1,12 +1,31 @@
 class CrlogsController < ApplicationController
   before_action :teacher_required
   before_action :set_crlog, only: [:show, :edit, :update, :destroy]
-  before_action :set_data, only: [:new, :edit]
+  before_action :check_loger, only: [:edit,:update,:destroy]
+
+  def check_loger
+    if @crlog.loger!=realname
+      redirect_to :back, flash: {error: "你不能操作别人的东西"}
+    end
+  end
+
+  def search
+    hsh={}
+    @crlogs=Crlog.where(hsh).page  params[:page]
+    render :index
+  end
 
   # GET /crlogs
   # GET /crlogs.json
   def index
-    @crlogs = Crlog.all
+    hsh={}
+    hsh[:loger]=realname if params[:loger]
+    if params[:croom]
+      hsh[:croom]=params[:croom] 
+    else
+      params[:croom]="全部"
+    end
+    @crlogs = Crlog.where(hsh).desc(:created_at).page params[:page]
   end
 
   # GET /crlogs/1

@@ -27,7 +27,7 @@ module Ndc
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
     
-     config.action_view.sanitized_allowed_tags = 'table', 'thead','tbody','th','tr', 'td'
+     config.action_view.sanitized_allowed_tags = 'i','table', 'thead','tbody','th','tr', 'td'
      config.action_view.sanitized_allowed_attributes = 'id', 'class'
   end
 end
