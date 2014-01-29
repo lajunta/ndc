@@ -22,6 +22,7 @@ Ndc::Application.routes.draw do
   match "users/search"   => "users#search"  , :as => :search_users, :via=>[:get,:post]
   match "groups/search"  => "groups#search",  :as => :search_groups, :via=>[:get,:post]
   match "pages/search"   => "pages#search"  , :as => :search_pages, :via=>[:get,:post]
+  get "pages/name/:name"   => "pages#name"  , :as => :page_name
   match "courses/search" => "courses#search", :as => :search_courses, :via=>[:get,:post]
   match "apps/search" => "apps#search", :as => :search_apps, :via=>[:get,:post]
   match "semesters/search" => "semesters#search", :as => :search_semesters, :via=>[:get,:post]

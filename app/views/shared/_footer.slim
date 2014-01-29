@@ -2,11 +2,17 @@
   .ui.horizontal.icon.divider
     i.circular.heart.icon
   .footer
-    .ui.page.grid
-      .row
-        .column
-          .ui.bulleted.list
+    .ui.three.column.grid
+      .column
+        .ui.bulleted.list
+          .item = link_to "老师守则",page_name_path("老师守则")
+          .item = link_to "学生守则",page_name_path("学生守则")
+          .item = link_to "管理员守则",page_name_path("管理员守则")
+      .column
+        .ui.bulleted.list
+          .item = link_to "机房介绍",page_name_path("机房介绍")
 
 javascript:
   $('.ui.dropdown').dropdown();
+  $('.ui.checkbox').checkbox();
   $('.filter.menu .item').tab();

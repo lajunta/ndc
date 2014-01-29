@@ -1,4 +1,37 @@
-.ui.center.aligned.header 座位管理
+h2 座位管理
+= form_tag seats_path , class: 'ui form' do
+  .inline.field
+    .ui.selection.dropdown
+      input type='hidden' name='semester'  
+        .default.text 学期
+        i.dropdown.icon
+        .menu
+          - @semesters.each do |sm|
+            .item data-value="#{sm}" #{sm}
+    .ui.selection.dropdown
+      input type='hidden' name='banji' 
+        .default.text 班级
+        i.dropdown.icon
+        .menu
+          - @banjis.each do |banji|
+            .item data-value="#{banji}" #{banji}
+    .ui.selection.dropdown
+      input type='hidden' name='course_name' 
+        .default.text 课程名称
+        i.dropdown.icon
+        .menu
+          - @courses.each do |course|
+            .item data-value="#{course}" #{course}
+    .ui.selection.dropdown
+      input type='hidden' name='croom' 
+        .default.text 电脑室
+        i.dropdown.icon
+        .menu
+          - @crooms.each do |cm|
+            .item data-value="#{cm}" #{cm}
+    =' text_field_tag :tname,realname
+
+    =' submit_tag '搜索', class: 'ui green button'
 
 table.ui.table.segment
   thead

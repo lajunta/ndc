@@ -29,6 +29,17 @@ class SeatsController < ApplicationController
     @courses=Course.all.map{|c| c.name}
   end
 
+  def search
+    hsh={}
+    hsh[:croom] = params[:croom] unless params[:croom].blank?
+    hsh[:banji] = params[:banji] unless params[:banji].blank?
+    hsh[:course_name] = params[:course_name] unless params[:course_name].blank?
+    hsh[:semester] = params[:semester] unless params[:semester].blank?
+    hsh[:tname] = params[:tname] unless params[:tname].blank?
+    @seats=Seat.where(hsh).page  params[:page]
+    render :index
+  end
+
   # GET /seats
   # GET /seats.json
   def index

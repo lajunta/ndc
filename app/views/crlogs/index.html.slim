@@ -1,9 +1,40 @@
-h2 #{params[:loger]}_#{params[:croom]}_电脑室使用日志
+h2 电脑室使用日志
 
 = form_tag search_crlogs_path , class: 'ui form' do
   .inline.field
-    = text_field_tag "sstr",nil,size: 20, placeholder: '查找'
-    = submit_tag '搜索', class: 'ui green button'
+    .ui.selection.dropdown
+      input type='hidden' name='croom'  
+        .default.text 电脑室 
+        i.dropdown.icon
+        .menu
+          - @crooms.each do |cm|
+            .item data-value="#{cm}" #{cm}
+    .ui.selection.dropdown
+      input type='hidden' name='banji' 
+        .default.text 班级
+        i.dropdown.icon
+        .menu
+          - @banjis.each do |banji|
+            .item data-value="#{banji}" #{banji}
+    = text_field_tag :use_date ,nil, placeholder: Time.now.strftime("%Y-%m-%d")
+    .ui.selection.dropdown
+      input type='hidden' name='course_name' 
+        .default.text 课程名称
+        i.dropdown.icon
+        .menu
+          - @courses.each do |course|
+            .item data-value="#{course}" #{course}
+    .ui.selection.dropdown
+      input type='hidden' name='jiece' 
+        .default.text 节次
+        i.dropdown.icon
+        .menu
+          - @jieces.each do |jc|
+            .item data-value="#{jc}" #{jc}
+    = text_field_tag :loger ,realname
+
+    =' submit_tag '搜索', class: 'ui green button'
+
 table.ui.table.segment
   thead
     th 

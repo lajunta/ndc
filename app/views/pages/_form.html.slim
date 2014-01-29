@@ -13,6 +13,9 @@
     = f.label '内容'
     = f.text_area :body
   .field
+    = f.label '网页名称'
+    = f.text_field :name
+  .field
     = f.label '标签'
     = f.text_field :tags
   .actions = f.submit '保存' ,class: 'ui green button'

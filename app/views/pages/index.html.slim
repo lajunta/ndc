@@ -17,7 +17,7 @@ table.ui.table.segment
   - @pages.each do |page|
     tr
       td = @num+=1
-      td = page.title
+      td = link_to page.title,page
       td = page.author
       td = page.tags
       td = link_to '查看', page

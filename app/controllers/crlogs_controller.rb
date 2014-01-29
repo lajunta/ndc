@@ -11,6 +11,12 @@ class CrlogsController < ApplicationController
 
   def search
     hsh={}
+    hsh[:croom] = params[:croom] unless params[:croom].blank?
+    hsh[:banji] = params[:banji] unless params[:banji].blank?
+    hsh[:course_name] = params[:course_name] unless params[:course_name].blank?
+    hsh[:jiece] = params[:jiece] unless params[:jiece].blank?
+    hsh[:use_date] = params[:use_date] unless params[:use_date].blank?
+    hsh[:loger] = params[:loger] unless params[:loger].blank?
     @crlogs=Crlog.where(hsh).page  params[:page]
     render :index
   end
@@ -18,14 +24,7 @@ class CrlogsController < ApplicationController
   # GET /crlogs
   # GET /crlogs.json
   def index
-    hsh={}
-    hsh[:loger]=realname if params[:loger]
-    if params[:croom]
-      hsh[:croom]=params[:croom] 
-    else
-      params[:croom]="全部"
-    end
-    @crlogs = Crlog.where(hsh).desc(:created_at).page params[:page]
+    @crlogs = Crlog.all.desc(:created_at).page params[:page]
   end
 
   # GET /crlogs/1

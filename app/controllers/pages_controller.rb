@@ -3,9 +3,22 @@ class PagesController < ApplicationController
   before_action :set_page, only: [:show, :edit, :update, :destroy]
   before_action :check_owner, only: [:edit,:update,:destroy]
 
-  def check_user
-    if @page.owner!=realname
+  def check_owner
+    if @page.author!=realname
       redirect_to :back, flash: {error: "你不能进行这个操作"}
+    end
+  end
+
+  def name
+    if params[:name].blank?
+      redirect_to :back, flash: {error: "名字在哪里？"}
+    else
+      @page=Page.where(name: params[:name]).first
+      if @page
+        render :show ,layout: "nobody"
+      else
+        redirect_to :back, flash: {error: "没有这篇文章"}
+      end
     end
   end
 
@@ -82,6 +95,7 @@ class PagesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def page_params
-      params.require(:page).permit(:title, :body, :owner, :tags)
+      params[:page][:author]||=realname
+      params.require(:page).permit(:title, :body, :author, :tags, :name)
     end
 end
