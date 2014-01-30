@@ -1,10 +1,5 @@
 Ndc::Application.routes.draw do
 
-  resources :cr_schedules
-
-  resources :crlogs
-
-  resources :seats
 
   get "oauth/authorize"=>"auth#authorize"       ,as: :authorize
   post "oauth/authorizeit"=>"auth#authorizeit"  ,as: :authorizeit
@@ -27,6 +22,7 @@ Ndc::Application.routes.draw do
   match "apps/search" => "apps#search", :as => :search_apps, :via=>[:get,:post]
   match "semesters/search" => "semesters#search", :as => :search_semesters, :via=>[:get,:post]
   match "crlogs/search" => "crlogs#search", :as => :search_crlogs, :via=>[:get,:post]
+  post "crlog/reply" => "crlogs#reply", :as => :crlog_reply
   match "teachers/search" => "teachers#search", :as => :search_teachers, :via=>[:get,:post]
   match "students/search" => "students#search", :as => :search_students, :via=>[:get,:post]
   match "students/upload" => "students#upload", :as => :upload_students, :via=>[:get,:post]
@@ -41,6 +37,9 @@ Ndc::Application.routes.draw do
   resources :courses
   resources :semesters
   resources :groups
+  resources :cr_schedules
+  resources :crlogs
+  resources :seats
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

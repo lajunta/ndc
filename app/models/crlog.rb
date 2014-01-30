@@ -13,4 +13,6 @@ class Crlog
   field :loger, type: String
   field :closed_by, type: String
   field :desc, type: String
+  embeds_many :crlog_replys
 end
+

@@ -9,6 +9,13 @@ class CrlogsController < ApplicationController
     end
   end
 
+
+  def reply
+    @crlog = Crlog.find(params[:crlog_id])
+    @crlog_reply=@crlog.crlog_replys.create(reply: params[:reply],replyer: realname)
+    @crlog.save
+  end
+
   def search
     hsh={}
     hsh[:croom] = params[:croom] unless params[:croom].blank?
@@ -17,7 +24,7 @@ class CrlogsController < ApplicationController
     hsh[:jiece] = params[:jiece] unless params[:jiece].blank?
     hsh[:use_date] = params[:use_date] unless params[:use_date].blank?
     hsh[:loger] = params[:loger] unless params[:loger].blank?
-    @crlogs=Crlog.where(hsh).page  params[:page]
+    @crlogs=Crlog.where(hsh).desc("created_at").page  params[:page]
     render :index
   end
 
@@ -49,7 +56,7 @@ class CrlogsController < ApplicationController
 
     respond_to do |format|
       if @crlog.save
-        format.html { redirect_to @crlog, notice: 'Crlog was successfully created.' }
+        format.html { redirect_to @crlog, notice: '日志已经成功创建' }
         format.json { render action: 'show', status: :created, location: @crlog }
       else
         format.html { render action: 'new' }
