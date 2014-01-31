@@ -1,5 +1,5 @@
 class TokensController < ApplicationController
-  before_action :login_required
+  before_action :root_required
   before_action :set_token, only: [:update, :destroy]
 
   before_action :check_auth, only: [:create]
@@ -71,6 +71,7 @@ class TokensController < ApplicationController
       @token = Token.find(params[:id])
       if @token.user_id!=user_id
         redirect_to :back, flash: {error: '你不能进行这个操作'}
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

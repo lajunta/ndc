@@ -3,48 +3,50 @@
     .item 
       i.home.icon
       =' link_to '电脑室管理',root_path
-    .ui.item
-      =' link_to "机房日志",crlogs_path
-    .ui.item
-      =' link_to "学生座位",seats_path
+    - if is_teacher?
+      .ui.item
+        =' link_to "机房日志",crlogs_path
+      .ui.item
+        =' link_to "学生座位",seats_path
       
-    .ui.dropdown.item
-      |管理面板
-      i.dropdown.icon
-      .menu
-        .item 
-          i.doc.basic.icon
-          = link_to '文章管理',pages_path
-        .item 
-          i.id.basic.icon
-          = link_to "帐号管理",users_path
-        .item 
-          i.user.basic.icon
-          = link_to '老师管理',teachers_path
-        .item 
-          i.user.basic.icon
-          = link_to '学生管理',students_path
-        .item 
-          i.community.basic.icon
-          = link_to '群组管理',groups_path
-        .item 
-          i.basic.book.icon
-          = link_to '课程管理',courses_path
-        .item 
-          i.date.basic.icon
-          = link_to '学期管理',semesters_path
-        .item 
-          i.calendar.icon
-          = link_to '上机安排',cr_schedules_path
-        .item 
-          i.globe.basic.icon
-          = link_to '站点管理',sites_path
-        .item 
-          i.key.icon
-          = link_to '应用管理',apps_path
-        .item
-          i.legal.icon
-          = link_to '授权管理',tokens_path
+    - if is_root?
+      .ui.dropdown.item
+        |管理面板
+        i.dropdown.icon
+        .menu
+          .item 
+            i.doc.basic.icon
+            = link_to '文章管理',pages_path
+          .item 
+            i.id.basic.icon
+            = link_to "帐号管理",users_path
+          .item 
+            i.user.basic.icon
+            = link_to '老师管理',teachers_path
+          .item 
+            i.user.basic.icon
+            = link_to '学生管理',students_path
+          .item 
+            i.community.basic.icon
+            = link_to '群组管理',groups_path
+          .item 
+            i.basic.book.icon
+            = link_to '课程管理',courses_path
+          .item 
+            i.date.basic.icon
+            = link_to '学期管理',semesters_path
+          .item 
+            i.calendar.icon
+            = link_to '上机安排',cr_schedules_path
+          .item 
+            i.globe.basic.icon
+            = link_to '站点管理',sites_path
+          .item 
+            i.key.icon
+            = link_to '应用管理',apps_path
+          .item
+            i.legal.icon
+            = link_to '授权管理',tokens_path
     .right.menu
       - if login?
         = link_to cu+"("+realname+")",user_path(user_id) , class: 'item'

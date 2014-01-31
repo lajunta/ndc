@@ -1,12 +1,8 @@
 class SeatsController < ApplicationController
+  before_action :teacher_required
   before_action :set_seat, only: [:show, :edit, :update, :destroy]
   before_action :check_user, only: [:edit,:update,:destroy]
 
-  def check_user
-    if @seat.tname!=realname
-      redirect_to :back, flash: {error: "你不能进行这个操作"}
-    end
-  end
 
   before_action :only=>["create","update"] do
     unless params[:seat_xls].blank?
@@ -19,6 +15,12 @@ class SeatsController < ApplicationController
         hsh[row[0].to_i]=row[1]
       end
       params[:seat][:arrangement]=Marshal.dump(hsh)     
+    end
+  end
+
+  def check_user
+    if @seat.tname!=realname
+      redirect_to root_path, flash: {error: "你不能进行这个操作"}
     end
   end
 
@@ -43,10 +45,11 @@ class SeatsController < ApplicationController
   # GET /seats
   # GET /seats.json
   def index
-    hsh={}
-    hsh[:croom]=params[:croom] if params[:croom]
-    hsh[:tname]=params[:tname] if params[:tname]
-    @seats = Seat.where(hsh).desc(:semester).asc(:croom).page params[:page]
+    if is_root?
+      @seats = Seat.all.desc(:semester).asc(:croom).page params[:page]
+    else
+      @seats = Seat.where(tname: realname).desc(:semester).asc(:croom).page params[:page]
+    end
   end
 
   # GET /seats/1
@@ -71,7 +74,7 @@ class SeatsController < ApplicationController
 
     respond_to do |format|
       if @seat.save
-        format.html { redirect_to @seat, notice: 'Seat was successfully created.' }
+        format.html { redirect_to @seat, notice: '上机座位表创建成功.' }
         format.json { render action: 'show', status: :created, location: @seat }
       else
         format.html { render action: 'new' }
@@ -85,7 +88,7 @@ class SeatsController < ApplicationController
   def update
     respond_to do |format|
       if @seat.update(seat_params)
-        format.html { redirect_to @seat, notice: 'Seat was successfully updated.' }
+        format.html { redirect_to @seat, notice: '上机座位表更新成功' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }

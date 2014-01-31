@@ -9,8 +9,8 @@ table.ui.table.segment
     th
     th 标题
     th 作者
+    th 日期
     th 标签
-    th
     th
     th
 
@@ -19,8 +19,8 @@ table.ui.table.segment
       td = @num+=1
       td = link_to page.title,page
       td = page.author
+      td = page.created_at.to_fmt1
       td = page.tags
-      td = link_to '查看', page
       td = link_to '编辑', edit_page_path(page)
       td = link_to '删除', page, data: {:confirm => 'Are you sure?'}, :method => :delete
 

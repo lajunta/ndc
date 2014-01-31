@@ -1,10 +1,10 @@
 class PagesController < ApplicationController
-  before_action :teacher_required
+  before_action :teacher_required, except: [:show,:name]
   before_action :set_page, only: [:show, :edit, :update, :destroy]
   before_action :check_owner, only: [:edit,:update,:destroy]
 
   def check_owner
-    if @page.author!=realname
+    unless @page.author!=realname or is_root?
       redirect_to :back, flash: {error: "你不能进行这个操作"}
     end
   end
@@ -15,7 +15,7 @@ class PagesController < ApplicationController
     else
       @page=Page.where(name: params[:name]).first
       if @page
-        render :show ,layout: "nobody"
+        render :show
       else
         redirect_to :back, flash: {error: "没有这篇文章"}
       end
@@ -23,14 +23,23 @@ class PagesController < ApplicationController
   end
 
   def search
-    @pages=Page.where(title: /#{params[:sstr]}/).page  params[:page]
+    #only root can search all page
+    if is_root?
+      @pages=Page.where(title: /#{params[:sstr]}/).desc(:created_at).page  params[:page]
+    else
+      @pages=Page.where(author: realname, title: /#{params[:sstr]}/).desc(:created_at).page  params[:page]
+    end
     render :index
   end
 
   # GET /pages
   # GET /pages.json
   def index
-    @pages = Page.all.page params[:page]
+    if is_root?
+      @pages = Page.all.desc(:created_at).page params[:page]
+    else
+      @pages = Page.where(author: realname).desc(:created_at).page params[:page]
+    end
   end
 
   # GET /pages/1
@@ -54,7 +63,7 @@ class PagesController < ApplicationController
 
     respond_to do |format|
       if @page.save
-        format.html { redirect_to @page, notice: 'Page was successfully created.' }
+        format.html { redirect_to @page, notice: '文章创建成功' }
         format.json { render action: 'show', status: :created, location: @page }
       else
         format.html { render action: 'new' }
@@ -68,7 +77,7 @@ class PagesController < ApplicationController
   def update
     respond_to do |format|
       if @page.update(page_params)
-        format.html { redirect_to @page, notice: 'Page was successfully updated.' }
+        format.html { redirect_to @page, notice: '文章更新成功' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }

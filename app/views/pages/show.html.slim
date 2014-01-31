@@ -1,14 +1,7 @@
-p#notice = notice
+.ui.header  = @page.title
+p = @page.author
+.ui.label = @page.tags
 
-p
-  = @page.title
-p
-  = @page.author
-p
-  strong 标签:
-  = @page.tags
-p
-  = @page.body
-p
-  = @page.name unless @page.name.blank?
+p = @page.name unless @page.name.blank?
 
+div = @page.body

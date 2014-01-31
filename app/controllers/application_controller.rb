@@ -27,7 +27,7 @@ class ApplicationController < ActionController::Base
   end
 
   def is_teacher?
-    session[:user_type]=='教师'
+    session[:user_type]=='教师' or is_root?
   end
 
   def login_required

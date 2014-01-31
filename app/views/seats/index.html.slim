@@ -1,5 +1,5 @@
-h2 座位管理
-= form_tag seats_path , class: 'ui form' do
+.ui.header 电脑室座位管理
+= form_tag search_seats_path , class: 'ui form' do
   .inline.field
     .ui.selection.dropdown
       input type='hidden' name='semester'  
@@ -37,10 +37,10 @@ table.ui.table.segment
   thead
     th
     th 学期
-    th 老师名
     th 班级
     th 电脑室
     th 课程名称
+    th 老师名
     th
     th
     th
@@ -49,13 +49,14 @@ table.ui.table.segment
     tr
       td = @num+=1
       td = seat.semester
-      td = seat.tname
       td = seat.banji
       td = seat.croom
       td = seat.course_name
-      td = link_to 'Show', seat
-      td = link_to 'Edit', edit_seat_path(seat)
-      td = link_to 'Destroy', seat, data: {:confirm => 'Are you sure?'}, :method => :delete
+      td = seat.tname
+      td =<> link_to '查看', seat , class: "ui mini button"
+      - if seat.tname==realname
+        td =<> link_to '编辑', edit_seat_path(seat) , class: "ui mini button"
+        td =<> link_to '删除', seat, data: {:confirm => '真的要删除吗?'}, :method => :delete, class: "ui mini red button"
 
 br
 

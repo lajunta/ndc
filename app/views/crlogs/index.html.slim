@@ -1,4 +1,4 @@
-h2 电脑室使用日志
+.ui.header 电脑室使用日志
 
 = form_tag search_crlogs_path , class: 'ui form' do
   .inline.field
@@ -57,7 +57,8 @@ table.ui.table.segment
       td = @num+=1
       td 
         - if crlog.crlog_replys
-          .ui.green.circular.label = crlog.crlog_replys.count
+          .ui.green.circular.label 
+            = link_to crlog.crlog_replys.count , crlog , class: 'noline'
         - else
           .ui.red.circular.label 0
       td = crlog.use_date
@@ -86,8 +87,9 @@ table.ui.table.segment
       td = crlog.status
       td = crlog.loger
       td = link_to '详细', crlog, class: 'ui mini button'
-      td = link_to '编辑', edit_crlog_path(crlog) if crlog.loger==realname
-      td = link_to '删除', crlog, data: {:confirm => 'Are you sure?'}, :method => :delete if crlog.loger==realname
+      - if is_root?
+        td = link_to '编辑', edit_crlog_path(crlog) if crlog.loger==realname
+        td = link_to '删除', crlog, data: {:confirm => 'Are you sure?'}, :method => :delete if crlog.loger==realname
 
 p
   = link_to '新日志', new_crlog_path , class: 'ui green button'

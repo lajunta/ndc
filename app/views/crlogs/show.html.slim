@@ -1,10 +1,13 @@
 
 .ui.header
-  = link_to raw("<i class='ui left arrow icon'></i>"), crlogs_path
+  = link_to raw("<i class='ui left arrow icon'></i>"), crlogs_path,class: "noline"
   = @crlog.use_date+" "
   = @crlog.jiece+"节"
   = @crlog.croom+"室"
+  = @crlog.banji+"班"
+  = @crlog.course_name
   |使用情况登记
+.ui.divider
 .ui.grid
   .two.wide.column
     = @crlog.loger
@@ -31,7 +34,9 @@
         = reply.replyer
       .fourteen.wide.column
         .ui.top.attached.message
-          = reply.replyer + " "+  reply.created_at.to_fmt1+"回复"
+          = reply.replyer + " "+  reply.created_at.to_fmt1+" 回复"
+          - if reply.replyer==realname
+            =<> link_to "删除",@crlog, class: "ui red mini button"
         .ui.attached.segment
           = reply.reply
 .ui.divider

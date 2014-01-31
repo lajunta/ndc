@@ -1,5 +1,6 @@
 class CrlogsController < ApplicationController
   before_action :teacher_required
+  before_action :root_required, only: [:edit,:update,:destroy]
   before_action :set_crlog, only: [:show, :edit, :update, :destroy]
   before_action :check_loger, only: [:edit,:update,:destroy]
 
@@ -13,7 +14,11 @@ class CrlogsController < ApplicationController
   def reply
     @crlog = Crlog.find(params[:crlog_id])
     @crlog_reply=@crlog.crlog_replys.create(reply: params[:reply],replyer: realname)
-    @crlog.save
+    if @crlog.save
+      redirect_to :back , notice: "回复成功"
+    else
+      redirect_to :back , flash: {error: "回复成功"}
+    end
   end
 
   def search
@@ -23,7 +28,7 @@ class CrlogsController < ApplicationController
     hsh[:course_name] = params[:course_name] unless params[:course_name].blank?
     hsh[:jiece] = params[:jiece] unless params[:jiece].blank?
     hsh[:use_date] = params[:use_date] unless params[:use_date].blank?
-    hsh[:loger] = params[:loger] unless params[:loger].blank?
+    hsh[:loger] = /#{params[:loger]}/ unless params[:loger].blank?
     @crlogs=Crlog.where(hsh).desc("created_at").page  params[:page]
     render :index
   end
@@ -31,7 +36,7 @@ class CrlogsController < ApplicationController
   # GET /crlogs
   # GET /crlogs.json
   def index
-    @crlogs = Crlog.all.desc(:created_at).page params[:page]
+    @crlogs = Crlog.where(loger: realname).desc(:created_at).page params[:page]
   end
 
   # GET /crlogs/1

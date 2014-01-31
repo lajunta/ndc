@@ -27,6 +27,8 @@ Ndc::Application.routes.draw do
   match "students/search" => "students#search", :as => :search_students, :via=>[:get,:post]
   match "students/upload" => "students#upload", :as => :upload_students, :via=>[:get,:post]
 
+  match "seats/search" => "seats#search", :as => :search_seats, :via=>[:get,:post]
+
   resources :students
   resources :teachers
   resources :tokens
