@@ -22,6 +22,7 @@ class AuthController < ApplicationController
   def logout
     session[:login]=nil
     session[:realname]=nil
+    session[:user_type]=nil
     session[:user_id]=nil
     redirect_to root_path ,notice: "你已经登出"
   end

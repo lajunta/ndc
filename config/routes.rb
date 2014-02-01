@@ -23,6 +23,7 @@ Ndc::Application.routes.draw do
   match "semesters/search" => "semesters#search", :as => :search_semesters, :via=>[:get,:post]
   match "crlogs/search" => "crlogs#search", :as => :search_crlogs, :via=>[:get,:post]
   post "crlog/reply" => "crlogs#reply", :as => :crlog_reply
+  get "crlog/remove_reply/:id/:reply_id" =>"crlogs#remove_reply", :as=>:remove_reply
   match "teachers/search" => "teachers#search", :as => :search_teachers, :via=>[:get,:post]
   match "students/search" => "students#search", :as => :search_students, :via=>[:get,:post]
   match "students/upload" => "students#upload", :as => :upload_students, :via=>[:get,:post]

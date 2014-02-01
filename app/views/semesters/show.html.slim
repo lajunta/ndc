@@ -8,10 +8,10 @@ p
   = @semester.short_name
 p
   strong Started at:
-  = @semester.started_at
+  = @semester.started_on
 p
   strong Ended at:
-  = @semester.ended_at
+  = @semester.ended_on
 
 = link_to 'Edit', edit_semester_path(@semester)
 '|

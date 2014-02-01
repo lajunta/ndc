@@ -10,7 +10,7 @@ class SemestersController < ApplicationController
   # GET /semesters
   # GET /semesters.json
   def index
-    @semesters = Semester.all.page params[:page]
+    @semesters = Semester.all.desc(:full_name).page params[:page]
   end
 
   # GET /semesters/1
@@ -75,6 +75,6 @@ class SemestersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def semester_params
-      params.require(:semester).permit(:full_name, :short_name, :started_at, :ended_at)
+      params.require(:semester).permit(:full_name, :short_name, :started_on, :ended_on)
     end
 end

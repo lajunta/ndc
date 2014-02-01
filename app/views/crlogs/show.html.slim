@@ -1,7 +1,6 @@
-
 .ui.header
   = link_to raw("<i class='ui left arrow icon'></i>"), crlogs_path,class: "noline"
-  = @crlog.use_date+" "
+  = @crlog.use_date.strftime("%Y-%m-%d")+ " "
   = @crlog.jiece+"节"
   = @crlog.croom+"室"
   = @crlog.banji+"班"
@@ -13,7 +12,7 @@
     = @crlog.loger
   .fourteen.wide.column
     .ui.top.attached.message
-      = @crlog.loger + "于"+@crlog.created_at.to_fmt1+"记录"
+      = @crlog.loger + " "+@crlog.created_at.to_fmt1+" 记录"
     .ui.attached.segment
       - unless @crlog.computer_status.blank?
         p: strong 电脑硬件状况:
@@ -36,7 +35,7 @@
         .ui.top.attached.message
           = reply.replyer + " "+  reply.created_at.to_fmt1+" 回复"
           - if reply.replyer==realname
-            =<> link_to "删除",@crlog, class: "ui red mini button"
+            =<> link_to "删除",remove_reply_path(@crlog,reply), class: "ui red mini button"
         .ui.attached.segment
           = reply.reply
 .ui.divider

@@ -1,0 +1,95 @@
+.ui.header 电脑室使用日志
+
+= form_tag search_crlogs_path , class: 'ui form' do
+  .inline.field
+    .ui.selection.dropdown
+      input type='hidden' name='croom'  
+        .default.text 电脑室 
+        i.dropdown.icon
+        .menu
+          - @crooms.each do |cm|
+            .item data-value="#{cm}" #{cm}
+    .ui.selection.dropdown
+      input type='hidden' name='banji' 
+        .default.text 班级
+        i.dropdown.icon
+        .menu
+          - @banjis.each do |banji|
+            .item data-value="#{banji}" #{banji}
+    = text_field_tag :use_date ,nil, placeholder: Time.now.strftime("%Y-%m-%d")
+    .ui.selection.dropdown
+      input type='hidden' name='course_name' 
+        .default.text 课程名称
+        i.dropdown.icon
+        .menu
+          - @courses.each do |course|
+            .item data-value="#{course}" #{course}
+    .ui.selection.dropdown
+      input type='hidden' name='jiece' 
+        .default.text 节次
+        i.dropdown.icon
+        .menu
+          - @jieces.each do |jc|
+            .item data-value="#{jc}" #{jc}
+    =<> text_field_tag :loger ,realname
+
+    =<> submit_tag '搜索', class: 'ui green button'
+
+table.ui.table.segment
+  thead
+    th 
+    th 回复
+    th 使用日期
+    th 电脑室
+    th 节次
+    th 硬件
+    th 卫生
+    th 摆放
+    th 本次 
+    th 状态
+    th 登记人
+    th
+    th
+    th
+
+  - @crlogs.each do |crlog|
+    tr
+      td = @num+=1
+      td 
+        - if crlog.crlog_replys
+          .ui.green.circular.label 
+            = link_to crlog.crlog_replys.count , crlog , class: 'noline'
+        - else
+          .ui.red.circular.label 0
+      td = crlog.use_date
+      td = crlog.croom
+      td = crlog.jiece
+      td 
+        - unless crlog.computer_status.blank?
+          .ui.red.circular.label
+        - else
+          .ui.green.circular.label
+      td 
+        - unless crlog.garbage_status.blank?
+          .ui.red.circular.label
+        - else
+          .ui.green.circular.label
+      td 
+        - unless crlog.place_status.blank?
+          .ui.red.circular.label
+        - else
+          .ui.green.circular.label
+      td 
+        - unless crlog.desc.blank?
+          .ui.red.circular.label
+        - else
+          .ui.green.circular.label
+      td = crlog.status
+      td = crlog.loger
+      td = link_to '详细', crlog, class: 'ui mini button'
+      - if is_root?
+        td = link_to '编辑', edit_crlog_path(crlog),class: "ui mini button" if crlog.loger==realname
+        td = link_to '删除', crlog, class: "ui mini button", data: {:confirm => 'Are you sure?'}, :method => :delete if crlog.loger==realname
+
+p
+  = link_to '新日志', new_crlog_path , class: 'ui green button'

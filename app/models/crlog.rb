@@ -1,9 +1,10 @@
 class Crlog
   include Mongoid::Document
   include Mongoid::Timestamps
+  field :semester, type: String
   field :croom, type: String
   field :banji, type: String
-  field :use_date, type: String
+  field :use_date, type: Date
   field :course_name, type: String
   field :jiece, type: String
   field :computer_status, type: String

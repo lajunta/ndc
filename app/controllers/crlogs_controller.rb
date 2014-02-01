@@ -10,6 +10,15 @@ class CrlogsController < ApplicationController
     end
   end
 
+  def remove_reply
+    @crlog = Crlog.find(params[:id])
+    reply=@crlog.crlog_replys.find(params[:reply_id])
+    if @crlog.crlog_replys.delete(reply)
+      redirect_to :back, flash: {notice: "回复删除成功"}
+    else
+      redirect_to :back, flash: {error: "回复删除失败"}
+    end
+  end
 
   def reply
     @crlog = Crlog.find(params[:crlog_id])
@@ -36,7 +45,14 @@ class CrlogsController < ApplicationController
   # GET /crlogs
   # GET /crlogs.json
   def index
-    @crlogs = Crlog.where(loger: realname).desc(:created_at).page params[:page]
+    hsh={}
+    hsh[:loger]=realname unless params[:loger].blank?
+    params[:week] ||=current_week
+    params[:week]=1 if params[:week].to_i<=0
+    sm_name=params[:semester] || current_semester.full_name
+    @semester=Semester.where(full_name: sm_name).first
+    @begin_on,@end_on = week_range(@semester,params[:week])
+    @crlogs = Crlog.where(hsh).gte(use_date: @begin_on).lte(use_date: @end_on)
   end
 
   # GET /crlogs/1
@@ -75,7 +91,7 @@ class CrlogsController < ApplicationController
   def update
     respond_to do |format|
       if @crlog.update(crlog_params)
-        format.html { redirect_to @crlog, notice: 'Crlog was successfully updated.' }
+        format.html { redirect_to @crlog, notice: '日志更新成功' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -103,6 +119,7 @@ class CrlogsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def crlog_params
       params[:crlog][:loger]=realname
-      params.require(:crlog).permit(:croom, :banji, :use_date, :course_name, :jiece, :computer_status, :garbage_status, :place_status, :status, :loger,  :desc)
+      params[:crlog][:semester]=current_semester.full_name
+      params.require(:crlog).permit(:croom, :semester, :banji, :use_date, :course_name, :jiece, :computer_status, :garbage_status, :place_status, :status, :loger,  :desc)
     end
 end

@@ -20,8 +20,8 @@ table.ui.table.segment
       td = @num+=1
       td = semester.full_name
       td = semester.short_name
-      td = semester.started_at
-      td = semester.ended_at
+      td = semester.started_on
+      td = semester.ended_on
       td = link_to '查看', semester
       td = link_to '编辑', edit_semester_path(semester)
       td = link_to '删除', semester, data: {:confirm => 'Are you sure?'}, :method => :delete

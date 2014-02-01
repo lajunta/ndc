@@ -5,7 +5,7 @@
       =' link_to '电脑室管理',root_path
     - if is_teacher?
       .ui.item
-        =' link_to "机房日志",crlogs_path
+        =' link_to "机房日志",crlogs_path(anchor: "/C301")
       .ui.item
         =' link_to "学生座位",seats_path
       

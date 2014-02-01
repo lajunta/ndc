@@ -14,6 +14,28 @@ class ApplicationController < ActionController::Base
     @jieces=['1-2','3-4','5-6']
   end
 
+  def current_week
+    @semester=Semester.gte(ended_on: Date.today).lte(started_on: Date.today).first
+    if @semester
+      ((Date.today.end_of_week-@semester.started_on+1).to_i)/7
+    else
+      0
+    end
+  end
+ 
+  def week_range(semester,num) 
+    if semester
+      begin_on = semester.started_on+((num.to_i-1)*7).days
+      end_on = semester.ended_on+(num.to_i*7).days
+      return begin_on,end_on
+    end
+  end
+
+  def current_semester
+    @semester=Semester.gte(ended_on: Date.today).lte(started_on: Date.today).first
+    @semester or nil 
+  end
+
   def root_required
     unless is_root?
       redirect_to root_path , flash: {error: '身份不对'}
@@ -112,5 +134,5 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  helper_method :login?,:cu,:user_id,:realname,:is_root?, :is_teacher?
+  helper_method :login?,:cu,:user_id,:realname,:is_root?, :is_teacher?,:current_week,:current_semester
 end

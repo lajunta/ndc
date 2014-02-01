@@ -1,95 +1,109 @@
-.ui.header 电脑室使用日志
+.ui.header #{@semester.full_name}第(#{params[:week]})周电脑室使用日志
 
-= form_tag search_crlogs_path , class: 'ui form' do
+= form_tag crlogs_path ,method: "get", class: 'ui form' do
   .inline.field
     .ui.selection.dropdown
-      input type='hidden' name='croom'  
-        .default.text 电脑室 
+      - if current_semester
+        - sm = current_semester.full_name
+      - else
+        - sm = ""
+      input type='hidden' name='semester' value=sm
+        .default.text 学期 
         i.dropdown.icon
         .menu
-          - @crooms.each do |cm|
-            .item data-value="#{cm}" #{cm}
+          - @semesters.each do |sm|
+            .item data-value="#{sm}" #{sm}
     .ui.selection.dropdown
-      input type='hidden' name='banji' 
-        .default.text 班级
+      input type='hidden' name='week' value=current_week 
+        .default.text 教学周 
         i.dropdown.icon
         .menu
-          - @banjis.each do |banji|
-            .item data-value="#{banji}" #{banji}
-    = text_field_tag :use_date ,nil, placeholder: Time.now.strftime("%Y-%m-%d")
-    .ui.selection.dropdown
-      input type='hidden' name='course_name' 
-        .default.text 课程名称
-        i.dropdown.icon
-        .menu
-          - @courses.each do |course|
-            .item data-value="#{course}" #{course}
-    .ui.selection.dropdown
-      input type='hidden' name='jiece' 
-        .default.text 节次
-        i.dropdown.icon
-        .menu
-          - @jieces.each do |jc|
-            .item data-value="#{jc}" #{jc}
+          - 1.upto(23) do |i|
+            .item data-value="#{i}" #{i}
     =<> text_field_tag :loger ,realname
-
     =<> submit_tag '搜索', class: 'ui green button'
 
-table.ui.table.segment
-  thead
-    th 
-    th 回复
-    th 使用日期
-    th 电脑室
-    th 节次
-    th 硬件
-    th 卫生
-    th 摆放
-    th 本次 
-    th 状态
-    th 登记人
-    th
-    th
-    th
 
-  - @crlogs.each do |crlog|
-    tr
-      td = @num+=1
-      td 
-        - if crlog.crlog_replys
-          .ui.green.circular.label 
-            = link_to crlog.crlog_replys.count , crlog , class: 'noline'
-        - else
-          .ui.red.circular.label 0
-      td = crlog.use_date
-      td = crlog.croom
-      td = crlog.jiece
-      td 
-        - unless crlog.computer_status.blank?
-          .ui.red.circular.label
-        - else
-          .ui.green.circular.label
-      td 
-        - unless crlog.garbage_status.blank?
-          .ui.red.circular.label
-        - else
-          .ui.green.circular.label
-      td 
-        - unless crlog.place_status.blank?
-          .ui.red.circular.label
-        - else
-          .ui.green.circular.label
-      td 
-        - unless crlog.desc.blank?
-          .ui.red.circular.label
-        - else
-          .ui.green.circular.label
-      td = crlog.status
-      td = crlog.loger
-      td = link_to '详细', crlog, class: 'ui mini button'
-      - if is_root?
-        td = link_to '编辑', edit_crlog_path(crlog) if crlog.loger==realname
-        td = link_to '删除', crlog, data: {:confirm => 'Are you sure?'}, :method => :delete if crlog.loger==realname
+- if false
+  = form_tag search_crlogs_path , class: 'ui form' do
+    .inline.field
+      .ui.selection.dropdown
+        input type='hidden' name='croom'  
+          .default.text 电脑室 
+          i.dropdown.icon
+          .menu
+            - @crooms.each do |cm|
+              .item data-value="#{cm}" #{cm}
+      .ui.selection.dropdown
+        input type='hidden' name='banji' 
+          .default.text 班级
+          i.dropdown.icon
+          .menu
+            - @banjis.each do |banji|
+              .item data-value="#{banji}" #{banji}
+      = text_field_tag :use_date ,nil, placeholder: Time.now.strftime("%Y-%m-%d")
+      .ui.selection.dropdown
+        input type='hidden' name='course_name' 
+          .default.text 课程名称
+          i.dropdown.icon
+          .menu
+            - @courses.each do |course|
+              .item data-value="#{course}" #{course}
+      .ui.selection.dropdown
+        input type='hidden' name='jiece' 
+          .default.text 节次
+          i.dropdown.icon
+          .menu
+            - @jieces.each do |jc|
+              .item data-value="#{jc}" #{jc}
+      =<> text_field_tag :loger ,realname
 
-p
-  = link_to '新日志', new_crlog_path , class: 'ui green button'
+      =<> submit_tag '搜索', class: 'ui green button'
+
+.ui.tabular.filter.menu
+  - @crooms.each do |croom|
+    - if croom=="C301" 
+      a.active.item data-tab=croom = croom
+    - else
+      a.item data-tab=croom = croom
+- @crooms.each do |croom|
+  - act = croom=="C301" ? "ui active tab" : "ui tab"
+  div class=act  data-tab=croom
+    p = croom
+    table.ui.table.celled.segment
+      thead
+        th 节次
+        th 星期一
+        th 星期二
+        th 星期三
+        th 星期四
+        th 星期五
+        th 星期六
+      tbody
+        - jieces=["1-2","3-4","5-6"]
+        - jieces.each do |jiece|
+          tr
+            td #{jiece}节
+            - 1.upto(6) do |dd|
+              - theday = @begin_on+(dd-1).days
+              - log = @crlogs.where(croom: croom,jiece: jiece, use_date: theday).first
+              td 
+                - unless log.blank?
+                  p
+                    - unless log.computer_status.blank?
+                      .ui.red.label data-html=log.computer_status data-position="top center" 硬件
+                    - unless log.garbage_status.blank?
+                      .ui.red.label data-html=log.garbage_status 卫生
+                    - unless log.place_status.blank?
+                      .ui.red.label data-html=log.place_status 摆放
+                    - unless log.desc.blank?
+                      .ui.red.label data-html=log.desc 其它
+                    - unless log.crlog_replys.blank?
+                      .ui.green.circular.label = log.crlog_replys.count
+                  p 
+                    = link_to log.banji+"("+log.loger+")",log
+
+
+p 
+  =<> link_to '新日志', new_crlog_path , class: 'ui green button'
+  =<> link_to '上一周', crlogs_path(anchor: "/C301",week: params[:week].to_i-1) , class: 'ui green button'

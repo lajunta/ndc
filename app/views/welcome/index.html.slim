@@ -11,7 +11,7 @@ html
       = render "shared/flash_box"
       .ui.center.aligned.row
         .ui.column
-          h1 电脑室上机安排表
+          h1 #{current_semester.full_name}(#{current_week.to_s})电脑室上机安排表
       .ui.row
         .ui.column
           div = sanitize(@cr_schedule.content)
