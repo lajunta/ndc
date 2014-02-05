@@ -12,6 +12,7 @@ Ndc::Application.routes.draw do
   get "see/:id" => "grid#see" , :as=>:see
 
   get 'api/user' => "api/user#index" 
+  match 'user/settings' => "users#settings", :as => :user_settings, :via=>[:get,:post]
 
   get 'groups/type/:type'=>'groups#type'
   match "users/search"   => "users#search"  , :as => :search_users, :via=>[:get,:post]
@@ -30,6 +31,9 @@ Ndc::Application.routes.draw do
 
   match "seats/search" => "seats#search", :as => :search_seats, :via=>[:get,:post]
 
+  resources :jiaoan_albums do
+    resources :jiaoans
+  end
   resources :students
   resources :teachers
   resources :tokens

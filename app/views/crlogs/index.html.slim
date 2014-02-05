@@ -32,7 +32,7 @@
           .default.text 电脑室 
           i.dropdown.icon
           .menu
-            - @crooms.each do |cm|
+            - @all_crooms.each do |cm|
               .item data-value="#{cm}" #{cm}
       .ui.selection.dropdown
         input type='hidden' name='banji' 
@@ -61,15 +61,14 @@
       =<> submit_tag '搜索', class: 'ui green button'
 
 .ui.tabular.filter.menu
-  - @crooms.each do |croom|
+  - @all_crooms.each do |croom|
     - if croom=="C301" 
       a.active.item data-tab=croom = croom
     - else
       a.item data-tab=croom = croom
-- @crooms.each do |croom|
+- @all_crooms.each do |croom|
   - act = croom=="C301" ? "ui active tab" : "ui tab"
   div class=act  data-tab=croom
-    p = croom
     table.ui.table.celled.segment
       thead
         th 节次

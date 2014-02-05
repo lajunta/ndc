@@ -7,6 +7,7 @@ gem 'rails', '4.0.2'
 gem 'mongoid-grid_fs', github: 'ahoward/mongoid-grid_fs'
 gem 'mongoid' , git: 'https://github.com/mongoid/mongoid.git'
 gem 'dalli'
+gem 'chosen-rails'
 gem 'kaminari'
 gem 'spreadsheet'
 gem 'therubyracer', platforms: :ruby # or any other runtime

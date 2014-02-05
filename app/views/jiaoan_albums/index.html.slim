@@ -1,0 +1,30 @@
+h2 教案集
+
+table.ui.table.segment
+  thead
+    th
+    th 名称
+    th 创建者
+    th 合作者 
+    th 标志
+    th
+    th
+    th
+    th
+    th
+
+  - @jiaoan_albums.each do |jiaoan_album|
+    tr
+      td = @num+=1
+      td = jiaoan_album.name
+      td = jiaoan_album.creator
+      td = jiaoan_album.cooperators
+      td = image_tag(see_path(jiaoan_album.logo['grid_id'])) if jiaoan_album.logo
+      td = link_to "写教案",new_jiaoan_album_jiaoan_path(jiaoan_album.id), class: "ui mini green button"
+      td = link_to "查看教案",jiaoan_album_jiaoans_path(jiaoan_album.id), class: "ui mini green button"
+      td = link_to '查看', jiaoan_album
+      td = link_to '编辑', edit_jiaoan_album_path(jiaoan_album)
+      td = link_to '删除', jiaoan_album, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+
+p = link_to '新教案集', new_jiaoan_album_path, class: "ui small green button"

@@ -1,21 +1,22 @@
 .four.wide.column
 .eight.wide.column
-  h2 用户登录
-  = form_tag auth_path, class: 'ui form attach segment' do
-    p
-      .field
-        label 登录名
+  .ui.top.attached.header 用户登录
+  .ui.basic.attached.segment
+    = form_tag auth_path, class: 'ui form basic segment' do
+      p
+        .field
+          strong: label 登录名
 
-      .field
-        = text_field_tag :login
-    p
-      .field
-        label 密码
+        .field
+          = text_field_tag :login
+      p
+        .field
+          strong: label 密码
 
-      .field
-        = password_field_tag :password
+        .field
+          = password_field_tag :password
 
-    p
-      .field
-        = submit_tag '登录', class: 'ui green button'
-.four.wide.column
+      p
+        .field
+          = submit_tag '登录', class: 'ui small green button'
+  .four.wide.column

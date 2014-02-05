@@ -29,5 +29,6 @@ module Ndc
     
      config.action_view.sanitized_allowed_tags = 'i','table', 'thead','tbody','th','tr', 'td'
      config.action_view.sanitized_allowed_attributes = 'id', 'class'
+     config.i18n.enforce_available_locales = false
   end
 end

@@ -10,6 +10,7 @@
  *
  *= require_self
  *= require_tree .
+ *= require chosen
  */
 
 body{margin:0;padding:0;}

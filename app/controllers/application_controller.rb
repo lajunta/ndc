@@ -9,9 +9,20 @@ class ApplicationController < ActionController::Base
   def set_data
     @semesters=Semester.all.map{|s| s.full_name}
     @banjis=Group.where(type: '班级').map{|g| g.name}
+    @groups=Group.all.map{|g| g.name}
     @crooms=['C301','C302','C304','C401','C402','C403','C404']
+    @all_crooms=['C301','C302','C304','C401','C402','C403','C404']
     @courses=Course.all.map{|c| c.name}
     @jieces=['1-2','3-4','5-6']
+
+    if login?
+      @user=User.find(user_id)
+      unless @user.config.blank?
+        @banjis=@user.config["fav_banjis"]
+        @crooms=@user.config["fav_crooms"]
+        @courses=@user.config["fav_courses"]
+      end
+    end
   end
 
   def current_week
@@ -33,7 +44,7 @@ class ApplicationController < ActionController::Base
 
   def current_semester
     @semester=Semester.gte(ended_on: Date.today).lte(started_on: Date.today).first
-    @semester or nil 
+    @semester or Semester.desc(:ended_on).first
   end
 
   def root_required
@@ -102,8 +113,7 @@ class ApplicationController < ActionController::Base
     filename=upload.original_filename
     content_type=upload.content_type
     data = File.open(upload.tempfile.path)
-    #id = grid.put(data, :filename => filename, :content_type=>content_type)
-    saved = grid.put(data)
+    saved = grid.put(data, :filename => filename, :content_type=>content_type)
     grid_data=grid.get(saved)
     length=grid_data.length
     file_size =

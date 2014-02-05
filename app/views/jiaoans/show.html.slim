@@ -1,0 +1,16 @@
+p
+  strong 名称 
+  = @jiaoan.name
+p
+  strong 编号:
+  = @jiaoan.bh
+div
+  = @jiaoan.content
+p
+  strong 作者:
+  = @jiaoan.author
+- unless @jiaoan.attachs.blank?
+  p: strong 附件:
+  - @jiaoan.attachs.each do |attach|
+    .ui.circular.list
+      .item = link_to attach["filename"],download_path(attach["grid_id"])

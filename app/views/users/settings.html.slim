@@ -1,0 +1,16 @@
+h2 
+  |教学设置
+  span[class='feedback']
+= form_tag user_settings_path,:remote=>true do 
+
+  p: strong 所教课程：
+  = select_tag 'fav_courses',options_for_select(@courses,@user.config['fav_courses']), {:multiple=>true,:class=>"chosen-select","data-placeholder"=>"选择课程..."}
+
+
+  p: strong 所教班级：
+  = select_tag 'fav_banjis',options_for_select(@banjis,@user.config['fav_banjis']), {:multiple=>true,:class=>"chosen-select","data-placeholder"=>"选择班级..."}
+
+  p: strong 电脑室：
+  = select_tag 'fav_crooms',options_for_select(@crooms,@user.config['fav_crooms']), {:multiple=>true,:class=>"chosen-select","data-placeholder"=>"电脑室..."}
+  p
+    = submit_tag "确认", class: "ui small green button"

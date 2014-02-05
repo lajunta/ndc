@@ -1,0 +1,26 @@
+.ui.header #{@jiaoan_album.name}教案列表
+
+table.ui.table.segment
+  thead
+    th
+    th 名称
+    th 编号
+    th 作者
+    th 附件
+    th
+    th
+    th
+
+  - @jiaoans.each do |jiaoan|
+    tr
+      td = @num+=1
+      td = link_to jiaoan.name, [@jiaoan_album,jiaoan]
+      td = jiaoan.bh
+      td = jiaoan.author
+      td = jiaoan.attachs.count
+      td = link_to '编辑', edit_jiaoan_album_jiaoan_path(@jiaoan_album,jiaoan)
+      td = link_to '删除', [@jiaoan_album,jiaoan], data: {:confirm => 'Are you sure?'}, :method => :delete
+
+p
+
+= link_to '新教案', new_jiaoan_album_jiaoan_path(@jiaoan_album) , class: "ui small green button"

@@ -1,0 +1,35 @@
+= form_for [@jiaoan_album,@jiaoan], html: {multipart: true, class: "ui form basic segment"} do |f|
+  - if @jiaoan.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@jiaoan.errors.count, "error")} prohibited this jiaoan from being saved:"
+      ul
+        - @jiaoan.errors.full_messages.each do |message|
+          li = message
+
+  .field
+    = f.label "教案名称"
+    = f.text_field :name
+  .two.fields
+    .field
+      = f.label "作者"
+      = f.text_field :author, value: @jiaoan.author
+    .field
+      = f.label "编号"
+      = f.text_field :bh
+  .field
+    = f.text_area :content , placeholder: "在此写教案内容"
+  .field
+    = link_to "添加附件", "",class: "ui mini green button add_attach"
+  .field.attach_base
+    = file_field_tag "jiaoan[attachs][]"
+  .ui.divider
+  .actions = f.submit '保存', class: "ui small green button"
+
+javascript:
+  $("a.add_attach").click(function(evt){
+    evt.preventDefault();
+    attach_base=$(".field.attach_base");
+    new_attach=attach_base.clone();
+    new_attach.removeClass("attach_base").addClass("attach");
+    new_attach.insertAfter(attach_base);
+  }); 

@@ -1,0 +1,12 @@
+p
+  strong 教案集名称 
+  = @jiaoan_album.name
+p
+  strong 创建者
+  = @jiaoan_album.creator
+p
+  strong 合作者
+  = @jiaoan_album.cooperators
+p
+  = image_tag(see_path(@jiaoan_album.logo['grid_id'])) if @jiaoan_album.logo
+

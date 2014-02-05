@@ -1,0 +1,22 @@
+= form_for @jiaoan_album ,html: {multipart: true,class: "ui form segment"} do |f|
+  - if @jiaoan_album.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@jiaoan_album.errors.count, "error")} prohibited this jiaoan_album from being saved:"
+      ul
+        - @jiaoan_album.errors.full_messages.each do |message|
+          li = message
+
+  .field
+    = f.label "教案集名称"
+    = f.text_field :name
+  .two.fields
+    .field
+      = f.label "创建者"
+      = f.text_field :creator, value: realname
+    .field
+      = f.label "合作者"
+      = f.text_field :cooperators
+  .field
+    = f.label "标志"
+    = file_field_tag :logo ,class: 'ui input'
+  .actions = f.submit '保存', class: "ui small green button"

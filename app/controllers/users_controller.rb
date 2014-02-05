@@ -15,6 +15,19 @@ class UsersController < ApplicationController
     end
   end
 
+  def settings
+    @user=User.find(user_id)
+    @config = @user.config ||= {}
+    if request.xhr?
+      @user.config['fav_courses'] = params[:fav_courses] 
+      @user.config['fav_banjis'] = params[:fav_banjis] 
+      @user.config['fav_crooms'] = params[:fav_crooms] 
+      @user.update_attribute(:config,@user.config)
+      respond_to do |form|
+        form.js { render :layout=>false}
+      end
+    end
+  end
 
   def set_type
     @type=["教师","学生"]

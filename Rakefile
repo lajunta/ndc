@@ -3,4 +3,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-Lapi::Application.load_tasks
+Ndc::Application.load_tasks

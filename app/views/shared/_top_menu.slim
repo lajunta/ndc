@@ -4,11 +4,13 @@
       i.home.icon
       =' link_to '电脑室管理',root_path
     - if is_teacher?
-      .ui.item
-        =' link_to "机房日志",crlogs_path(anchor: "/C301")
-      .ui.item
+      .item
+        =' link_to "机房日志",crlogs_path
+      .item
         =' link_to "学生座位",seats_path
-      
+      .item 
+        = link_to '教案管理',jiaoan_albums_path
+    
     - if is_root?
       .ui.dropdown.item
         |管理面板
@@ -38,20 +40,28 @@
           .item 
             i.calendar.icon
             = link_to '上机安排',cr_schedules_path
-          .item 
-            i.globe.basic.icon
-            = link_to '站点管理',sites_path
-          .item 
-            i.key.icon
-            = link_to '应用管理',apps_path
-          .item
-            i.legal.icon
-            = link_to '授权管理',tokens_path
-    .right.menu
-      - if login?
-        = link_to cu+"("+realname+")",user_path(user_id) , class: 'item'
-        i.sign.out.icon 
-        =' link_to '登出', logout_path, class: 'item'
-      - else
-        i.sign.in.icon 
-        =' link_to '登录', login_path ,class: 'item'
+            .item 
+              i.globe.basic.icon
+              = link_to '站点管理',sites_path
+            .item 
+              i.key.icon
+              = link_to '应用管理',apps_path
+            .item
+              i.legal.icon
+              = link_to '授权管理',tokens_path
+      .right.menu
+        - if login?
+          .ui.dropdown.item
+            = cu+"("+realname+")" 
+            i.dropdown.icon
+            .menu
+              .item  
+                = link_to "密码修改",edit_user_path(user_id) 
+              .item
+                = link_to "教学设置",user_settings_path
+
+          i.sign.out.icon 
+          =' link_to '登出', logout_path, class: 'item'
+        - else
+          i.sign.in.icon 
+          =' link_to '登录', login_path ,class: 'item'

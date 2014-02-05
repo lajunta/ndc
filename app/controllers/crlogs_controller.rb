@@ -77,7 +77,7 @@ class CrlogsController < ApplicationController
 
     respond_to do |format|
       if @crlog.save
-        format.html { redirect_to @crlog, notice: '日志已经成功创建' }
+        format.html { redirect_to crlogs_path(anchor: "/#{@crlog.croom}"), notice: '日志已经成功创建' }
         format.json { render action: 'show', status: :created, location: @crlog }
       else
         format.html { render action: 'new' }
@@ -91,7 +91,7 @@ class CrlogsController < ApplicationController
   def update
     respond_to do |format|
       if @crlog.update(crlog_params)
-        format.html { redirect_to @crlog, notice: '日志更新成功' }
+        format.html { redirect_to crlogs_path(anchor: "/#{@crlog.croom}"), notice: '日志已经成功更新' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
