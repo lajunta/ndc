@@ -6,6 +6,16 @@ class ApplicationController < ActionController::Base
   before_action :pageit, only: [:type,:index,:search]
   before_action :set_data
 
+
+  def basic_infos_required
+    if Semester.all.count==0
+      redirect_to semesters_path ,flash: {error: "请先设置学期信息"} and return
+    end
+    if Course.all.count==0
+      redirect_to courses_path ,flash: {error: "请先设置课程信息"} and return
+    end
+  end
+
   def set_data
     @semesters=Semester.all.map{|s| s.full_name}
     @banjis=Group.where(type: '班级').map{|g| g.name}
@@ -17,12 +27,32 @@ class ApplicationController < ActionController::Base
 
     if login?
       @user=User.find(user_id)
+      if @user
       unless @user.config.blank?
         @banjis=@user.config["fav_banjis"]
         @crooms=@user.config["fav_crooms"]
         @courses=@user.config["fav_courses"]
       end
+      end
     end
+  end
+
+  def rm_grid_from_array(ary)
+    unless ary.blank?
+      ary.each do |a|
+        grid.delete(a['grid_id'])
+      end
+    end
+  end
+
+  def medias_used(text,medias)
+    return [] if medias.blank?
+    grid_ids=medias.map{|media| media['grid_id']}
+    used_grid_ids=[]
+    grid_ids.each do |grid_id|
+      used_grid_ids << grid_id if text.include?(grid_id.to_s)
+    end
+    medias.select{|media| used_grid_ids.include?(media['grid_id']) }
   end
 
   def current_week
@@ -113,7 +143,8 @@ class ApplicationController < ActionController::Base
     filename=upload.original_filename
     content_type=upload.content_type
     data = File.open(upload.tempfile.path)
-    saved = grid.put(data, :filename => filename, :content_type=>content_type)
+    #saved = grid.put(data, :filename => filename, :content_type=>content_type)
+    saved = grid.put(data,filename: SecureRandom.hex, metadata: {filename:  filename}, content_type: content_type)
     grid_data=grid.get(saved)
     length=grid_data.length
     file_size =

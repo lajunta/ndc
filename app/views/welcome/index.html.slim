@@ -17,6 +17,7 @@ html
             h1 电脑室上机安排表
       .ui.row
         .ui.column
-          div = sanitize(@cr_schedule.content)
+          - if @cr_schedule
+            div = sanitize(@cr_schedule.content)
     = render "shared/footer"
     = render "shared/js"

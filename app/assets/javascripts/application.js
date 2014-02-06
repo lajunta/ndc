@@ -15,5 +15,33 @@
 //= require chosen-jquery
 //= require chosen
 //= require turbolinks
+//= require ckeditor/override
+//= require ckeditor/init
 //= require_tree .
 
+function insert_medias(s){
+  //var app_path="/kpy/dc";
+  var app_path="";
+  if(s==1){
+    $(".ui.modal").modal('hide');
+    jsonurl=app_path+"/ndc/tempmedias/show";
+    see_prefix=app_path+"/ndc/see/";
+    $.getJSON(jsonurl, function(data) {
+    var items = [];
+    $.each(data, function(index, media) { 
+      mediasrc=see_prefix+media.grid_id;
+      if(media.content_type.indexOf("image") != -1){
+        items.push("\n<p><center><img class='img' src="+mediasrc+"></center></p>\n");
+        }
+      if(media.content_type.indexOf("flash") != -1){
+        items.push("\n<p><center><embed src="+mediasrc+"></embed></center></p>\n");
+        }
+     });
+    CKEDITOR.instances.jiaoan_content.insertHtml(items);
+    //disselect file 
+    $('form.file_upload').each(function(){ this.reset(); });
+    });
+  }else{
+    alert("文件上传出错");
+  }  
+}

@@ -16,3 +16,4 @@
 body{margin:0;padding:0;}
 .menu.menu a{text-decoration:none;}
 a.noline {text-decoration:none;}
+.page_break {page-break-after: always;}

@@ -1,4 +1,5 @@
 class SeatsController < ApplicationController
+  before_action :basic_infos_required
   before_action :teacher_required
   before_action :set_seat, only: [:show, :edit, :update, :destroy]
   before_action :check_user, only: [:edit,:update,:destroy]

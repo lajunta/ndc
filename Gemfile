@@ -10,6 +10,7 @@ gem 'dalli'
 gem 'chosen-rails'
 gem 'kaminari'
 gem 'spreadsheet'
+gem 'ckeditor'
 gem 'therubyracer', platforms: :ruby # or any other runtime
 gem 'less-rails'
 gem 'autoprefixer-rails'

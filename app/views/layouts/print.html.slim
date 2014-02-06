@@ -1,0 +1,11 @@
+doctype html
+html
+  head
+    title 李伟强职校电脑室管理系统
+    = stylesheet_link_tag    "application", media: "print", "data-turbolinks-track" => true 
+    = javascript_include_tag "application", "data-turbolinks-track" => true 
+    = csrf_meta_tags 
+  body
+    .ui.page.grid
+      = yield
+    = render "shared/js"

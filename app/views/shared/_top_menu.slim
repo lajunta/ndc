@@ -40,28 +40,28 @@
           .item 
             i.calendar.icon
             = link_to '上机安排',cr_schedules_path
-            .item 
-              i.globe.basic.icon
-              = link_to '站点管理',sites_path
-            .item 
-              i.key.icon
-              = link_to '应用管理',apps_path
+          .item 
+            i.globe.basic.icon
+            = link_to '站点管理',sites_path
+          .item 
+            i.key.icon
+            = link_to '应用管理',apps_path
+          .item
+            i.legal.icon
+            = link_to '授权管理',tokens_path
+    .right.menu
+      - if login?
+        .ui.dropdown.item
+          = cu+"("+realname+")" 
+          i.dropdown.icon
+          .menu
+            .item  
+              = link_to "密码修改",edit_user_path(user_id) 
             .item
-              i.legal.icon
-              = link_to '授权管理',tokens_path
-      .right.menu
-        - if login?
-          .ui.dropdown.item
-            = cu+"("+realname+")" 
-            i.dropdown.icon
-            .menu
-              .item  
-                = link_to "密码修改",edit_user_path(user_id) 
-              .item
-                = link_to "教学设置",user_settings_path
+              = link_to "教学设置",user_settings_path
 
-          i.sign.out.icon 
-          =' link_to '登出', logout_path, class: 'item'
-        - else
-          i.sign.in.icon 
-          =' link_to '登录', login_path ,class: 'item'
+        i.sign.out.icon 
+        =' link_to '登出', logout_path, class: 'item'
+      - else
+        i.sign.in.icon 
+        =' link_to '登录', login_path ,class: 'item'

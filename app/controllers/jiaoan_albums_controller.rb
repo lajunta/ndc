@@ -1,8 +1,23 @@
 class JiaoanAlbumsController < ApplicationController
   before_action :teacher_required
-  before_action :set_jiaoan_album, only: [:show, :edit, :update, :destroy]
+  before_action :set_jiaoan_album, only: [:show, :edit, :update, :print, :destroy]
+  before_action :check_creator, only: [:edit, :update, :destroy]
+  before_action :check_cooperators, only: [:print]
   before_action :only=>["create","update"] do
     logo_check("jiaoan_album") 
+  end
+
+
+  def check_cooperators
+    unless @jiaoan_album.cooperators.include?(realname) or @jiaoan_album.creator==realname
+      redirect_to :back, flash: {error: "你不能进行操作"}
+    end
+  end
+
+  def check_creator
+    unless is_root? or @jiaoan_album.creator==realname
+      redirect_to :back, flash: {error: "你不能进行操作"}
+    end
   end
 
   # GET /jiaoan_albums
@@ -19,6 +34,11 @@ class JiaoanAlbumsController < ApplicationController
   # GET /jiaoan_albums/new
   def new
     @jiaoan_album = JiaoanAlbum.new
+  end
+
+  def print
+    @jiaoans = @jiaoan_album.jiaoans
+    render layout: 'print'
   end
 
   # GET /jiaoan_albums/1/edit
@@ -59,6 +79,7 @@ class JiaoanAlbumsController < ApplicationController
   # DELETE /jiaoan_albums/1.json
   def destroy
     @jiaoan_album.destroy
+    grid.delete(@jiaoan_album.logo["grid_id"])
     respond_to do |format|
       format.html { redirect_to jiaoan_albums_url }
       format.json { head :no_content }

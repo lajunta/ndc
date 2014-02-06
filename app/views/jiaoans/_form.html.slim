@@ -1,4 +1,4 @@
-= form_for [@jiaoan_album,@jiaoan], html: {multipart: true, class: "ui form basic segment"} do |f|
+= form_for [@jiaoan_album,@jiaoan], html: {multipart: true, class: "ui small form basic segment"} do |f|
   - if @jiaoan.errors.any?
     #error_explanation
       h2 = "#{pluralize(@jiaoan.errors.count, "error")} prohibited this jiaoan from being saved:"
@@ -6,18 +6,17 @@
         - @jiaoan.errors.full_messages.each do |message|
           li = message
 
-  .field
-    = f.label "教案名称"
-    = f.text_field :name
-  .two.fields
+  .inline.fields
     .field
-      = f.label "作者"
-      = f.text_field :author, value: @jiaoan.author
+      = f.label "教案名称"
+      = f.text_field :name, class: "ui massive input"
     .field
       = f.label "编号"
       = f.text_field :bh
-  .field
-    = f.text_area :content , placeholder: "在此写教案内容"
+    .field
+      button.ui.small.button type="button" name="show_overlay"  添加媒体
+  .field.media_content
+    = f.cktext_area :content , placeholder: "在此写教案内容"
   .field
     = link_to "添加附件", "",class: "ui mini green button add_attach"
   .field.attach_base
@@ -25,6 +24,14 @@
   .ui.divider
   .actions = f.submit '保存', class: "ui small green button"
 
+  - unless @jiaoan.attachs.blank?
+    .ui.ordered.list
+      - @jiaoan.attachs.each do |attach|
+        div class="item attach_#{attach['grid_id']}" 
+          =<> link_to attach["filename"]+"("+attach["file_size"]+")",download_path(attach["grid_id"])
+          =<> link_to "移除",remove_jiaoan_attach_path(ja_id: @jiaoan.id,grid_id: attach["grid_id"]),class: "ui mini red button",:remote=>true
+
+= render "overlay"
 javascript:
   $("a.add_attach").click(function(evt){
     evt.preventDefault();
@@ -33,3 +40,15 @@ javascript:
     new_attach.removeClass("attach_base").addClass("attach");
     new_attach.insertAfter(attach_base);
   }); 
+
+  $("a.add_media").click(function(evt){
+    evt.preventDefault();
+    media_base=$(".field.media_base");
+    new_media=media_base.clone(true,true);
+    new_media.removeClass("media_base").addClass("media");
+    new_media.insertAfter(media_base);
+  }); 
+
+  $("button[name=show_overlay]").click(function(){
+    $('.ui.modal').modal('show');
+  });

@@ -1,4 +1,5 @@
 class CrlogsController < ApplicationController
+  before_action :basic_infos_required
   before_action :teacher_required
   before_action :root_required, only: [:edit,:update,:destroy]
   before_action :set_crlog, only: [:show, :edit, :update, :destroy]
@@ -49,7 +50,11 @@ class CrlogsController < ApplicationController
     hsh[:loger]=realname unless params[:loger].blank?
     params[:week] ||=current_week
     params[:week]=1 if params[:week].to_i<=0
-    sm_name=params[:semester] || current_semester.full_name
+    if current_semester
+      sm_name=current_semester.full_name
+    else
+      sm_name=params[:semester] 
+    end
     @semester=Semester.where(full_name: sm_name).first
     @begin_on,@end_on = week_range(@semester,params[:week])
     @crlogs = Crlog.where(hsh).gte(use_date: @begin_on).lte(use_date: @end_on)

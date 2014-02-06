@@ -5,6 +5,6 @@ class JiaoanAlbum
   field :creator, type: String
   field :cooperators, type: String
   field :logo, type: Hash
-  has_many :jiaoans, dependent: :restrict
+  has_many :jiaoans, dependent: :restrict, autosave: true
 
 end

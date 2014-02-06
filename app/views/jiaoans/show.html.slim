@@ -1,15 +1,11 @@
 p
-  strong 名称 
   = @jiaoan.name
 p
-  strong 编号:
   = @jiaoan.bh
 div
-  = @jiaoan.content
-p
-  strong 作者:
-  = @jiaoan.author
+  = raw @jiaoan.content
 - unless @jiaoan.attachs.blank?
+  .ui.divider
   p: strong 附件:
   - @jiaoan.attachs.each do |attach|
     .ui.circular.list

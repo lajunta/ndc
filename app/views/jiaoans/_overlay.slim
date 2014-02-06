@@ -1,0 +1,18 @@
+#overlay.ui.modal
+  i.close.icon
+  .header 添加媒体
+  .content
+    =form_tag upload_tempmedias_path, class: "ui form file_upload ",:multipart=>true, :target=>"upload_target" do
+      .inline.field
+        = link_to "添加媒体", "",class: "ui mini green button add_media"
+        label 高度: 
+        == text_field_tag "width",640,:class=>"ui mini input" 
+        label 宽度:  
+        == text_field_tag "height",480,:class=>"ui mini input"
+        label 缩放比例:  
+        == text_field_tag "percent",nil,:class=>"ui mini input"
+      .field.media_base
+        == file_field_tag "tempmedias[]", class: "file_upload"
+      .field
+        == submit_tag "上传",class: "ui mini green button"
+      iframe src="" name="upload_target" id="upload_target" style="width:0;height:0;padding:0;margin:0;border:0 solid #fff;"
