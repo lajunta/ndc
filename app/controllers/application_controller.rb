@@ -11,13 +11,31 @@ class ApplicationController < ActionController::Base
     Rack::MiniProfiler.authorize_request
   end
 
+  def default_group
+    session[:default_group]
+  end
 
   def basic_infos_required
     if Semester.all.count==0
-      redirect_to semesters_path ,flash: {error: "请先设置学期信息"} and return
+      if is_root?
+        redirect_to semesters_path ,flash: {error: "请先设置学期信息"} and return
+      else
+        redirect_to root_path ,flash: {error: "基础信息不完整，请管理员设置"} and return
+      end
+    end
+    if Group.where(type: "班级").all.count==0
+      if is_root?
+        redirect_to groups_path ,flash: {error: "请先添加一些班级"} and return
+      else
+        redirect_to root_path ,flash: {error: "基础信息不完整，请管理员设置"} and return
+      end
     end
     if Course.all.count==0
-      redirect_to courses_path ,flash: {error: "请先设置课程信息"} and return
+      if is_root?
+        redirect_to courses_path ,flash: {error: "请先设置课程信息"} and return
+      else
+        redirect_to root_path ,flash: {error: "基础信息不完整，请管理员设置"} and return
+      end
     end
   end
 
@@ -149,7 +167,7 @@ class ApplicationController < ActionController::Base
     content_type=upload.content_type
     data = File.open(upload.tempfile.path)
     #saved = grid.put(data, :filename => filename, :content_type=>content_type)
-    saved = grid.put(data,filename: SecureRandom.hex, metadata: {filename:  filename}, content_type: content_type)
+    saved = grid.put(data,filename: SecureRandom.hex, metadata: {"filename"=>filename}, content_type: content_type)
     grid_data=grid.get(saved)
     length=grid_data.length
     file_size =
@@ -180,5 +198,5 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  helper_method :login?,:cu,:user_id,:realname,:is_root?, :is_teacher?,:current_week,:current_semester
+  helper_method :login?,:cu,:user_id,:realname,:is_root?, :is_teacher?,:current_week,:current_semester,:default_group
 end

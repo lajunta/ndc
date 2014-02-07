@@ -8,6 +8,7 @@ class AuthController < ApplicationController
     if @user
       session[:login]=@user.login
       session[:realname]=@user.realname
+      session[:default_group]=@user.default_group
       session[:user_type]=@user.type
       session[:user_id]=@user.id.to_s
       redirect_to root_path ,notice: "登录成功"
@@ -24,6 +25,7 @@ class AuthController < ApplicationController
     session[:realname]=nil
     session[:user_type]=nil
     session[:user_id]=nil
+    session[:default_group]=nil
     redirect_to root_path ,notice: "你已经登出"
   end
 

@@ -1,0 +1,35 @@
+.ui.header
+  = @hub.name
+  = "("+@hub.creator+")"
+  = "提交数: #{@hub.submissions.count}"
+
+.ui.label 个人:
+= @hub.users_list
+
+.ui.label 部门:
+= @hub.groups_list
+
+- unless @hub.submissions.blank?
+  - i=0
+  table.ui.celled.table.segment
+    thead
+      th 
+      th 提交人
+      th 提交时间
+      th 文件
+      th 
+    - @hub.submissions.each do |sub|
+      tr class="sub_#{sub.id}"
+        td = i+=1
+        td = sub.submitter
+        td = sub.created_at.strftime("%Y-%m-%d")
+        td 
+          - sub.attachs.each do |attach|
+            = link_to attach["filename"],download_path(attach["grid_id"])
+            = "("+attach["file_size"]+")"
+            br
+        td 
+          = link_to "删除", [@hub,sub], remote: true,confirm: "真的要删除吗?", method: :delete, class: "ui mini red button"
+    
+p
+  = link_to '上交文件', new_hub_submission_path(@hub) ,class: "ui small green button"

@@ -1,4 +1,5 @@
 require File.expand_path('../boot', __FILE__)
+require "zip"
 
 # Pick the frameworks you want:
 # require "active_record/railtie"
@@ -11,6 +12,7 @@ require "sprockets/railtie"
 # you've limited to :test, :development, or :production.
 Bundler.require(:default, Rails.env)
 Slim::Engine.set_default_options pretty: true, sort_attrs: false
+Zip.unicode_names = true
 
 module Ndc
   class Application < Rails::Application

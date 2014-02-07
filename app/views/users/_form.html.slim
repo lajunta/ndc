@@ -29,13 +29,16 @@
       strong<> #{@user.login}
       strong<> #{@user.realname}
 
-  .three.fields
+  .field
+    label: strong 密码
+    = f.password_field :password
+  .field
+    label: strong 确认密码
+    = f.password_field :password_confirmation
+  - if is_root?
     .field
-      label: strong 密码
-      = f.password_field :password
-    .field
-      label: strong 确认密码
-      = f.password_field :password_confirmation
+      label: strong 默认群组:
+      = f.text_field :default_group 
   .field
     label 上传头像:
     = file_field_tag :logo

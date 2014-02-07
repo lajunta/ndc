@@ -1,0 +1,22 @@
+= form_for @hub, html: {class: "ui form segment"} do |f|
+  - if @hub.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@hub.errors.count, "error")} prohibited this hub from being saved:"
+      ul
+        - @hub.errors.full_messages.each do |message|
+          li = message
+
+  .field
+    = f.label "名称"
+    = f.text_field :name
+  .field
+    = f.label "上交个人" 
+    = f.text_field :users_list
+  .field
+    = f.label "上交部门"
+    = f.text_field :groups_list
+  .field
+    = f.label "截止时间"
+    = f.text_field :end_on, :value => (Date.today+7.day).strftime("%Y-%m-%d")
+
+  .actions = f.submit '保存', class: "ui small green button"

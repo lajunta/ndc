@@ -1,0 +1,8 @@
+p
+  - unless @submission.attachs.blank?
+    - @submission.attachs.each do |attach|
+      .ui.list
+        .item = link_to attach["metadata"]["filename"],download_path(attach["grid_id"])
+  strong Hub:
+  = @submission.hub_id
+

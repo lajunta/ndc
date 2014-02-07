@@ -10,6 +10,7 @@ table.ui.table.segment
     th 头像
     th 登录名
     th 姓名
+    th 默认群组
     th 类型
     th
     th
@@ -21,6 +22,7 @@ table.ui.table.segment
       td = image_tag(see_path(user.logo['grid_id'])) if user.logo
       td = user.login
       td = user.realname
+      td = user.default_group
       td = user.type
       td = link_to '查看', user
       td = link_to '编辑', edit_user_path(user)
@@ -29,5 +31,7 @@ table.ui.table.segment
 br
 
 
-p  = link_to '新用户', new_user_path, class: 'ui green button'
+p 
+  =' link_to '新用户', new_user_path, class: 'ui green button'
+  =' link_to '批量上传', upload_users_path, class: 'ui green button'
 == paginate @users,:sstr=>params[:sstr]

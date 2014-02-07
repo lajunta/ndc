@@ -15,11 +15,13 @@ class User
   field :type,     type: String
   field :config,   type: Hash ,default: {}
   field :logo, type: Hash 
+  field :default_group,type: String, default: "全体"
+  field :groups,type: Array
   validates_presence_of :login,:realname,:password,:password_confirmation, message: "不能为空"
   validates_uniqueness_of :login , message: "用户已经存在"
   validates_uniqueness_of :realname, message: "姓名已经存在"
   validates_confirmation_of :password , message: "密码不匹配"
-  validates_length_of :login, minimum: 3, message: '长度不能小于3'
+  validates_length_of :login, minimum: 2, message: '长度不能小于2'
   validates_length_of :password, minimum: 4, message: '长度不能小于4'
 
   index({login: 1})

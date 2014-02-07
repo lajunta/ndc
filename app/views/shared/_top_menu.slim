@@ -10,6 +10,9 @@
         =' link_to "学生座位",seats_path
       .item 
         = link_to '教案管理',jiaoan_albums_path
+      .item 
+        i.doc.basic.icon
+        = link_to '文件上交',hubs_path
     
     - if is_root?
       .ui.dropdown.item
@@ -52,7 +55,7 @@
     .right.menu
       - if login?
         .ui.dropdown.item
-          = cu+"("+realname+")" 
+          = cu+"_"+realname+"("+default_group.to_s+")" 
           i.dropdown.icon
           .menu
             .item  

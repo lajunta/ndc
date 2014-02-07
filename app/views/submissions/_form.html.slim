@@ -1,0 +1,25 @@
+= form_for [@hub,@submission],html: {multipart: true, class: "ui form segment"} do |f|
+  - if @submission.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@submission.errors.count, "error")} prohibited this submission from being saved:"
+      ul
+        - @submission.errors.full_messages.each do |message|
+          li = message
+
+  .field.attach_base
+    = file_field_tag "attachs[]"
+  .field
+    = link_to "添加文件","", class: "ui mini green button add_attach"
+  .field
+    = f.text_area :desc, placeholder: "说明"
+  .actions = f.submit '上交', class: "ui small green button"
+  
+
+javascript:
+  $("a.add_attach").click(function(evt){
+    evt.preventDefault();
+    attach_base=$(".field.attach_base");
+    new_attach=attach_base.clone();
+    new_attach.removeClass("attach_base").addClass("attach");
+    new_attach.insertAfter(attach_base);
+  }); 

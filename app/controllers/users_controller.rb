@@ -15,6 +15,44 @@ class UsersController < ApplicationController
     end
   end
 
+  def upload
+    if request.post?
+      require "spreadsheet"
+      @file=params[:xls]
+      unless @file
+        flash[:error]="选择一个文件" 
+        redirect_to :back and return
+      end 
+      #login realname password default_group
+      book = Spreadsheet.open @file.tempfile
+      sheet1 = book.worksheet 0
+      right=wrong=updated=0
+      existed=[]
+      sheet1.each 1 do |row|
+        old_user=User.where(login: row[0],realname: row[1]).first
+        if old_user
+          existed<<row[1]
+          old_user.login=row[0]
+          old_user.realname=row[1]
+          old_user.password=row[2].to_i.to_s
+          old_user.password_confirmation=row[2].to_i.to_s
+          old_user.default_group=row[3]
+          old_user.type=row[4]
+          if old_user.save 
+            updated+=1
+          end
+        else
+          #randpsd=Random.new.rand(1000..9999)
+          new_user=User.new({login: row[0].to_s.strip,realname: row[1].strip,password: row[2].to_i.to_s.strip,password_confirmation:row[2].to_i.to_s.strip,default_group: row[3].strip,type: row[4].strip})
+          new_user.save ? right+=1 : wrong+=1
+        end 
+      end 
+      word="输入成功#{right},已经存在#{existed},更新#{updated}, 失败#{wrong}"
+      flash[:notice]=word
+      redirect_to users_path and return
+    end 
+  end
+
   def settings
     @user=User.find(user_id)
     @config = @user.config ||= {}
@@ -53,6 +91,7 @@ class UsersController < ApplicationController
   def new
     @user = User.new
     @user.type ||= '学生'
+    @user.default_group = "全体"
   end
 
   # GET /users/1/edit
@@ -110,6 +149,6 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:login, :password, :password_confirmation, :type,:realname, :logo => [:grid_id,:filename,:content_type,:file_size])
+      params.require(:user).permit(:login, :password,:default_group, :password_confirmation, :type,:realname, :logo => [:grid_id,:filename,:content_type,:file_size])
     end
 end

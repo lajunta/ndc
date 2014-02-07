@@ -1,5 +1,8 @@
 Ndc::Application.routes.draw do
 
+
+  resources :submissions
+
     get "tempmedias/remove/:grid_id" => "tempmedias#remove" , :as=>:remove_tempmedia
     get "tempmedias/show" => "tempmedias#show" , :as=>:show_tempmedias
     get "tempmedias" => "tempmedias#index" , :as=>:tempmedias
@@ -41,13 +44,25 @@ Ndc::Application.routes.draw do
     resources :jiaoan_albums do
       resources :jiaoans
     end
+
+    resources :hubs do
+      resources :submissions
+      member do 
+        get :package
+      end
+    end
     resources :students
     resources :teachers
     resources :tokens
     resources :apps
     resources :pages
     resources :sites
-    resources :users
+    resources :users do
+      collection do 
+        get :upload
+        post :upload
+      end
+    end
     resources :courses
     resources :semesters
     resources :groups
