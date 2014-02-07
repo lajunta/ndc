@@ -20,4 +20,9 @@ class Student
   field :mother_tel, type: String
   field :intro, type: String
   field :logo, type: Hash
+
+
+  index({realname: 1})
+  index({sex: 1})
+  index({birthday: 1})
 end

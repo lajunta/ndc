@@ -5,4 +5,7 @@ class CrSchedule
   field :croom, type: String
   field :content, type: String
   field :used, type: Boolean
+
+  index({semester: 1})
+  index({croom: 1})
 end

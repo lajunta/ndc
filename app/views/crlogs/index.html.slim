@@ -79,27 +79,28 @@
         th 星期五
         th 星期六
       tbody
-        - @jieces.each do |jiece|
-          tr
-            td #{jiece}节
-            - 1.upto(6) do |dd|
-              - theday = @begin_on+(dd-1).days
-              - log = @crlogs.where(croom: croom,jiece: jiece, use_date: theday).first
-              td 
-                - if log
-                  p
-                    - unless log.computer_status.blank?
-                      .ui.red.label data-html=log.computer_status data-position="top center" 硬件
-                    - unless log.garbage_status.blank?
-                      .ui.red.label data-html=log.garbage_status 卫生
-                    - unless log.place_status.blank?
-                      .ui.red.label data-html=log.place_status 摆放
-                    - unless log.desc.blank?
-                      .ui.red.label data-html=log.desc 其它
-                    - unless log.crlog_replys.blank?
-                      .ui.green.circular.label = log.crlog_replys.count
-                  p 
-                    = link_to log.banji.to_s+"("+log.loger.to_s+")",log
+        = cache("#{params[:week]}_crlog",expires_in: 10.minutes) do
+          - @jieces.each do |jiece|
+            tr
+              td #{jiece}节
+              - 1.upto(6) do |dd|
+                - theday = @begin_on+(dd-1).days
+                - log = @crlogs.where(croom: croom,jiece: jiece, use_date: theday).first
+                td 
+                  - if log
+                    p
+                      - unless log.computer_status.blank?
+                        .ui.red.label data-html=log.computer_status data-position="top center" 硬件
+                      - unless log.garbage_status.blank?
+                        .ui.red.label data-html=log.garbage_status 卫生
+                      - unless log.place_status.blank?
+                        .ui.red.label data-html=log.place_status 摆放
+                      - unless log.desc.blank?
+                        .ui.red.label data-html=log.desc 其它
+                      - unless log.crlog_replys.blank?
+                        .ui.green.circular.label = log.crlog_replys.count
+                    p 
+                      = link_to log.banji.to_s+"("+log.loger.to_s+")",log
 
 
 p 

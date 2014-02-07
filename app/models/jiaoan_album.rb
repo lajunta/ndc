@@ -7,4 +7,7 @@ class JiaoanAlbum
   field :logo, type: Hash
   has_many :jiaoans, dependent: :restrict, autosave: true
 
+  index({name: 1})
+  index({creator: 1})
+  index({created_at: 1})
 end

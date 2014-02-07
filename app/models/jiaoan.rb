@@ -8,4 +8,9 @@ class Jiaoan
   field :attachs, type: Array
   field :medias, type: Array
   belongs_to :jiaoan_album
+
+  index({name: 1})
+  index({bh: 1})
+  index({author: 1})
+  index({created_at: 1})
 end

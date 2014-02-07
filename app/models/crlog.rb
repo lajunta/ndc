@@ -15,5 +15,12 @@ class Crlog
   field :closed_by, type: String
   field :desc, type: String
   embeds_many :crlog_replys
+  index({semester: 1})
+  index({croom: 1})
+  index({banji: 1})
+  index({use_date: 1})
+  index({course_name: 1})
+  index({loger: 1})
+  index({created_at: 1})
 end
 

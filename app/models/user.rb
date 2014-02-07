@@ -21,4 +21,9 @@ class User
   validates_confirmation_of :password , message: "密码不匹配"
   validates_length_of :login, minimum: 3, message: '长度不能小于3'
   validates_length_of :password, minimum: 4, message: '长度不能小于4'
+
+  index({login: 1})
+  index({realname: 1})
+  index({type: 1})
+  index({created_at: 1})
 end

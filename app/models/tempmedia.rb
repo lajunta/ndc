@@ -5,6 +5,8 @@ class Tempmedia
   field :login, type: String
   field :medias,type: Array
 
+  index({login: 1})
+
 	def self.saveattach(filename,tmpfile,content_type)
 		tt=tmpfile.open
 		fileinfo={}

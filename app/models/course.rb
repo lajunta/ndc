@@ -4,4 +4,6 @@ class Course
   field :code, type: String
   field :intro, type: String
   field :logo, type: Hash
+
+  index({name: 1})
 end

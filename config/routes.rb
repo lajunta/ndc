@@ -1,6 +1,5 @@
 Ndc::Application.routes.draw do
 
-  scope "/ndc" do
     get "tempmedias/remove/:grid_id" => "tempmedias#remove" , :as=>:remove_tempmedia
     get "tempmedias/show" => "tempmedias#show" , :as=>:show_tempmedias
     get "tempmedias" => "tempmedias#index" , :as=>:tempmedias
@@ -110,5 +109,4 @@ Ndc::Application.routes.draw do
     #     # (app/controllers/admin/products_controller.rb)
     #     resources :products
     #   end
-  end
 end

@@ -3,7 +3,7 @@ source 'http://ruby.taobao.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 
 gem 'slim-rails'
-gem 'rails', '4.0.2'
+gem 'rails', github: "rails/rails"
 gem 'mongoid-grid_fs', github: 'ahoward/mongoid-grid_fs'
 gem 'mongoid' , git: 'https://github.com/mongoid/mongoid.git'
 gem 'dalli'
@@ -14,6 +14,7 @@ gem 'ckeditor'
 gem 'therubyracer', platforms: :ruby # or any other runtime
 gem 'less-rails'
 gem 'autoprefixer-rails'
+gem 'rack-mini-profiler'
 gem 'semantic-ui-rails'
 gem 'pdfkit' , git: 'https://github.com/pdfkit/pdfkit.git'
 

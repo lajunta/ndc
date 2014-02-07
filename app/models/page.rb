@@ -6,4 +6,9 @@ class Page
   field :author, type: String
   field :name, type: String
   field :tags, type: String
+
+  index({title: 1})
+  index({author: 1})
+  index({tags: 1})
+  index({name: 1})
 end
