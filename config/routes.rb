@@ -1,5 +1,7 @@
+# -*- encoding : utf-8 -*-
 Ndc::Application.routes.draw do
 
+  scope "ec" do
 
   resources :submissions
 
@@ -124,4 +126,5 @@ Ndc::Application.routes.draw do
     #     # (app/controllers/admin/products_controller.rb)
     #     resources :products
     #   end
+  end
 end

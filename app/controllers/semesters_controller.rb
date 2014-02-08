@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class SemestersController < ApplicationController
   before_action :root_required
   before_action :set_semester, only: [:show, :edit, :update, :destroy]

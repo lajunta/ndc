@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class SubmissionsController < ApplicationController
   before_action :teacher_required
   before_action :set_submission, only: [:show, :edit, :update, :destroy]

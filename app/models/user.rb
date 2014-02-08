@@ -1,3 +1,5 @@
+# -*- encoding : utf-8 -*-
+#encoding: utf-8
 require 'digest/sha2'
 class User
   include Mongoid::Document

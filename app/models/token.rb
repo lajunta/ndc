@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class Token
   include Mongoid::Document
   field :app_id, type: BSON::ObjectId

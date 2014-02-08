@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class UsersController < ApplicationController
   before_action :login_required
   before_action :root_required, only: [:index,:search,:new]

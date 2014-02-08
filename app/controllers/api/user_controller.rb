@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class Api::UserController < ApplicationController
   def index
     unless params[:access_token].blank?

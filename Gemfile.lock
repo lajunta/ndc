@@ -1,5 +1,5 @@
 GIT
-  remote: git://github.com/ahoward/mongoid-grid_fs.git
+  remote: https://github.com/ahoward/mongoid-grid_fs
   revision: 059012a2c2a9e0a5d6e67137752c3e918689c88a
   specs:
     mongoid-grid_fs (1.9.0)
@@ -7,23 +7,7 @@ GIT
       mongoid (>= 3.0, < 5.0)
 
 GIT
-  remote: git://github.com/rubyzip/rubyzip.git
-  revision: 09ac194540e03a99419a7f48cbba92b8a9069b39
-  specs:
-    rubyzip (1.1.0)
-
-GIT
-  remote: git://github.com/slim-template/slim-rails.git
-  revision: fbe59f96be6089167e8b31600ccedcfe09b515cc
-  specs:
-    slim-rails (2.1.0)
-      actionpack (>= 3.0, < 4.1)
-      activesupport (>= 3.0, < 4.1)
-      railties (>= 3.0, < 4.1)
-      slim (~> 2.0)
-
-GIT
-  remote: https://github.com/mongoid/mongoid.git
+  remote: https://github.com/mongoid/mongoid
   revision: 5b0f031992cbec66d68c6cb288a4edb952ed5336
   specs:
     mongoid (4.0.0.beta1)
@@ -33,10 +17,26 @@ GIT
       tzinfo (>= 0.3.37)
 
 GIT
-  remote: https://github.com/pdfkit/pdfkit.git
+  remote: https://github.com/pdfkit/pdfkit
   revision: f2f3915de22091ecfe76dff0cb945c166b47bcd5
   specs:
     pdfkit (0.5.4)
+
+GIT
+  remote: https://github.com/rubyzip/rubyzip
+  revision: 09ac194540e03a99419a7f48cbba92b8a9069b39
+  specs:
+    rubyzip (1.1.0)
+
+GIT
+  remote: https://github.com/slim-template/slim-rails
+  revision: fbe59f96be6089167e8b31600ccedcfe09b515cc
+  specs:
+    slim-rails (2.1.0)
+      actionpack (>= 3.0, < 4.1)
+      activesupport (>= 3.0, < 4.1)
+      railties (>= 3.0, < 4.1)
+      slim (~> 2.0)
 
 GEM
   remote: http://ruby.taobao.org/
@@ -77,7 +77,7 @@ GEM
       railties (>= 3.0)
       sass-rails (>= 3.2)
     chunky_png (1.2.9)
-    ckeditor (4.0.9)
+    ckeditor (4.0.10)
       mime-types
       orm_adapter (~> 0.5.0)
     coffee-rails (4.0.1)

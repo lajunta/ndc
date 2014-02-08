@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class SeatsController < ApplicationController
   before_action :basic_infos_required
   before_action :teacher_required

@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 #encoding: utf-8
 PDFKit.configure do |config|       
   config.default_options = { 

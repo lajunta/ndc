@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class CrSchedulesController < ApplicationController
   before_action :root_required
   before_action :set_cr_schedule, only: [:show, :edit, :update, :destroy]

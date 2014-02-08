@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class JiaoanAlbumsController < ApplicationController
   before_action :teacher_required
   before_action :set_jiaoan_album, only: [:show, :edit, :update, :print, :destroy]

@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class SitesController < ApplicationController
   before_action :root_required
   before_action :set_site, only: [:show, :edit, :update, :destroy]

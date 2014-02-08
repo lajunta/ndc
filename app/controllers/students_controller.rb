@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class StudentsController < ApplicationController
   before_action :root_required
   before_action :set_student, only: [:show, :edit, :update, :destroy]

@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require 'mongoid-grid_fs'
 class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.

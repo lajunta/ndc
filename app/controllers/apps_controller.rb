@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class AppsController < ApplicationController
   before_action :root_required
   before_action :set_app, only: [:show, :edit, :update, :destroy]

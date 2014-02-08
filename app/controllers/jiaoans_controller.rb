@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class JiaoansController < ApplicationController
   before_action :teacher_required
   before_action :set_jiaoan, only: [:show, :edit, :update, :destroy]

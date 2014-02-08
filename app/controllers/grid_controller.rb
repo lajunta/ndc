@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class GridController < ApplicationController
 
   def download(gid=params[:id])

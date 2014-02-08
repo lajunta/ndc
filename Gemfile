@@ -4,21 +4,21 @@ source 'http://ruby.taobao.org'
 
 #gem 'rails', github: "rails/rails"
 gem 'rails', "4.0.2"
-gem 'mongoid-grid_fs', github: 'ahoward/mongoid-grid_fs'
-gem 'mongoid' , git: 'https://github.com/mongoid/mongoid.git'
+gem 'mongoid-grid_fs', git: 'https://github.com/ahoward/mongoid-grid_fs'
+gem 'mongoid' ,  git: 'https://github.com/mongoid/mongoid'
 gem 'dalli'
 gem 'chosen-rails'
-gem 'rubyzip', github: "rubyzip/rubyzip"
+gem 'rubyzip', git: "https://github.com/rubyzip/rubyzip"
 gem 'kaminari'
 gem 'spreadsheet'
 gem 'ckeditor'
-gem 'therubyracer', platforms: :ruby # or any other runtime
+gem 'therubyracer', :platform=> :ruby
 gem 'less-rails'
 gem 'autoprefixer-rails'
 gem 'rack-mini-profiler'
 gem 'semantic-ui-rails'
-gem 'pdfkit' , git: 'https://github.com/pdfkit/pdfkit.git'
-gem 'slim-rails', github: "slim-template/slim-rails"
+gem 'pdfkit' , git: 'https://github.com/pdfkit/pdfkit'
+gem 'slim-rails', git: "https://github.com/slim-template/slim-rails"
 
 gem 'zbox'
 # Use SCSS for stylesheets

@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class HubsController < ApplicationController
   before_action :teacher_required
   before_action :set_hub, only: [:package, :show, :edit, :update, :destroy]

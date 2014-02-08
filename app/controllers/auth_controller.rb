@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class AuthController < ApplicationController
   layout "nobody"
   skip_before_filter :verify_authenticity_token, :only=>[:access_token]

@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class PagesController < ApplicationController
   before_action :teacher_required, except: [:show,:name]
   before_action :set_page, only: [:show, :edit, :update, :destroy]

@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class GroupsController < ApplicationController
   before_action :root_required
   before_action :set_group, only: [:show, :edit, :update, :destroy]
