@@ -3,7 +3,9 @@ Ndc::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Code is not reloaded between requests.
+  config.assets.prefix = "/ec/assets"
   config.cache_classes = true
+  config.relative_url_root = '/ec'
 
   # Eager load code on boot. This eager loads most of Rails and
   # your application in memory, allowing both thread web servers

@@ -21,11 +21,11 @@
 
 function insert_medias(s){
   //var app_path="/kpy/dc";
-  var app_path="";
+  var app_path="/ec";
   if(s==1){
     $(".ui.modal").modal('hide');
-    jsonurl=app_path+"/ndc/tempmedias/show";
-    see_prefix=app_path+"/ndc/see/";
+    jsonurl=app_path+"/tempmedias/show";
+    see_prefix=app_path+"/see/";
     $.getJSON(jsonurl, function(data) {
     var items = [];
     $.each(data, function(index, media) { 

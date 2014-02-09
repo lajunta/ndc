@@ -12,7 +12,7 @@ class AuthController < ApplicationController
       session[:default_group]=@user.default_group
       session[:user_type]=@user.type
       session[:user_id]=@user.id.to_s
-      redirect_to root_path ,notice: "登录成功"
+      redirect_to root_path(trailing_slash: true) ,notice: "登录成功"
     else
       redirect_to :back ,alert: "用户名密码不对"
     end
@@ -21,13 +21,50 @@ class AuthController < ApplicationController
   def login
   end
 
+  def auth_lwqzx
+    session[:vcode]=SecureRandom.hex(10)
+    vcode=session[:vcode]
+    redirect_url="http://www.lwqzx.sdedu.net/ec/login/lwqzx"
+    redirect_to "http://www.lwqzx.sdedu.net/kernel/net_school/login.php?vcode=#{vcode}&redirect_url=#{redirect_url}"
+  end
+
+  def lwqzx
+    vcode=params[:vcode].encode("UTF-8","GB2312",:invalid=>:replace,:undef=>:replace)
+    unless vcode==session[:vcode]
+      redirect_to root_path(trailing_slash: true), flash: {error: "Who Are You?"} and return
+      session[:vcode]=nil
+    end
+    if params[:login].blank?
+      redirect_to root_path(trailing_slash: true) ,flash: {error: "登录失败"} and return
+    end
+    login=params[:login].encode("UTF-8","GB2312",:invalid=>:replace,:undef=>:replace)
+    realname=params[:name].encode("UTF-8","GB2312",:invalid=>:replace,:undef=>:replace)
+    groups=params[:groups].encode("UTF-8","GB2312",:invalid=>:replace,:undef=>:replace)
+    groups=groups.gsub("[","").gsub("]","").split("@").compact.reject(&:empty?)
+
+    groups.include?("教师") ?  type="教师" : type="学生"
+    unless User.where(:login=>login).first
+      @user=User.new(login: login,realname: realname,groups: groups,type: type,
+                    password: 'lwqzx007',password_confirmation: 'lwqzx007')
+      @user.save!
+    else
+      @user = User.where(:login=>login).first
+    end
+      session[:login]=@user.login
+      session[:realname]=@user.realname
+      session[:default_group]=@user.default_group
+      session[:user_type]=@user.type
+      session[:user_id]=@user.id.to_s
+      redirect_to root_path(trailing_slash: true) ,notice: "登录成功" and return
+  end
+
   def logout
     session[:login]=nil
     session[:realname]=nil
     session[:user_type]=nil
     session[:user_id]=nil
     session[:default_group]=nil
-    redirect_to root_path ,notice: "你已经登出"
+    redirect_to root_path(trailing_slash: true) ,notice: "你已经登出"
   end
 
   def authorize

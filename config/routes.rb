@@ -1,9 +1,8 @@
 # -*- encoding : utf-8 -*-
 Ndc::Application.routes.draw do
 
-  scope "ec" do
+  scope "/ec" do
 
-  resources :submissions
 
     get "tempmedias/remove/:grid_id" => "tempmedias#remove" , :as=>:remove_tempmedia
     get "tempmedias/show" => "tempmedias#show" , :as=>:show_tempmedias
@@ -15,6 +14,8 @@ Ndc::Application.routes.draw do
     post "oauth/access_token"=>"auth#access_token" ,as: :access_token
     get "welcome/index"
     get "login"=>"auth#login"   ,as: :login
+    get "login/lwqzx"=>"auth#lwqzx"
+    get "auth_lwqzx"=>"auth#auth_lwqzx"
     post "auth"=>"auth#auth"    ,as: :auth
     get "logout"=>"auth#logout" ,as: :logout
     get "download/:id" => "grid#download" , :as=>:download
@@ -54,6 +55,7 @@ Ndc::Application.routes.draw do
       end
     end
     resources :students
+    resources :submissions
     resources :teachers
     resources :tokens
     resources :apps

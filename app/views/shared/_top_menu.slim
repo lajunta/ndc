@@ -2,7 +2,7 @@
   .ui.page.grid
     .item 
       i.home.icon
-      =' link_to '电脑室管理',root_path
+      =' link_to '电脑室管理',root_path(trailing_slash: true)
     - if is_teacher?
       .item
         =' link_to "机房日志",crlogs_path
@@ -67,4 +67,5 @@
         =' link_to '登出', logout_path, class: 'item'
       - else
         i.sign.in.icon 
-        =' link_to '登录', login_path ,class: 'item'
+        /=' link_to '登录', login_path ,class: 'item'
+        =' link_to '登录', auth_lwqzx_path ,class: 'item'

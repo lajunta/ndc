@@ -144,7 +144,7 @@ class UsersController < ApplicationController
       if session[:user_id] == params[:id] or is_root?
         @user = User.find(params[:id])
       else
-        redirect_to root_path ,notice: '你不是你' and return
+        redirect_to root_path(trailing_slash: true) ,notice: '你不是你' and return
       end
     end
 

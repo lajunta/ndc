@@ -2,8 +2,8 @@ source 'http://ruby.taobao.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 
-#gem 'rails', github: "rails/rails"
 gem 'rails', "4.0.2"
+#gem 'rails', git: "https://github.com/rails/rails"
 gem 'mongoid-grid_fs', git: 'https://github.com/ahoward/mongoid-grid_fs'
 gem 'mongoid' ,  git: 'https://github.com/mongoid/mongoid'
 gem 'dalli'

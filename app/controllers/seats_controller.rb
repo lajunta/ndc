@@ -22,7 +22,7 @@ class SeatsController < ApplicationController
 
   def check_user
     if @seat.tname!=realname
-      redirect_to root_path, flash: {error: "你不能进行这个操作"}
+      redirect_to root_path(trailing_slash: true), flash: {error: "你不能进行这个操作"}
     end
   end
 

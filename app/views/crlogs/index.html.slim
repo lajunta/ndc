@@ -79,7 +79,7 @@
         th 星期五
         th 星期六
       tbody
-        = cache("#{params[:week]}_crlog",expires_in: 10.minutes) do
+        = cache("#{params[:week]}_crlog",expires_in: 1.minutes) do
           - @jieces.each do |jiece|
             tr
               td #{jiece}节

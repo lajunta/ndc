@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
-  before_action :miniprofiler
+#  before_action :miniprofiler
   before_action :pageit, only: [:type,:index,:search]
   before_action :set_data
 
@@ -21,21 +21,21 @@ class ApplicationController < ActionController::Base
       if is_root?
         redirect_to semesters_path ,flash: {error: "请先设置学期信息"} and return
       else
-        redirect_to root_path ,flash: {error: "基础信息不完整，请管理员设置"} and return
+        redirect_to root_path(trailing_slash: true) ,flash: {error: "基础信息不完整，请管理员设置"} and return
       end
     end
     if Group.where(type: "班级").all.count==0
       if is_root?
         redirect_to groups_path ,flash: {error: "请先添加一些班级"} and return
       else
-        redirect_to root_path ,flash: {error: "基础信息不完整，请管理员设置"} and return
+        redirect_to root_path(trailing_slash: true) ,flash: {error: "基础信息不完整，请管理员设置"} and return
       end
     end
     if Course.all.count==0
       if is_root?
         redirect_to courses_path ,flash: {error: "请先设置课程信息"} and return
       else
-        redirect_to root_path ,flash: {error: "基础信息不完整，请管理员设置"} and return
+        redirect_to root_path(trailing_slash: true) ,flash: {error: "基础信息不完整，请管理员设置"} and return
       end
     end
   end
@@ -47,7 +47,7 @@ class ApplicationController < ActionController::Base
     @crooms=['C301','C302','C304','C401','C402','C403','C404']
     @all_crooms=['C301','C302','C304','C401','C402','C403','C404']
     @courses=Course.all.map{|c| c.name}
-    @jieces=['1-2','3-4','5-6']
+    @jieces=1..7
 
     if login?
       @user=User.find(user_id)
@@ -103,13 +103,13 @@ class ApplicationController < ActionController::Base
 
   def root_required
     unless is_root?
-      redirect_to root_path , flash: {error: '身份不对'}
+      redirect_to root_path(trailing_slash: true) , flash: {error: '身份不对'}
     end
   end
 
   def teacher_required
     unless is_teacher?
-      redirect_to root_path , flash: {error:  '身份不对'}
+      redirect_to root_path(trailing_slash: true) , flash: {error:  '身份不对'}
     end
   end
 
@@ -119,7 +119,7 @@ class ApplicationController < ActionController::Base
 
   def login_required
     unless login?
-      redirect_to root_path , notice: '请先登录'
+      redirect_to root_path(trailing_slash: true) , notice: '请先登录'
     end
   end
 
