@@ -40,6 +40,7 @@ class GroupsController < ApplicationController
   def new
     @group = Group.new
     @group.type ||= "班级"
+    @group.admin ||= realname
   end
 
   # GET /groups/1/edit

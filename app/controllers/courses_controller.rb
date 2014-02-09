@@ -16,6 +16,34 @@ class CoursesController < ApplicationController
     @courses = Course.all.page params[:page]
   end
 
+  def upload
+    if request.post?
+      require "spreadsheet"
+      @file=params[:xls]
+      unless @file
+        flash[:error]="选择一个文件" 
+        redirect_to :back and return
+      end 
+      book = Spreadsheet.open @file.tempfile
+      sheet1 = book.worksheet 0
+      right=wrong=updated=0
+      existed=[]
+      sheet1.each  do |row|
+        old_course=Student.where(name: row[0]).first
+        if old_course
+          existed<<row[1]
+          old_course.code=row[1]
+          updated+=1 if old_student.save 
+        else
+          new_course=Course.new({name: row[0].to_s.strip,code: row[1].strip})
+          new_course.save ? right+=1 : wrong+=1
+        end 
+      end 
+      word="输入成功#{right},已经存在#{existed},更新#{updated}, 失败#{wrong}"
+      flash[:notice]=word
+      redirect_to courses_path and return
+    end
+  end
   # GET /courses/1
   # GET /courses/1.json
   def show

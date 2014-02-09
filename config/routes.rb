@@ -1,6 +1,8 @@
 # -*- encoding : utf-8 -*-
 Ndc::Application.routes.draw do
 
+  resources :cr_applies
+
   scope "/ec" do
 
 
@@ -41,6 +43,7 @@ Ndc::Application.routes.draw do
     match "teachers/search" => "teachers#search", :as => :search_teachers, :via=>[:get,:post]
     match "students/search" => "students#search", :as => :search_students, :via=>[:get,:post]
     match "students/upload" => "students#upload", :as => :upload_students, :via=>[:get,:post]
+    match "courses/upload" => "courses#upload", :as => :upload_courses, :via=>[:get,:post]
 
     match "seats/search" => "seats#search", :as => :search_seats, :via=>[:get,:post]
 

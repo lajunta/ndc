@@ -1,0 +1,24 @@
+p#notice = notice
+
+p
+  strong Applyer:
+  = @cr_apply.applyer
+p
+  strong Semester:
+  = @cr_apply.semester
+p
+  strong Croom:
+  = @cr_apply.croom
+p
+  strong Course:
+  = @cr_apply.course
+p
+  strong Wday:
+  = @cr_apply.wday
+p
+  strong Jiece:
+  = @cr_apply.jiece
+
+= link_to 'Edit', edit_cr_apply_path(@cr_apply)
+'|
+= link_to 'Back', cr_applies_path

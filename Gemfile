@@ -5,10 +5,10 @@ source 'http://ruby.taobao.org'
 gem 'rails', "4.0.2"
 #gem 'rails', git: "https://github.com/rails/rails"
 gem 'mongoid-grid_fs', git: 'https://github.com/ahoward/mongoid-grid_fs'
-gem 'mongoid' ,  git: 'https://github.com/mongoid/mongoid'
+gem 'mongoid', "4.0.0.beta1" 
 gem 'dalli'
 gem 'chosen-rails'
-gem 'rubyzip', git: "https://github.com/rubyzip/rubyzip"
+gem 'rubyzip'
 gem 'kaminari'
 gem 'spreadsheet'
 gem 'ckeditor'
@@ -16,13 +16,14 @@ gem 'therubyracer', :platform=> :ruby
 gem 'less-rails'
 gem 'autoprefixer-rails'
 gem 'rack-mini-profiler'
-gem 'semantic-ui-rails'
-gem 'pdfkit' , git: 'https://github.com/pdfkit/pdfkit'
+
+gem 'sass-rails', '~> 4.0.0'
+gem 'semantic-ui-sass', github: 'doabit/semantic-ui-sass'
+gem 'pdfkit' 
 gem 'slim-rails', git: "https://github.com/slim-template/slim-rails"
 
 gem 'zbox'
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 4.0.0'
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'

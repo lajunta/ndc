@@ -25,5 +25,6 @@ table.ui.table.segment
       td = link_to '删除', course, data: {:confirm => '真的要删除吗?'}, :method => :delete
 
 br
-
-= link_to '新课程', new_course_path , class: 'ui green button'
+p
+  =' link_to '新课程', new_course_path , class: 'ui green button'
+  =' link_to '批量上传', upload_courses_path, class: 'ui green button'

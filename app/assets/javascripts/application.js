@@ -17,6 +17,7 @@
 //= require turbolinks
 //= require ckeditor/override
 //= require ckeditor/init
+//= require semantic-ui
 //= require_tree .
 
 function insert_medias(s){

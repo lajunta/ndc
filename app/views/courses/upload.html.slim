@@ -1,0 +1,12 @@
+h2 批量上传课程资料
+
+= form_tag upload_courses_path, multipart: true do 
+  p: label 批量上传课程资料
+  p = file_field_tag 'xls'
+  p = submit_tag '上传'
+
+hr
+
+p 说明:
+p 1.上传的信息每行的顺序为:
+p 2.课程名 课程代码(可选)

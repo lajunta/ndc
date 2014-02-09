@@ -2,6 +2,7 @@
 require File.expand_path('../boot', __FILE__)
 require "zip"
 
+
 # Pick the frameworks you want:
 # require "active_record/railtie"
 require "action_controller/railtie"
@@ -12,7 +13,10 @@ require "sprockets/railtie"
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(:default, Rails.env)
+
+require 'semantic-ui-sass' 
 Slim::Engine.set_default_options pretty: true, sort_attrs: false
+Spreadsheet.client_encoding = 'UTF-8'
 Zip.unicode_names = true
 
 module Ndc

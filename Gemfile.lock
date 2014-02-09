@@ -1,32 +1,17 @@
 GIT
+  remote: git://github.com/doabit/semantic-ui-sass.git
+  revision: d876a0c910280290a69206305bcb465b3a74040b
+  specs:
+    semantic-ui-sass (0.12.4.0)
+      sass (~> 3.2)
+
+GIT
   remote: https://github.com/ahoward/mongoid-grid_fs
   revision: 059012a2c2a9e0a5d6e67137752c3e918689c88a
   specs:
     mongoid-grid_fs (1.9.0)
       mime-types (~> 1.19)
       mongoid (>= 3.0, < 5.0)
-
-GIT
-  remote: https://github.com/mongoid/mongoid
-  revision: 5b0f031992cbec66d68c6cb288a4edb952ed5336
-  specs:
-    mongoid (4.0.0.beta1)
-      activemodel (>= 4.0.0)
-      moped (~> 2.0.beta6)
-      origin (~> 2.1)
-      tzinfo (>= 0.3.37)
-
-GIT
-  remote: https://github.com/pdfkit/pdfkit
-  revision: f2f3915de22091ecfe76dff0cb945c166b47bcd5
-  specs:
-    pdfkit (0.5.4)
-
-GIT
-  remote: https://github.com/rubyzip/rubyzip
-  revision: 09ac194540e03a99419a7f48cbba92b8a9069b39
-  specs:
-    rubyzip (1.1.0)
 
 GIT
   remote: https://github.com/slim-template/slim-rails
@@ -122,6 +107,11 @@ GEM
       treetop (~> 1.4.8)
     mime-types (1.25.1)
     minitest (4.7.5)
+    mongoid (4.0.0.beta1)
+      activemodel (>= 4.0.0)
+      moped (~> 2.0.beta6)
+      origin (~> 2.1)
+      tzinfo (>= 0.3.37)
     moped (2.0.0.beta6)
       bson (~> 2.2)
       connection_pool (~> 1.2)
@@ -130,6 +120,7 @@ GEM
     optionable (0.2.0)
     origin (2.1.0)
     orm_adapter (0.5.0)
+    pdfkit (0.5.4)
     polyglot (0.3.3)
     puma (2.7.1)
       rack (>= 1.1, < 2.0)
@@ -157,6 +148,7 @@ GEM
       json (~> 1.4)
     ref (1.0.5)
     ruby-ole (1.2.11.7)
+    rubyzip (1.1.0)
     sass (3.2.14)
     sass-rails (4.0.1)
       railties (>= 4.0.0, < 5.0)
@@ -165,9 +157,6 @@ GEM
     sdoc (0.4.0)
       json (~> 1.8)
       rdoc (~> 4.0, < 5.0)
-    semantic-ui-rails (0.12.4)
-      autoprefixer-rails
-      less-rails
     slim (2.0.2)
       temple (~> 0.6.6)
       tilt (>= 1.3.3, < 2.1)
@@ -215,16 +204,16 @@ DEPENDENCIES
   jquery-rails
   kaminari
   less-rails
-  mongoid!
+  mongoid (= 4.0.0.beta1)
   mongoid-grid_fs!
-  pdfkit!
+  pdfkit
   puma
   rack-mini-profiler
   rails (= 4.0.2)
-  rubyzip!
+  rubyzip
   sass-rails (~> 4.0.0)
   sdoc
-  semantic-ui-rails
+  semantic-ui-sass!
   slim-rails!
   spreadsheet
   therubyracer
