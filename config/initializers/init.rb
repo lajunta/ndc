@@ -4,7 +4,7 @@ unless User.where(:login=>"root").first
                 password: 'root',password_confirmation: 'root')
   user.save!
 end
-unless Group.where(:login=>"全体").first
+unless Group.where(:name=>"全体").first
   group=Group.new(name: "全体")
   group.save!
 end

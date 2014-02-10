@@ -1,8 +1,47 @@
-h1 Editing cr_apply
+.ui.header 编辑上机申请
 
-== render 'form'
+= form_for @cr_apply ,class: "ui form " do |f|
+  .inline.field
+    = f.label '申请者'
+    = f.text_field :applyer
+    .ui.selection.dropdown
+      input type='hidden' name='cr_apply[croom]' value=@cr_apply.croom
+        .default.text = @cr_apply.croom
+        i.dropdown.icon
+        .menu
+          - @crooms.each do |t|
+            .item data-value="#{t}" #{t}
 
-= link_to 'Show', @cr_apply
-'|
-= link_to 'Back', cr_applies_path
+    .ui.selection.dropdown
+      input type='hidden' name='cr_apply[course]' value=@cr_apply.course
+        .default.text = @cr_apply.course
+        i.dropdown.icon
+        .menu
+          - @courses.each do |t|
+            .item data-value="#{t}" #{t}
+    .ui.selection.dropdown
+      input type='hidden' name='cr_apply[banji]' value=@cr_apply.banji
+        .default.text = @cr_apply.banji
+        i.dropdown.icon
+        .menu
+          - @banjis.each do |t|
+            .item data-value="#{t}" #{t}
+    .ui.selection.dropdown
+      input type='hidden' name='cr_apply[wday]' value=@cr_apply.wday
+        .default.text = @cr_apply.wday
+        i.dropdown.icon
+        .menu
+          - (1..5).each do |t|
+            .item data-value="#{t}" #{t}
+    .ui.selection.dropdown
+      input type='hidden' name='cr_apply[jiece]' value=@cr_apply.jiece
+        .default.text = @cr_apply.jiece
+        i.dropdown.icon
+        .menu
+          - (1..7).each do |t|
+            .item data-value="#{t}" #{t}
+  .actions
+    = submit_tag "保存", class: "ui green button"
 
+= link_to '查看', @cr_apply
+= link_to '返回', cr_applies_path

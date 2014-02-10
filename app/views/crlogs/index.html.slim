@@ -62,12 +62,12 @@
 
 .ui.tabular.filter.menu
   - @crooms.each do |croom|
-    - if croom=="C302" 
+    - if croom=="C303" 
       a.active.item data-tab=croom = croom
     - else
       a.item data-tab=croom = croom
 - @crooms.each do |croom|
-  - act = croom=="C302" ? "ui active tab" : "ui tab"
+  - act = croom=="C303" ? "ui active tab" : "ui tab"
   div class=act  data-tab=croom
     table.ui.table.celled.segment
       thead

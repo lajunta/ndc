@@ -44,7 +44,7 @@ class ApplicationController < ActionController::Base
     @semesters=Semester.all.map{|s| s.full_name}
     @banjis=Group.where(type: '班级').map{|g| g.name}
     @groups=Group.all.map{|g| g.name}
-    @crooms=['C302','C303','C304','C401','C402','C404','C503']
+    @crooms=['C303','C304','C401','C402','C404','C503']
     @courses=Course.all.map{|c| c.name}
     @jieces=1..7
 

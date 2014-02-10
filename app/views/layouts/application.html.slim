@@ -1,13 +1,13 @@
 doctype html
 html
   head
-    title 李伟强职校电商部网站
+    title 李伟强职业技术学校电商部
     = stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true 
     = javascript_include_tag "application", "data-turbolinks-track" => true 
     = csrf_meta_tags 
   body
     = render "shared/top_menu"
-    .ui.grid
+    .ui.page.grid
       = render "shared/flash_box"
       .sixteen.wide.column
         = yield

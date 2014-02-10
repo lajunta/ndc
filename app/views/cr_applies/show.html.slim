@@ -1,24 +1,21 @@
-p#notice = notice
-
 p
-  strong Applyer:
+  strong 申请人:
   = @cr_apply.applyer
 p
-  strong Semester:
+  strong 学期:
   = @cr_apply.semester
 p
-  strong Croom:
+  strong 电脑室:
   = @cr_apply.croom
 p
-  strong Course:
+  strong 课程:
   = @cr_apply.course
 p
-  strong Wday:
+  strong 星期几:
   = @cr_apply.wday
 p
-  strong Jiece:
+  strong 节次:
   = @cr_apply.jiece
 
-= link_to 'Edit', edit_cr_apply_path(@cr_apply)
-'|
-= link_to 'Back', cr_applies_path
+=<> link_to '编辑', edit_cr_apply_path(@cr_apply) ,class: "ui button"
+=<> link_to '返回', cr_applies_path, class: "ui button"

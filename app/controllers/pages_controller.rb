@@ -18,7 +18,7 @@ class PagesController < ApplicationController
       if @page
         render :show
       else
-        redirect_to :back, flash: {error: "没有这篇文章"}
+        redirect_to root_path(trailing_slash: true), flash: {error: "没有这篇文章"}
       end
     end
   end

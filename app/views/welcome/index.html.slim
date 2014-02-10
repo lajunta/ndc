@@ -1,7 +1,7 @@
 doctype html
 html
   head
-    title 李伟强职校电脑室管理系统
+    title 李伟强职业技术学校电商部
     = stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true 
     = javascript_include_tag "application", "data-turbolinks-track" => true 
     = csrf_meta_tags 
@@ -17,7 +17,8 @@ html
             h1 电脑室上机安排表
       .ui.row
         .ui.column
-          - if @cr_schedule
-            div = sanitize(@cr_schedule.content)
+          = cache("cr_schedule_normal",expires_in: 5.minutes) do
+            - if @cr_schedule
+              div = sanitize(@cr_schedule.content)
     = render "shared/footer"
     = render "shared/js"

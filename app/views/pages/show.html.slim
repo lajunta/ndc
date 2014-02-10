@@ -1,7 +1,3 @@
-.ui.header  = @page.title
-p = @page.author
-.ui.label = @page.tags
-
-p = @page.name unless @page.name.blank?
-
-div = @page.body
+= cache("page_#{@page.id}",expires_in: 6.hours) do
+  .ui.header  = @page.title
+  = sanitize(@page.body)

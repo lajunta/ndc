@@ -1,43 +1,27 @@
-.ui.header 上机申请列表
+= cache(user_id+"_"+"cr_apply"+params[:status].to_s,expires_in: 5.minutes) do
+  .ui.header 上机申请列表
 
-.ui.tabular.filter.menu
-  a.active.item data-tab="all" 全部
-  - @crooms.each do |croom|
-    a.item data-tab=croom = croom
-.ui.active.tab data-tab="all"
-  table.ui.table.celled.segment
-    thead
-      th 节次
-      th 星期一
-      th 星期二
-      th 星期三
-      th 星期四
-      th 星期五
-      th 星期六
-    tbody
-      - @jieces.each do |jiece|
-        tr
-          td #{jiece}节
-          - 1.upto(6) do |wday|
-            td  
-              - @crooms.each do |croom|
-                - @applys = @cr_applies.where(wday: wday,jiece: jiece,croom: croom)
-                - if params[:status]=="up"
-                  - @applys = @cr_applies.where(status: true,wday: wday,jiece: jiece,croom: croom)
-                - if params[:status]=="down"
-                  - @applys = @cr_applies.where(status: false,wday: wday,jiece: jiece,croom: croom)
-                - unless @applys.blank?
-                  - @applys.each do |apply|
-                    - if apply.status
-                      span class=apply.id
-                        strong = croom+ " "+ apply.applyer
-                    - else
-                      span class=apply.id = croom + " " +apply.applyer 
-                    = link_to raw("<i class='ui green thumbs up icon '></i>"),change_status_cr_apply_path(apply.id,status: "up"),remote: true
-                    = link_to raw("<i class='ui red thumbs down icon '></i>"),change_status_cr_apply_path(apply.id,status: "down"),remote: true
-
-- @crooms.each do |croom|
-  .ui.tab  data-tab=croom
+  .ui.tabular.filter.menu
+    a.active.item data-tab="all" 全部
+    - @crooms.each do |croom|
+      a.item data-tab=croom = croom
+  .ui.active.tab data-tab="all"
+    p
+      =<> link_to "全部",cr_applies_path,class: "ui mini button"
+      =<> link_to "通过的",cr_applies_path(status: "up"),class: "ui mini button"
+      =<> link_to "未通过的",cr_applies_path(status: "down"),class: "ui mini button"
+    - if is_root?
+      = form_tag cr_applies_path ,class: "ui form",method: "get" do 
+        .inline.field
+          .ui.selection.dropdown
+            input type='hidden' name='tname'  
+              .default.text 
+              i.dropdown.icon
+              .menu
+                - @tnames.each do |nm|
+                  .item data-value="#{nm}" #{nm}
+          =submit_tag "查询", class: "ui mini button"
+        
     table.ui.table.celled.segment
       thead
         th 节次
@@ -46,26 +30,68 @@
         th 星期三
         th 星期四
         th 星期五
-        th 星期六
       tbody
-        /= cache("#{params[:week]}_crlog",expires_in: 1.minute) do
         - @jieces.each do |jiece|
           tr
             td #{jiece}节
-            - 1.upto(6) do |wday|
+            - 1.upto(5) do |wday|
               td  
-                - @applys = @cr_applies.where(wday: wday,jiece: jiece,croom: croom)
-                - unless @applys.blank?
-                  - @applys.each do |apply|
-                    - if apply.status
-                      span: strong = apply.applyer+""+apply.course
-                    - else
-                      span = apply.applyer+""+apply.course 
-                    = link_to raw("<i class='ui green thumbs up icon'></i>"),change_status_cr_apply_path(apply.id,status: "up"),remote: true
-                    = link_to raw("<i class='ui red thumbs down icon'></i>"),change_status_cr_apply_path(apply.id,status: "down"),remote: true
+                - @crooms.each do |croom|
+                  - @applys = @cr_applies.where(wday: wday,jiece: jiece,croom: croom)
+                  - if params[:status]=="up"
+                    - @applys = @cr_applies.where(status: true,wday: wday,jiece: jiece,croom: croom)
+                  - if params[:status]=="down"
+                    - @applys = @cr_applies.where(status: false,wday: wday,jiece: jiece,croom: croom)
+                  - unless @applys.blank?
+                    - @applys.each do |apply|
+                      span class=apply.id
+                        - if apply.status
+                          strong 
+                            = link_to croom+" "+ apply.applyer,apply, title: apply.banji.to_s+apply.course.to_s
+                        - else
+                          = link_to croom+" "+apply.applyer,apply,title: apply.banji.to_s+apply.course.to_s
+                        - if is_root?
+                          = link_to raw("<i class='ui green thumbs up icon '></i>"),change_status_cr_apply_path(apply.id,status: "up"),remote: true
+                          = link_to raw("<i class='ui red thumbs down icon '></i>"),change_status_cr_apply_path(apply.id,status: "down"),remote: true
+                        - if apply.applyer==realname or is_root?
+                          = link_to raw("<i class='ui red remove circle icon '></i>"),cr_apply_path(apply.id),remote: true, method: "delete",confirm: "真的要删除这个上机申请吗?"
+                          = link_to raw("<i class='ui edit icon '></i>"),edit_cr_apply_path(apply)
+                      br
+  - @crooms.each do |croom|
+    .ui.tab  data-tab=croom
+      table.ui.table.celled.segment
+        thead
+          th 节次
+          th 星期一
+          th 星期二
+          th 星期三
+          th 星期四
+          th 星期五
+        tbody
+          /= cache("#{params[:week]}_crlog",expires_in: 1.minute) do
+          - @jieces.each do |jiece|
+            tr
+              td #{jiece}节
+              - 1.upto(5) do |wday|
+                td  
+                  - @applys = @cr_applies.where(wday: wday,jiece: jiece,croom: croom)
+                  - unless @applys.blank?
+                    - @applys.each do |apply|
+                      span class=apply.id
+                        - if apply.status
+                          strong 
+                            = link_to croom+" "+ apply.applyer,apply, title: apply.banji.to_s+apply.course.to_s
+                        - else
+                          = link_to croom+" "+apply.applyer,apply,title: apply.banji.to_s+apply.course.to_s
+                        - if is_root?
+                          = link_to raw("<i class='ui green thumbs up icon '></i>"),change_status_cr_apply_path(apply.id,status: "up"),remote: true
+                          = link_to raw("<i class='ui red thumbs down icon '></i>"),change_status_cr_apply_path(apply.id,status: "down"),remote: true
+                        - if apply.applyer==realname or is_root?
+                          = link_to raw("<i class='ui red remove circle icon '></i>"),cr_apply_path(apply.id),remote: true, method: "delete",confirm: "真的要删除这个上机申请吗?"
+                          = link_to raw("<i class='ui edit icon '></i>"),edit_cr_apply_path(apply)
+                      br
 
-
-p 
-  = link_to '申请上机', new_cr_apply_path ,class: "ui green button"
-  - if is_root?
-    = link_to '导出全部', export_cr_applies_path(status: "up") ,class: "ui green button"
+  p 
+    =<> link_to '申请上机', new_cr_apply_path ,class: "ui green button"
+    - if is_root?
+      =<> link_to '导出全部', export_cr_applies_path(status: "up") ,class: "ui green button"

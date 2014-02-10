@@ -9,9 +9,9 @@
   .field
     = f.label '标题'
     = f.text_field :title
-  .field
+  .field.media_content
     = f.label '内容'
-    = f.text_area :body
+    = f.cktext_area :body , placeholder: "在此写文章"
   .field
     = f.label '网页名称'
     = f.text_field :name

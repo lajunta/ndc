@@ -1,5 +1,4 @@
-.ui.header 上机列表导出
-
+.ui.center.aligned.header 上机安排表
 table.ui.table.celled.segment
   thead
     th 节次
@@ -8,12 +7,11 @@ table.ui.table.celled.segment
     th 星期三
     th 星期四
     th 星期五
-    th 星期六
   tbody
     - @jieces.each do |jiece|
       tr
-        td #{jiece}节
-        - 1.upto(6) do |wday|
+        td 第#{jiece}节
+        - 1.upto(5) do |wday|
           td  
             - @crooms.each do |croom|
               - @applys = @cr_applies.where(wday: wday,jiece: jiece,croom: croom)
@@ -27,4 +25,4 @@ table.ui.table.celled.segment
                     strong = croom+ " "+ apply.applyer
                   - else
                     = croom + " " +apply.applyer 
-
+                  br

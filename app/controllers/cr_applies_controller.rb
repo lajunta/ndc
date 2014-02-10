@@ -1,11 +1,10 @@
 class CrAppliesController < ApplicationController
-  before_action :teacher_required
+  before_action :teacher_required, except: [:export]
   before_action :set_cr_apply, only: [:change_status,:show, :edit, :update, :destroy]
   before_action :check_applyer, only: [:edit,:update,:destroy]
-  before_action :root_required, only: [:export]
 
   def check_applyer
-    unless @cr_apply.applyer!=realname or is_root?
+    unless @cr_apply.applyer==realname or is_root?
       redirect_to :back, flash: {error: "你不能进行这个操作"}
     end
   end
@@ -41,7 +40,12 @@ class CrAppliesController < ApplicationController
   # GET /cr_applies
   # GET /cr_applies.json
   def index
-    @cr_applies = CrApply.where(semester: current_semester.full_name).all
+    @tnames=CrApply.distinct("applyer")
+    if params[:tname]
+      @cr_applies = CrApply.where(applyer: params[:tname],semester: current_semester.full_name).all
+    else
+      @cr_applies = CrApply.where(semester: current_semester.full_name).all
+    end
   end
 
   # GET /cr_applies/1
@@ -58,6 +62,7 @@ class CrAppliesController < ApplicationController
         @courses=@user.config[:fav_courses]
       end
     end
+    @cr_apply.applyer ||= realname
   end
 
   def edit
@@ -72,7 +77,7 @@ class CrAppliesController < ApplicationController
       applys.each do |apply|
         infos=apply.split("_")
         hsh={}
-        hsh[:applyer]=realname
+        hsh[:applyer]=params[:applyer]
         hsh[:semester]=current_semester.full_name
         hsh[:croom]=infos[1]
         hsh[:course]=infos[0]
@@ -109,17 +114,18 @@ class CrAppliesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to cr_applies_url }
       format.json { head :no_content }
+      format.js { render :layout=>false}
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_cr_apply
-      @cr_apply = CrApply.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_cr_apply
+    @cr_apply = CrApply.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def cr_apply_params
-      params.require(:cr_apply).permit(:applyer, :semester, :croom, :course, :wday, :jiece)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def cr_apply_params
+    params.require(:cr_apply).permit(:applyer,:banji, :semester, :croom, :course, :wday, :jiece)
+  end
 end
