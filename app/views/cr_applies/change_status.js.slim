@@ -1,0 +1,4 @@
+- if @cr_apply.status
+  == "$('span.#{@cr_apply.id}').css('font-weight','bold');"
+- else
+  == "$('span.#{@cr_apply.id}').css('font-weight','normal');"

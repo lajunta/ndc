@@ -1,11 +1,40 @@
 class CrAppliesController < ApplicationController
   before_action :teacher_required
-  before_action :set_cr_apply, only: [:show, :edit, :update, :destroy]
+  before_action :set_cr_apply, only: [:change_status,:show, :edit, :update, :destroy]
   before_action :check_applyer, only: [:edit,:update,:destroy]
+  before_action :root_required, only: [:export]
 
   def check_applyer
     unless @cr_apply.applyer!=realname or is_root?
       redirect_to :back, flash: {error: "你不能进行这个操作"}
+    end
+  end
+
+  def export
+    unless params[:status].blank?
+      if params[:status]=="up"
+        status=true
+      elsif params[:status]=="down"
+        status=false
+      end
+      @cr_applies = CrApply.where(status: status,semester: current_semester.full_name).all
+    else
+      @cr_applies = CrApply.where(semester: current_semester.full_name).all
+    end
+  end
+
+
+  def change_status
+    if request.xhr?
+      if params[:status]=="up"
+        status=true
+      else
+        status=false
+      end
+      @cr_apply.update_attribute(:status,status)
+      respond_to do |form|
+        form.js { render :layout=>false}
+      end
     end
   end
 
@@ -23,6 +52,12 @@ class CrAppliesController < ApplicationController
   # GET /cr_applies/new
   def new
     @cr_apply = CrApply.new
+    @user=User.find(user_id)
+    unless @user.config.blank?
+      unless @user.config[:fav_courses].blank?
+        @courses=@user.config[:fav_courses]
+      end
+    end
   end
 
   def edit
@@ -47,7 +82,7 @@ class CrAppliesController < ApplicationController
         cr_apply=CrApply.new(hsh)
         cr_apply.save
       end
-      redirect_to :back ,notice: "申请已经提交"
+      redirect_to cr_applies_path ,notice: "申请已经提交"
     else
       redirect_to :back ,flash: {error: "你没有任何选择"}
     end

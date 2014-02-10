@@ -10,7 +10,7 @@ class GroupsController < ApplicationController
   before_action :check_admin, only: [:edit,:update,:destroy]
 
   def check_admin
-    if @group.admin!=realname
+    unless @group.admin==realname or is_root?
       redirect_to :back, flash: {error: "你不能操作这个群组"}
     end
   end

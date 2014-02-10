@@ -1,7 +1,6 @@
 # -*- encoding : utf-8 -*-
 Ndc::Application.routes.draw do
 
-  resources :cr_applies
 
   scope "/ec" do
 
@@ -47,6 +46,14 @@ Ndc::Application.routes.draw do
 
     match "seats/search" => "seats#search", :as => :search_seats, :via=>[:get,:post]
 
+    resources :cr_applies do
+      member do
+        get :change_status
+      end
+      collection do 
+        get :export
+      end
+    end
     resources :jiaoan_albums do
       resources :jiaoans
     end

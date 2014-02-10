@@ -18,7 +18,7 @@ gem 'autoprefixer-rails'
 gem 'rack-mini-profiler'
 
 gem 'sass-rails', '~> 4.0.0'
-gem 'semantic-ui-sass', github: 'doabit/semantic-ui-sass'
+gem 'semantic-ui-sass', git: 'https://github.com/doabit/semantic-ui-sass'
 gem 'pdfkit' 
 gem 'slim-rails', git: "https://github.com/slim-template/slim-rails"
 

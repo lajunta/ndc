@@ -45,7 +45,6 @@ class ApplicationController < ActionController::Base
     @banjis=Group.where(type: '班级').map{|g| g.name}
     @groups=Group.all.map{|g| g.name}
     @crooms=['C302','C303','C304','C401','C402','C404','C503']
-    @all_crooms=['C302','C303','C304','C401','C402','C404','C503']
     @courses=Course.all.map{|c| c.name}
     @jieces=1..7
 
@@ -53,9 +52,9 @@ class ApplicationController < ActionController::Base
       @user=User.find(user_id)
       if @user
       unless @user.config.blank?
-        @banjis=@user.config["fav_banjis"]
-        @crooms=@user.config["fav_crooms"]
-        @courses=@user.config["fav_courses"]
+        @fav_banjis=@user.config["fav_banjis"]
+        @fav_crooms=@user.config["fav_crooms"]
+        @fav_courses=@user.config["fav_courses"]
       end
       end
     end
