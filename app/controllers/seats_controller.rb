@@ -26,13 +26,6 @@ class SeatsController < ApplicationController
     end
   end
 
-  def set_data
-    @semesters=Semester.all.map{|s| s.full_name}
-    @banjis=Group.where(type: '班级').map{|g| g.name}
-    @crooms=['C301','C302','C304','C401','C402','C403','C404']
-    @courses=Course.all.map{|c| c.name}
-  end
-
   def search
     hsh={}
     hsh[:croom] = params[:croom] unless params[:croom].blank?

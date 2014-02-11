@@ -1,0 +1,23 @@
+.ui.header 角色列表
+
+table.ui.table.segment
+
+  thead
+    th
+    th 名称
+    th 成员
+    th
+    th
+    th
+
+  - @roles.each do |role|
+    tr
+      td = @num+=1
+      td = role.name
+      td = role.members_list
+      td = link_to '查看', role
+      td = link_to '编辑', edit_role_path(role)
+      td = link_to '删除', role, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+
+p = link_to '新角色', new_role_path

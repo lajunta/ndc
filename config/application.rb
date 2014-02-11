@@ -35,8 +35,8 @@ module Ndc
     # config.i18n.default_locale = :de
     # config.assets.precompile += %w( .svg .eot .woff .ttf )
     
-     config.action_view.sanitized_allowed_tags = 'span','h1','h2','h3','h4','br','p','div','a','i','table', 'thead','tbody','th','tr', 'td'
-     config.action_view.sanitized_allowed_attributes = 'id', 'class'
+     config.action_view.sanitized_allowed_tags = 'span','h1','h2','h3','h4','br','p','div','a','i','table', 'thead','tbody','th','tr', 'td',"ol","ul"
+     config.action_view.sanitized_allowed_attributes = 'id', 'class',"href","title","colspan","src"
      config.i18n.enforce_available_locales = false
      config.assets.prefix = "/ec/assets"
   end

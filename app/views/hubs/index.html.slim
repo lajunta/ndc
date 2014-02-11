@@ -9,6 +9,7 @@ table.ui.table.segment
     th 提交数
     th 发布时间
     th 截止时间
+    th 
     th
 
   - @hubs.each do |hub|
@@ -20,16 +21,21 @@ table.ui.table.segment
       td 
         = link_to hub.submissions.count, hub, title: hub.users_list+"|"+hub.groups_list
         - if hub.submissions.map{|s| s.submitter}.include?(realname)
-          .ui.small.circular.green.label 已交
+          = semantic_icon("green checkmark")
       td = hub.created_at.strftime("%Y-%m-%d %H:%M:%S")
       td = hub.end_on
+      -  left=(hub.end_on-Date.today).to_i
+      - if left>=0
+        td = "还有#{left}天"
+      - else
+        td 已过期
       td 
         - if hub.users.include?(realname) or hub.groups.include?(default_group) or hub.creator==realname
           =<> link_to '上交', new_hub_submission_path(hub), class: "ui mini green button" 
         - if hub.creator==realname
           =<> link_to "打包", package_hub_path(hub), class: "ui mini green button"
           =<> link_to '编辑', edit_hub_path(hub), class: "ui mini green button"
-          =<> link_to '删除', hub, data: {:confirm => '真的要删除吗?'}, :method => :delete, class: "ui mini red button"
+          =<> link_to '删除', hub, data: {:confirm => '真的要删除吗?'}, :method => :delete, class: "ui mini red button" unless hub.submissions.count>0
 p
 
 = link_to '新的文件收集', new_hub_path ,class: "ui small green button"

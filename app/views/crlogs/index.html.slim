@@ -82,7 +82,7 @@
         = cache("#{params[:week]}_crlog",expires_in: 1.minutes) do
           - @jieces.each do |jiece|
             tr
-              td #{jiece}节
+              td 第#{jiece}节
               - 1.upto(6) do |dd|
                 - theday = @begin_on+(dd-1).days
                 - log = @crlogs.where(croom: croom,jiece: jiece, use_date: theday).first

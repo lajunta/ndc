@@ -5,7 +5,10 @@
       ul
         - @submission.errors.full_messages.each do |message|
           li = message
-
+  /
+  /  label for="file" class="ui icon small button"
+  /    = semantic_icon("file icon")+"打开文件"
+  /  input type="file" id="file" name="attachs[]" style="display:none;"
   .field.attach_base
     = file_field_tag "attachs[]"
   .field

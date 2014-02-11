@@ -1,4 +1,4 @@
-= cache(user_id+"_"+"cr_apply"+params[:status].to_s,expires_in: 5.minutes) do
+= cache(user_id+"_"+"cr_apply"+params[:status].to_s,expires_in: 1.minutes) do
   .ui.header 上机申请列表
 
   .ui.tabular.filter.menu
@@ -33,7 +33,7 @@
       tbody
         - @jieces.each do |jiece|
           tr
-            td #{jiece}节
+            td 第#{jiece}节
             - 1.upto(5) do |wday|
               td  
                 - @crooms.each do |croom|

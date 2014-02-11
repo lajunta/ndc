@@ -57,10 +57,12 @@ class CrAppliesController < ApplicationController
   def new
     @cr_apply = CrApply.new
     @user=User.find(user_id)
+    if @user.config
     unless @user.config.blank?
       unless @user.config[:fav_courses].blank?
         @courses=@user.config[:fav_courses]
       end
+    end
     end
     @cr_apply.applyer ||= realname
   end

@@ -1,7 +1,6 @@
 # -*- encoding : utf-8 -*-
 Ndc::Application.routes.draw do
 
-
   scope "/ec" do
 
 
@@ -64,6 +63,7 @@ Ndc::Application.routes.draw do
         get :package
       end
     end
+    resources :roles
     resources :students
     resources :submissions
     resources :teachers

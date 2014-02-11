@@ -8,7 +8,7 @@ class SubmissionsController < ApplicationController
   before_action :check_submitter, only: [:edit,:update,:destroy]
 
   def check_submitter
-    unless @submission.submitter!=realname or is_root?
+    unless @submission.submitter==realname or is_root?
       redirect_to :back, flash: {error: "你不能进行这个操作"}
     end
   end

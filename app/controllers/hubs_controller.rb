@@ -19,7 +19,7 @@ class HubsController < ApplicationController
     user_agent = request.user_agent.downcase
     filename = user_agent.include?("msie") ? CGI::escape(filename) :  filename
     stringio=StringIO.new ""
-    Zip::OutputStream.write_buffer(stringio) do |zio|
+    stringio=Zip::OutputStream.write_buffer do |zio|
       @hub.submissions.each do |sub|
         sub.attachs.each do |attach|
           zio.put_next_entry(sub.submitter+"_"+attach["filename"])

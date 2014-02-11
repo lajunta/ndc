@@ -10,6 +10,7 @@ class AuthController < ApplicationController
       session[:login]=@user.login
       session[:realname]=@user.realname
       session[:default_group]=@user.default_group
+      session[:my_groups]=@user.groups
       session[:user_type]=@user.type
       session[:user_id]=@user.id.to_s
       redirect_to root_path(trailing_slash: true) ,notice: "登录成功"
@@ -53,6 +54,7 @@ class AuthController < ApplicationController
       session[:login]=@user.login
       session[:realname]=@user.realname
       session[:default_group]=@user.default_group
+      session[:my_groups]=@user.groups
       session[:user_type]=@user.type
       session[:user_id]=@user.id.to_s
       redirect_to root_path(trailing_slash: true) ,notice: "登录成功" and return
@@ -64,6 +66,7 @@ class AuthController < ApplicationController
     session[:user_type]=nil
     session[:user_id]=nil
     session[:default_group]=nil
+    session[:my_groups]=nil
     redirect_to root_path(trailing_slash: true) ,notice: "你已经登出"
   end
 
