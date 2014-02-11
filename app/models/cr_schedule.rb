@@ -2,6 +2,7 @@
 class CrSchedule
   include Mongoid::Document
   include Mongoid::Timestamps
+  field :name
   field :semester, type: String
   field :croom, type: String
   field :content, type: String

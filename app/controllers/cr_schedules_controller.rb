@@ -17,6 +17,19 @@ class CrSchedulesController < ApplicationController
   # GET /cr_schedules/new
   def new
     @cr_schedule = CrSchedule.new
+    @cr_schedule.semester = current_semester.full
+  end
+
+  def get_latest
+    @cr_applies = CrApply.where(status: true,semester: current_semester.full_name).all
+    output=render_to_string(:template=>"cr_applies/export", :layout => false)
+    @cr_schedule = CrSchedule.new(semester: current_semester.full_name,content: output)
+    if @cr_schedule.save
+      redirect_to root_path(trailing_slash: true),notice: "最新上机安排表设置成功"
+    else
+      redirect_to root_path(trailing_slash: true),flash: {error:  "最新上机安排表设置失败"}
+    end
+
   end
 
   # GET /cr_schedules/1/edit
@@ -71,6 +84,6 @@ class CrSchedulesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def cr_schedule_params
-      params.require(:cr_schedule).permit(:semester, :croom, :content, :used)
+      params.require(:cr_schedule).permit(:semester, :name,:croom, :content, :used)
     end
 end

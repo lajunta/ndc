@@ -6,13 +6,18 @@
         - @cr_schedule.errors.full_messages.each do |message|
           li = message
 
-  .two.fields
-    .field
-      = f.label '学期'
-      = f.select :semester, @semesters
+  .inline.field
+    .ui.selection.dropdown
+      input type='hidden' name='cr_schedule[semester]' value=@cr_schedule.semester 
+      .default.text = @cr_schedule.semester
+      i.dropdown.icon
+      .menu
+        - @semesters.each do |sm|
+          .item data-value="#{sm}" #{sm}
+    =<> f.label '名称:'
+    =<> f.text_field :name
   .field
-    = f.label '上机安排'
-    = f.text_area :content
+    = f.cktext_area :content
   .field
     = f.label '是否启用'
     = f.check_box :used

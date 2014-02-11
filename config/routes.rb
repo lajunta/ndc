@@ -80,7 +80,11 @@ Ndc::Application.routes.draw do
     resources :courses
     resources :semesters
     resources :groups
-    resources :cr_schedules
+    resources :cr_schedules do
+      collection do 
+        get :get_latest
+      end
+    end
     resources :crlogs
     resources :seats
 

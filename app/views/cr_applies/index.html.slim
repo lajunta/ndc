@@ -94,4 +94,4 @@
   p 
     =<> link_to '申请上机', new_cr_apply_path ,class: "ui green button"
     - if is_root?
-      =<> link_to '导出全部', export_cr_applies_path(status: "up") ,class: "ui green button"
+      =<> link_to '设置为上机安排表', get_latest_cr_schedules_path ,class: "ui green button"

@@ -1,4 +1,4 @@
-= form_for @cr_apply, html:{class: "ui form segment"} do |f|
+= form_for @cr_apply, html: {class: "ui form segment"} do |f|
   - if @cr_apply.errors.any?
     #error_explanation
       h2 = "#{pluralize(@cr_apply.errors.count, "error")} prohibited this cr_apply from being saved:"
