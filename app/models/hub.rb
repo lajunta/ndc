@@ -5,8 +5,11 @@ class Hub
   field :name, type: String
   field :creator, type: String
   field :end_on, type: Date
-  field :users, type: Array
-  field :groups, type: Array
+  field :users, type: Array, default: []
+  field :groups, type: Array, default: []
+  field :open, type: Boolean, default: false
+  field :attachs, type: Array
+  field :desc, type: String
   has_many :submissions , dependent: :restrict
   def users_list=(arg)
     self.users = arg.split(',').map { |v| v.strip }

@@ -1,6 +1,6 @@
 CKEDITOR.editorConfig = function(config){
   config.language = "zh-cn",
-  config.height = "480px",
+  config.height = "240px",
   config.toolbar = [
     [ 'Bold', 'Italic','Underline','Strike' ],
     ['Format','FontSize'],

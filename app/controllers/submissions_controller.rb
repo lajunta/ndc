@@ -17,8 +17,8 @@ class SubmissionsController < ApplicationController
   # GET /submissions.json
   #
   def check_attachs
-    if params[:attachs].blank?
-      redirect_to :back ,flash: {error: "请选择一个文件"}
+    if params[:attachs].blank? and params[:submissions][:desc].blank?
+      redirect_to :back ,flash: {error: "说点什么或者上交点什么,好不好?"}
     end
   end
 

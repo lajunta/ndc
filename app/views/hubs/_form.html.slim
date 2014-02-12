@@ -1,4 +1,4 @@
-= form_for @hub, html: {class: "ui form segment"} do |f|
+= form_for @hub, html: {multipart: true,class: "ui form segment"} do |f|
   - if @hub.errors.any?
     #error_explanation
       h2 = "#{pluralize(@hub.errors.count, "error")} prohibited this hub from being saved:"
@@ -6,17 +6,37 @@
         - @hub.errors.full_messages.each do |message|
           li = message
 
+  .three.fields
+    .fluid.field
+      = f.text_field :name, placeholder: "名称"
+    .inline.field
+      = f.label "截止时间:"
+      = f.text_field :end_on, :value => (Date.today+7.day).strftime("%Y-%m-%d")
+    .field
+      .ui.checkbox
+        = f.check_box :open
+        = f.label "是否可相互学习"
   .field
-    = f.label "名称"
-    = f.text_field :name
+    = f.text_area :desc, placeholder: "说明"
+  .field.attach_base
+    = file_field_tag "hub[attachs][]"
   .field
-    = f.label "上交个人" 
-    = f.text_field :users_list
-  .field
-    = f.label "上交部门"
-    = f.text_field :groups_list
-  .field
-    = f.label "截止时间"
-    = f.text_field :end_on, :value => (Date.today+7.day).strftime("%Y-%m-%d")
+    = link_to "添加附件", "",class: "ui mini green button add_attach"
+  .ui.divider
+  .actions = f.submit '提交', class: "ui small green button"
 
-  .actions = f.submit '保存', class: "ui small green button"
+  - unless @hub.attachs.blank?
+    .ui.ordered.list
+      - @hub.attachs.each do |attach|
+        div class="item attach_#{attach['grid_id']}" 
+          =<> link_to attach["filename"]+"("+attach["file_size"]+")",download_path(attach["grid_id"])
+          =<> link_to "移除",remove_hub_attach_path(hub_id: @hub.id,grid_id: attach["grid_id"]),class: "ui mini red button",:remote=>true
+
+javascript:
+  $("a.add_attach").click(function(evt){
+    evt.preventDefault();
+    attach_base=$(".field.attach_base");
+    new_attach=attach_base.clone();
+    new_attach.removeClass("attach_base").addClass("attach");
+    new_attach.insertAfter(attach_base);
+  }); 

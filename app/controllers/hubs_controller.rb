@@ -9,6 +9,17 @@ class HubsController < ApplicationController
     @hubs = Hub.or({users: realname},{creator: realname},{groups: default_group}).desc(:created_at).page params[:page]
   end
 
+  def remove_attach
+    grid.delete(params[:grid_id])
+    @hub=Hub.find(params[:hub_id])
+    attachs=@hub.attachs.delete_if{|a| a["grid_id"]==params[:grid_id]}
+    if @hub.update_attribute(:attachs,attachs)
+      respond_to do |form|
+        form.js {render :layout=>false}
+      end
+    end
+  end
+
   def package
     if @hub.submissions.blank?
       redirect_to :back , flash: {error: "还没有人上交"} and return
@@ -35,6 +46,15 @@ class HubsController < ApplicationController
   # GET /hubs/1
   # GET /hubs/1.json
   def show
+    @sub_count=@hub.submissions.count
+    if @hub.open
+      @submissions=@hub.submissions
+    else
+      @submissions=@hub.submissions.where(submitter: realname)
+      if @submissions.count==0
+        redirect_to hubs_path, flash: {error: "你还没有上交"}
+      end
+    end
   end
 
   # GET /hubs/new
@@ -80,6 +100,8 @@ class HubsController < ApplicationController
   # DELETE /hubs/1
   # DELETE /hubs/1.json
   def destroy
+    attachs=@hub.attachs
+    rm_grid_from_array(attachs)
     @hub.destroy
     respond_to do |format|
       format.html { redirect_to hubs_url }
@@ -99,6 +121,16 @@ class HubsController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def hub_params
     params[:hub][:creator]=realname
-    params.require(:hub).permit(:name, :creator, :end_on, :users_list, :groups_list)
+    params[:hub][:users_list]||=realname
+    params[:hub][:groups_list]||="全体"
+    params.require(:hub).permit(:name, :open, :desc, :creator, :end_on, :users_list, :groups_list).tap do |hub|
+      unless params[:hub][:attachs].blank?
+        @attachs=[]
+        attachs=params[:hub][:attachs]
+        attachs.each {|attach| @attachs<<uploadtogrid(attach)}
+        @attachs = @hub.attachs.to_a+@attachs if params[:action]=="update"
+        hub[:attachs]=@attachs
+      end
+    end
   end
 end

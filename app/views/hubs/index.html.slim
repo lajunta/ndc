@@ -1,4 +1,4 @@
-.ui.header 文件中心
+.ui.header 文件收发
 
 table.ui.table.segment
   thead
@@ -9,31 +9,37 @@ table.ui.table.segment
     th 提交数
     th 发布时间
     th 截止时间
-    th 
+    th 开放
     th
 
   - @hubs.each do |hub|
     tr
       td = @num+=1
-      td = link_to hub.name, hub, title: hub.users_list+"|"+hub.groups_list
+      - unless hub.attachs.blank?
+        - aa = semantic_icon("attachment")
+      td 
+        =< link_to hub.name, hub
+        = aa.to_s
       td = hub.creator
       td = hub.groups_list
       td 
-        = link_to hub.submissions.count, hub, title: hub.users_list+"|"+hub.groups_list
+        = link_to hub.submissions.count, hub
         - if hub.submissions.map{|s| s.submitter}.include?(realname)
           = semantic_icon("green checkmark")
-      td = hub.created_at.strftime("%Y-%m-%d %H:%M:%S")
-      td = hub.end_on
-      -  left=(hub.end_on-Date.today).to_i
-      - if left>=0
-        td = "还有#{left}天"
-      - else
-        td 已过期
+      td = hub.created_at.strftime("%Y-%m-%d")
+      td 
+        = hub.end_on
+        -  left=(hub.end_on-Date.today).to_i
+        - if left>=0
+          ||还有(#{left})天
+        - else
+          |(已过期)
+      td = hub.open ? "是" : "否"
       td 
         - if hub.users.include?(realname) or hub.groups.include?(default_group) or hub.creator==realname
           =<> link_to '上交', new_hub_submission_path(hub), class: "ui mini green button" 
         - if hub.creator==realname
-          =<> link_to "打包", package_hub_path(hub), class: "ui mini green button"
+          =<> link_to "打包", package_hub_path(hub), class: "ui mini green button" if hub.submissions.count>0
           =<> link_to '编辑', edit_hub_path(hub), class: "ui mini green button"
           =<> link_to '删除', hub, data: {:confirm => '真的要删除吗?'}, :method => :delete, class: "ui mini red button" unless hub.submissions.count>0
 p

@@ -24,6 +24,7 @@ Ndc::Application.routes.draw do
     get 'api/user' => "api/user#index" 
 
     get 'jiaoan/remove_attach'=> "jiaoans#remove_attach" ,as: :remove_jiaoan_attach
+    get 'hub/remove_attach'=> "hubs#remove_attach" ,as: :remove_hub_attach
     get 'jiaoan_album/:id/print' => "jiaoan_albums#print", as: :print_jiaoan_album
     match 'user/settings' => "users#settings", :as => :user_settings, :via=>[:get,:post]
 
