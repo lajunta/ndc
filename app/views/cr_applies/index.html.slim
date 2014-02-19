@@ -56,7 +56,8 @@
                         - if apply.applyer==realname or is_root?
                           = link_to raw("<i class='ui red remove circle icon '></i>"),cr_apply_path(apply.id),remote: true, method: "delete",confirm: "真的要删除这个上机申请吗?"
                           = link_to raw("<i class='ui edit icon '></i>"),edit_cr_apply_path(apply)
-                      br
+                        br
+                        
   - @crooms.each do |croom|
     .ui.tab  data-tab=croom
       table.ui.table.celled.segment

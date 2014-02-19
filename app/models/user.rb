@@ -6,7 +6,6 @@ class User
   include Mongoid::Timestamps
 
   before_save :encrypt
-
   def encrypt
     self.password = Digest::SHA2.hexdigest(password)
   end

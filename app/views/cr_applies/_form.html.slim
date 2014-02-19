@@ -9,6 +9,13 @@
   .inline.field
     label 申请人：
     = text_field_tag :applyer, @cr_apply.applyer
+    .ui.selection.dropdown
+      input type='hidden' name="banji" value=@cr_apply.banji
+        .default.text 班级 
+        i.dropdown.icon
+        .menu
+          - @banjis.each do |banji|
+            .item data-value=banji =banji
   .ui.tabular.filter.menu
     - @crooms.each do |croom|
       - if croom=="C303" 

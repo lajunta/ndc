@@ -29,7 +29,6 @@ class CrSchedulesController < ApplicationController
     else
       redirect_to root_path(trailing_slash: true),flash: {error:  "最新上机安排表设置失败"}
     end
-
   end
 
   # GET /cr_schedules/1/edit

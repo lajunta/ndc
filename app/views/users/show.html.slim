@@ -9,5 +9,5 @@ p
 p
   = image_tag(see_path(@user.logo['grid_id'])) if  @user.logo
 
-=<> link_to '编辑', edit_user_path(@user) ,class: "ui button"
-=<> link_to '返回', users_path, class: "ui button"
+=<> link_to '编辑', edit_user_path(@user) ,class: "ui mini button"
+=<> link_to '返回', root_path(trailing_slash: true), class: "ui mini button"

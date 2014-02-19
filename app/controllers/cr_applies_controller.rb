@@ -80,6 +80,7 @@ class CrAppliesController < ApplicationController
         infos=apply.split("_")
         hsh={}
         hsh[:applyer]=params[:applyer]
+        hsh[:banji]=params[:banji]
         hsh[:semester]=current_semester.full_name
         hsh[:croom]=infos[1]
         hsh[:course]=infos[0]

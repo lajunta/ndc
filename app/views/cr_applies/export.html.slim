@@ -21,7 +21,7 @@ table.ui.table.celled.segment
               - unless @applys.blank?
                 - @applys.each do |apply|
                   - if apply.status
-                    strong = croom+ " "+ apply.applyer
+                    strong = croom+ " "+ apply.applyer+" "+apply.banji.to_s
                   - else
-                    = croom + " " +apply.applyer 
+                    = croom + " " +apply.applyer + " "+apply.banji
                   br

@@ -61,13 +61,12 @@ class AuthController < ApplicationController
   end
 
   def logout
-    session[:login]=nil
-    session[:realname]=nil
-    session[:user_type]=nil
-    session[:user_id]=nil
-    session[:default_group]=nil
-    session[:my_groups]=nil
-    redirect_to root_path(trailing_slash: true) ,notice: "你已经登出"
+    session[:vcode]=SecureRandom.hex(10)
+    vcode=session[:vcode]
+    redirect_url="http://www.lwqzx.sdedu.net/ec/"
+    flash[:notice]="你已经登出"
+    reset_session
+    redirect_to "http://www.lwqzx.sdedu.net/kernel/net_school/login.php?vcode=#{vcode}&redirect_url=#{redirect_url}&op=logout"
   end
 
   def authorize
