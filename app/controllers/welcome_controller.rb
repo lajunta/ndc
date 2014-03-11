@@ -4,4 +4,6 @@ class WelcomeController < ApplicationController
     @cr_schedule=CrSchedule.where(used: true).first
     render layout: nil
   end
+  def home
+  end
 end

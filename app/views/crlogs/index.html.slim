@@ -69,17 +69,17 @@
 - @crooms.each do |croom|
   - act = croom=="C303" ? "ui active tab" : "ui tab"
   div class=act  data-tab=croom
-    table.ui.table.celled.segment
-      thead
-        th 节次
-        th 星期一
-        th 星期二
-        th 星期三
-        th 星期四
-        th 星期五
-        th 星期六
-      tbody
-        = cache("#{params[:week]}_crlog",expires_in: 1.minutes) do
+    = cache("#{croom}_#{params[:week]}_crlog",expires_in: 1.minutes) do
+      table.ui.table.celled.segment
+        thead
+          th 节次
+          th 星期一
+          th 星期二
+          th 星期三
+          th 星期四
+          th 星期五
+          th 星期六
+        tbody
           - @jieces.each do |jiece|
             tr
               td 第#{jiece}节
@@ -105,4 +105,4 @@
 
 p 
   =<> link_to '新日志', new_crlog_path , class: 'ui green button'
-  =<> link_to '上一周', crlogs_path(anchor: "/C301",week: params[:week].to_i-1) , class: 'ui green button'
+  =<> link_to '上一周', crlogs_path(week: params[:week].to_i-1) , class: 'ui green button'

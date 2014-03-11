@@ -72,7 +72,7 @@
           /= cache("#{params[:week]}_crlog",expires_in: 1.minute) do
           - @jieces.each do |jiece|
             tr
-              td #{jiece}节
+              td 第#{jiece}节
               - 1.upto(5) do |wday|
                 td  
                   - @applys = @cr_applies.where(wday: wday,jiece: jiece,croom: croom)
@@ -80,10 +80,12 @@
                     - @applys.each do |apply|
                       span class=apply.id
                         - if apply.status
-                          strong 
-                            = link_to croom+" "+ apply.applyer,apply, title: apply.banji.to_s+apply.course.to_s
+                          =<> croom+" "+ apply.applyer
+                          =<> apply.banji.to_s
+
                         - else
-                          = link_to croom+" "+apply.applyer,apply,title: apply.banji.to_s+apply.course.to_s
+                          =<> croom+" "+ apply.applyer
+                          =<> apply.banji.to_s
                         - if is_root?
                           = link_to raw("<i class='ui green thumbs up icon '></i>"),change_status_cr_apply_path(apply.id,status: "up"),remote: true
                           = link_to raw("<i class='ui red thumbs down icon '></i>"),change_status_cr_apply_path(apply.id,status: "down"),remote: true

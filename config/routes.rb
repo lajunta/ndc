@@ -13,6 +13,7 @@ Ndc::Application.routes.draw do
     post "oauth/authorizeit"=>"auth#authorizeit"  ,as: :authorizeit
     post "oauth/access_token"=>"auth#access_token" ,as: :access_token
     get "welcome/index"
+    get "home"=>"welcome#home",as: :home
     get "login"=>"auth#login"   ,as: :login
     get "login/lwqzx"=>"auth#lwqzx"
     get "auth_lwqzx"=>"auth#auth_lwqzx"
